@@ -27,7 +27,7 @@ const regist = async (req, res) => {
   }
 };
 
-const login = async (req,res) => {
+const signin = async (req,res) => {
     const {userid, userpwd} = req.body;
     try {
         const user = await User.findOne({ userid })
@@ -44,4 +44,4 @@ const login = async (req,res) => {
         message: '회원정보가 존재하지 않습니다.'
     })}
 }
-export default regist;
+export default {regist, signin};

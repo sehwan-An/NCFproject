@@ -116,7 +116,7 @@ function SignUp() {
               onChange={handleChange}
             />
             <Form.Control.Feedback type="invalid">
-              정확한 연락처를 기입해주세요.
+              정확한 이메일 기입해주세요.
             </Form.Control.Feedback>
           </Form.Group>
         </Row>
