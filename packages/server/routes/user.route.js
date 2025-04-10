@@ -11,6 +11,7 @@ router.get('/users', (req, res) => {
     res.send('some user is updated!')
   })
 router.post('/', regist)
+router.post('/signin', regist)
 
   router.delete('/users/:id', (req,res) =>
   {
