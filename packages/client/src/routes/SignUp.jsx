@@ -10,7 +10,7 @@ function FormExample() {
     userpwd: '',
     username: '',
     userphone: '',
-    email:''
+    email: '',
   });
   const handleChange = (e) => {
     setFormData({
@@ -27,18 +27,14 @@ function FormExample() {
 
     setValidated(true);
     console.log(formData);
-    axios.post('http://localhost:3000/users', formData, {
-        withCredentials: true
-    }).then(function(res) {
-        console.log(res)
-        return res.status(201).json({
-            status: 'success',
-            message: '유저 등록 요청 성공'
-        })
-    })
-    .catch(function(err) {
-        console.log(err)
-    })
+    axios
+      .post('http://localhost:3000/users', formData, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
