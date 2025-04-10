@@ -6,6 +6,7 @@ import Shop from './routes/Shop.jsx'
 import Contact from './routes/contact.jsx';
 import HomeBody from './routes/HomeBody.jsx';
 import SignIn from './routes/SignIn.jsx'
+import AboutUs from './routes/AboutUs.jsx'
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="signup" element={<SignUp />} />
           <Route path="shop" element={<Shop />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="aboutus" element={<AboutUs />} />
           <Route path="signin" element={<SignIn />} />
         </Route>
       </Routes>

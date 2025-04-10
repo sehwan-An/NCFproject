@@ -22,7 +22,7 @@ const SiteHeader = () => {
       <nav className="d-flex justify-content-center gap-5">
         <NavLink to="/">홈으로</NavLink>
         <NavLink to='/shop'>쇼핑</NavLink>
-        <NavLink to="/promote">회사소개</NavLink>
+        <NavLink to="/aboutus">회사소개</NavLink>
         <NavLink to="/contact">고객문의</NavLink>
       </nav>
     </div>
