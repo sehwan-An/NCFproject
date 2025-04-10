@@ -44,4 +44,4 @@ const signin = async (req,res) => {
         message: '회원정보가 존재하지 않습니다.'
     })}
 }
-export default {regist, signin};
+export default [regist, signin];
