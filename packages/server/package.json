@@ -5,12 +5,15 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "nodemon ./bin/www/index.js"
   },
   "author": "",
   "license": "MIT",
   "description": "",
   "dependencies": {
-    "concurrently": "^9.1.2"
+    "bootstrap-icons": "^1.11.3",
+    "concurrently": "^9.1.2",
+    "dotenv": "^16.4.7",
+    "mongoose": "^8.13.2"
   }
 }
