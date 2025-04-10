@@ -7,6 +7,7 @@ import Contact from './routes/contact.jsx';
 import HomeBody from './routes/HomeBody.jsx';
 import SignIn from './routes/SignIn.jsx'
 import AboutUs from './routes/AboutUs.jsx'
+import ShopItem from './routes/ShopItem.jsx';
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="contact" element={<Contact />} />
           <Route path="aboutus" element={<AboutUs />} />
           <Route path="signin" element={<SignIn />} />
+          <Route path="shop/item" element={<ShopItem />} />
         </Route>
       </Routes>
     </>

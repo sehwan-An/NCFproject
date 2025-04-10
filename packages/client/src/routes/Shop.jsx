@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-
+import {NavLink} from 'react-router'
 const Shop = () => {
   return (
     <Container>
@@ -9,12 +9,14 @@ const Shop = () => {
             <img src="https://picsum.photos/200/300" alt="lorem picsum"/>
             <p>이름</p>
             <p>가격</p>
-            <button
-                type="submit"
-                class="btn btn-primary"
-            >
-                주문하기
-            </button>
+            {/* <NavLink to={`shop/${}`}> */}
+              <button
+                  type="submit"
+                  className="btn btn-primary"
+              >
+                  구매하기
+              </button>
+            {/* </NavLink> */}
         </Col>
       </Row>
     </Container>
