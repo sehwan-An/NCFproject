@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { NavLink } from 'react-router';
 import { Row, Col, Button, Form, InputGroup, Container } from 'react-bootstrap';
 
 function SignUp() {
@@ -38,7 +39,7 @@ function SignUp() {
   };
 
   return (
-    <Container className="w-50 my-5">
+    <Container className="w-50 my-5 mx-auto">
       <h2 className="text-center">회원가입</h2>
       <Form noValidate validated={validated} onSubmit={handleSubmit} autoComplete="off">
         <Row className="mb-3">
@@ -124,7 +125,9 @@ function SignUp() {
             <Button variant="success" type="submit">
               가입
             </Button>
-            <Button variant="danger">취소</Button>
+            <NavLink to="/">
+              <Button variant="danger">취소</Button>
+            </NavLink>
           </Col>
         </Row>
       </Form>

@@ -5,8 +5,48 @@
 a {
   text-decoration: none !important;
 }
+.posi-rel {
+  position: relative;
+}
+.posi-ab {
+  position: absolute;
+}
+.new-items {
+  background-color: green;
+  color: white;
+  padding: .3rem 1rem;
+  left: 8%;
+  top: 2%;
+}
 .header-container {
   background-color: lightgray;
   margin: 0 !important;
   max-width: 1420px !important;
+}
+.footer-container {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  background-color: black;
+  color: white;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  max-width: 1620px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+.carousel-control-next-icon {
+  background-color: black;
+}
+.carousel-control-prev-icon {
+  background-color: black;
+}
+.carousel-imgs {
+  max-width: 400px;
+  height: 550px;
+  overflow: hidden;
+}
+.new-arr-imgs {
+  width: 250px;
+  height: 300px;
+  object-fit: cover;
 }
