@@ -23,6 +23,17 @@ a {
   margin: 0 !important;
   max-width: 1420px !important;
 }
+.footer-container {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  background-color: black;
+  color: white;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  max-width: 1620px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
 .carousel-control-next-icon {
   background-color: black;
 }
