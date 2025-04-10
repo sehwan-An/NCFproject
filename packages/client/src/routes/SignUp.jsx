@@ -3,7 +3,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col, Button, Form, InputGroup, Container } from 'react-bootstrap';
 
-function FormExample() {
+function SignUp() {
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({
     userid: '',
@@ -132,4 +132,4 @@ function FormExample() {
   );
 }
 
-export default FormExample;
+export default SignUp;
