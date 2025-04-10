@@ -39,9 +39,9 @@ const login = async (req,res) => {
         const isMatch = password == user.userpwd
     }
 
-    catch(err)
+    catch(err){
     return res.status(404).json ({
         message: '회원정보가 존재하지 않습니다.'
-    })
+    })}
 }
 export default regist;
