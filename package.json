@@ -21,7 +21,8 @@
     "mongoose": "^8.13.2",
     "react-bootstrap": "^2.10.9",
     "bootstrap": "^5.3.5",
-    "react-router": "^7.5.0"
+    "react-router": "^7.5.0",
+    "cors": "^2.8.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
