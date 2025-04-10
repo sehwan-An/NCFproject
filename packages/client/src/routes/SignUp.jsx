@@ -27,7 +27,7 @@ function FormExample() {
     setValidated(true);
     console.log(formData);
     axios.post('http://localhost:3000/users', formData, {
-        withCredential: true
+        withCredentials: true
     }).then(function(res) {
         console.log(res)
         return res.status(201).json({
