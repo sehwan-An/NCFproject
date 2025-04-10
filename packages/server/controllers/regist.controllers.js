@@ -20,11 +20,10 @@ const regist = async (req, res) => {
     await user.save();
     res.status(201).json({
         status: 'success',
-        message:'유저 생성 성공',
         data: user
     })
   } catch (err) {
-    console.log('regist is failed :'.err);
+    console.log('regist is failed :', err);
   }
 };
 export default regist;
