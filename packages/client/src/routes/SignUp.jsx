@@ -10,6 +10,7 @@ function FormExample() {
     userpwd: '',
     username: '',
     userphone: '',
+    email:''
   });
   const handleChange = (e) => {
     setFormData({
@@ -98,6 +99,22 @@ function FormExample() {
               name="userphone"
               value={formData.userphone}
               placeholder="연락처"
+              required
+              onChange={handleChange}
+            />
+            <Form.Control.Feedback type="invalid">
+              정확한 연락처를 기입해주세요.
+            </Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col} md="12" controlId="validationCustomEmail">
+            <Form.Label>이메일</Form.Label>
+            <Form.Control
+              type="text"
+              name="email"
+              value={formData.email}
+              placeholder="이메일"
               required
               onChange={handleChange}
             />
