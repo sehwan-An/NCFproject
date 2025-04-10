@@ -1,7 +1,7 @@
 import User from '../models/User.js';
 
 const regist = async (req, res) => {
-  const { username, userpwd, userid, userphone } = req.body;
+  const { username, userpwd, userid, userphone, email } = req.body;
   console.log(req.body);
 
 //   res.send('new user is created!!!!');
@@ -16,7 +16,14 @@ const regist = async (req, res) => {
       });
     }
 
-    const user = new User(req.body);
+    const user = new User({
+        username,
+        userpwd,
+        userid,
+        userphone,
+        email,
+        role: 'customer'
+    });
     await user.save();
     res.status(201).json({
         status: 'success',
