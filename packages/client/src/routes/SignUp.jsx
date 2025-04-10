@@ -5,7 +5,18 @@ import { Row, Col, Button, Form, InputGroup, Container } from 'react-bootstrap';
 
 function FormExample() {
   const [validated, setValidated] = useState(false);
-
+  const [formData, setFormData] = useState({
+    userid: '',
+    userpwd: '',
+    username: '',
+    userphone: '',
+  });
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -14,23 +25,50 @@ function FormExample() {
     }
 
     setValidated(true);
+    console.log(formData);
+    axios.post('http://localhost:3000/users', formData, {
+        withCredential: true
+    }).then(function(res) {
+        console.log(res)
+        return res.status(201).json({
+            status: 'success',
+            message: '유저 등록 요청 성공'
+        })
+    })
+    .catch(function(err) {
+        console.log(err)
+    })
   };
 
   return (
-    <Container className='w-50 my-5'>
-      <h2 className='text-center'>회원가입</h2>
+    <Container className="w-50 my-5">
+      <h2 className="text-center">회원가입</h2>
       <Form noValidate validated={validated} onSubmit={handleSubmit} autoComplete="off">
         <Row className="mb-3">
           <Form.Group as={Col} md="12" controlId="validationCustomId">
             <Form.Label>아이디</Form.Label>
-            <Form.Control required type="text" placeholder="아이디" defaultValue="" />
+            <Form.Control
+              required
+              type="text"
+              name="userid"
+              value={formData.userid}
+              placeholder="아이디"
+              onChange={handleChange}
+            />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
         </Row>
         <Row>
           <Form.Group as={Col} md="12" controlId="validationCustomPwd">
             <Form.Label>비밀번호</Form.Label>
-            <Form.Control required type="password" placeholder="비밀번호" defaultValue="" />
+            <Form.Control
+              required
+              type="password"
+              value={formData.userpwd}
+              name="userpwd"
+              placeholder="비밀번호"
+              onChange={handleChange}
+            />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
         </Row>
@@ -38,7 +76,14 @@ function FormExample() {
           <Form.Group as={Col} md="12" controlId="validationCustomName">
             <Form.Label>이름</Form.Label>
             <InputGroup hasValidation>
-              <Form.Control type="text" placeholder="이름" required />
+              <Form.Control
+                type="text"
+                name="username"
+                value={formData.username}
+                placeholder="이름"
+                required
+                onChange={handleChange}
+              />
               <Form.Control.Feedback type="invalid">
                 Please choose a username.
               </Form.Control.Feedback>
@@ -48,7 +93,14 @@ function FormExample() {
         <Row className="mb-3">
           <Form.Group as={Col} md="12" controlId="validationCustomPhone">
             <Form.Label>연락처</Form.Label>
-            <Form.Control type="text" placeholder="연락처" required />
+            <Form.Control
+              type="text"
+              name="userphone"
+              value={formData.userphone}
+              placeholder="연락처"
+              required
+              onChange={handleChange}
+            />
             <Form.Control.Feedback type="invalid">
               정확한 연락처를 기입해주세요.
             </Form.Control.Feedback>
@@ -56,8 +108,10 @@ function FormExample() {
         </Row>
         <Row>
           <Col className="d-flex gap-3 justify-content-center">
-            <Button variant='success' type="submit">가입</Button>
-            <Button variant='danger'>취소</Button>
+            <Button variant="success" type="submit">
+              가입
+            </Button>
+            <Button variant="danger">취소</Button>
           </Col>
         </Row>
       </Form>
