@@ -17,7 +17,7 @@ function FormExample() {
   };
 
   return (
-    <Container className='w-50'>
+    <Container className='w-50 my-5'>
       <h2 className='text-center'>회원가입</h2>
       <Form noValidate validated={validated} onSubmit={handleSubmit} autoComplete="off">
         <Row className="mb-3">
