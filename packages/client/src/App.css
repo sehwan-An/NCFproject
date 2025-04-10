@@ -2,9 +2,11 @@
   max-width: 1420px;
   margin: 0 auto;
 }
-
+a {
+  text-decoration: none !important;
+}
 .header-container {
-  background-color: gray;
+  background-color: lightgray;
   margin: 0 !important;
   max-width: 1420px !important;
 }
