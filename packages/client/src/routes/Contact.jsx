@@ -1,11 +1,12 @@
 import React from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Row, Form } from 'react-bootstrap';
 
 
 
 const Contact = () => {
   return (
     <Container>
+      <h2>고객문의</h2>
       <Form>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>제목</Form.Label>
