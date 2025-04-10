@@ -19,6 +19,9 @@ const userSchema = mongoose.Schema(
     userphone: {
       type: String,
     },
+    email: {
+      type: String
+    }
   },
   { timestamps: true }
 );
