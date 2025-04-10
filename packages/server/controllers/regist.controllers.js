@@ -26,4 +26,22 @@ const regist = async (req, res) => {
     console.log('regist is failed :', err);
   }
 };
+
+const login = async (req,res) => {
+    const {userid, userpwd} = req.body;
+    try {
+        const user = await User.findOne({ userid })
+        if(!user){
+            return res.status(400).json({
+                message:'아이디를 다시 확인하세요'
+            })
+        }
+        const isMatch = password == user.userpwd
+    }
+
+    catch(err)
+    return res.status(404).json ({
+        message: '회원정보가 존재하지 않습니다.'
+    })
+}
 export default regist;
