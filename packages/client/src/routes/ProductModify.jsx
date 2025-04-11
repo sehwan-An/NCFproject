@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router';
+import { useParams, NavLink } from 'react-router';
 import { Container, Form, Row, Col, InputGroup, Button } from 'react-bootstrap';
 
 const ProductModify = () => {
@@ -14,6 +14,8 @@ const ProductModify = () => {
   });
 
   let params = useParams();
+  console.log(params)
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -41,10 +43,9 @@ const ProductModify = () => {
       .catch((res) => {
         console.log(res);
       });
-    handleUpdate(params.id);
   }, []);
 
-  const handleUpdate = (e, id) => {
+  const handleSubmit = (e, id) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
@@ -84,7 +85,7 @@ const ProductModify = () => {
   return (
     <>
       <Container>
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Form noValidate validated={validated} onSubmit={() => handleSubmit(params.id)}>
           <Row className="mb-3">
             <Form.Group as={Col} md="12" controlId="validationCustomProdId">
               <Form.Label>제품 코드</Form.Label>
@@ -93,7 +94,6 @@ const ProductModify = () => {
                 type="text"
                 name="productid"
                 value={formData.productid}
-                placeholder="제품코드"
                 disabled
                 onChange={handleChange}
               />
