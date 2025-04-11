@@ -1,24 +1,20 @@
-import express from 'express'
-const router = express.Router()
-import regist from '../controllers/regist.controllers.js'
-import signin from '../controllers/regist.controllers.js'
+import express from 'express';
+const router = express.Router();
+import controllers from '../controllers/regist.controllers.js';
 
-router.get('/users', (req, res) => {
-    res.send('Hello World!')
-  })
-  
-  
-  router.put('/users/:id', (req,res) => {
-    res.send('some user is updated!')
-  })
-router.post('/', regist)
+router.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+router.post('/', controllers.regist);
+router.post('/signin', controllers.signin);
 
-router.post('/signin', signin)
+// router.put('/users/:id', (req, res) => {
+//   res.send('some user is updated!');
+// });
 
-  router.delete('/users/:id', (req,res) =>
-  {
-    res.send('some user is removed!')
-  })
-  
 
-export default router
+// router.delete('/users/:id', (req, res) => {
+//   res.send('some user is removed!');
+// });
+
+export default router;

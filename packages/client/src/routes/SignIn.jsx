@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col, Button, Form, Container } from 'react-bootstrap';
-import {NavLink} from 'react-router'
+import { NavLink } from 'react-router';
 
 function SignIn() {
   const [validated, setValidated] = useState(false);
@@ -24,13 +24,18 @@ function SignIn() {
     }
 
     setValidated(true);
-    console.log(formData);
     axios
       .post('http://localhost:3000/users/signin', formData, {
         withCredentials: true,
       })
-      .then((res) => {
-        console.log(res);
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response)
+          alert('로그인 성공');
+          location.href = '/';
+        } else if (response.status === 400) {
+          alert('아이디 또는 비밀번호를 확인하세요.');
+        }
       })
       .catch((err) => console.log(err));
   };
