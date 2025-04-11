@@ -12,8 +12,11 @@
   "description": "",
   "dependencies": {
     "axios": "^1.8.4",
+    "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.5",
+    "cookieparser": "^0.1.0",
     "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.13.2",
     "react-bootstrap": "^2.10.9",
     "react-router": "^7.5.0",
