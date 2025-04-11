@@ -1,7 +1,7 @@
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config'
-// import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt'
 
 const regist = async (req, res) => {
   const { username, userpwd, userid, userphone, email } = req.body;
@@ -19,7 +19,7 @@ const regist = async (req, res) => {
 
     const user = new User({
       username,
-      userpwd,
+      userpwd:bcrypt.hashSync(userpwd,10),
       userid,
       userphone,
       email,
@@ -46,7 +46,7 @@ const signin = async (req, res) => {
         message: '아이디를 다시 확인하세요',
       });
     }
-    const isMatch = userpwd == user.userpwd;
+    const isMatch = bcrypt.compareSync(userpwd, user.userpwd);
     if (!isMatch) {
       alert('잘못된 비밀번호 입니다.');
     }

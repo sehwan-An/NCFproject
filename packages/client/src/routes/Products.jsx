@@ -41,10 +41,12 @@ const Products = () => {
               <Col className="col-3" key={i}>
                 <p>{prod.productname}</p>
                 <ProductImageExample text={prod.productname} index={i} />
-                <NavLink to={`modify/${prod.productid}`}>
-                  <Button>수정</Button>
-                </NavLink>
-                <Button onClick={handleDelete}>삭제</Button>
+                <div className="d-flex justify-content-center  gap-3 my-2">
+                  <NavLink to={`modify/${prod.productid}`}>
+                    <Button>수정</Button>
+                  </NavLink>
+                  <Button onClick={handleDelete}>삭제</Button>
+                </div>
               </Col>
             ))}
         </Row>
