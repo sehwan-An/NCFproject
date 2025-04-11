@@ -25,7 +25,7 @@ function AddProduct() {
     }
 
     setValidated(true);
-    axios.post('http://localhost:3000/products/add', formData, {
+    axios.post('http://localhost:3000/api/product', formData, {
       withCredentials: true
     }).then((res) => {
       console.log(res)
@@ -37,7 +37,7 @@ function AddProduct() {
 
   return (
     <Container className="w-50 my-4">
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Form noValidate validated={validated} onSubmit={handleSubmit} autoComplete='off'>
         <Row className="mb-3">
           <Form.Group as={Col} md="12" controlId="validationCustomName">
             <Form.Label>제품명</Form.Label>
