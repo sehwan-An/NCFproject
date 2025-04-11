@@ -11,6 +11,8 @@ import ShopItem from './routes/ShopItem.jsx';
 import Management from './routes/Management.jsx';
 import AddProduct from './routes/AddProduct.jsx';
 import Products from './routes/Products.jsx';
+import ProductModify from './routes/ProductModify.jsx';
+
 
 const App = () => {
   return (
@@ -26,7 +28,10 @@ const App = () => {
           <Route path="aboutus" element={<AboutUs />} />
           <Route path="signin" element={<SignIn />} />
           <Route path="manage" element={<Management />}>
-            <Route path="products" element={<Products />}></Route>
+            <Route path="products" element={<Products />}>
+              <Route path='modify/:id' element={<ProductModify />}>
+              </Route>
+            </Route>
           </Route>
           <Route path="addproduct" element={<AddProduct />} />
         </Route>

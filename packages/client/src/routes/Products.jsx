@@ -28,11 +28,8 @@ const Products = () => {
   }, []);
 
   const handleDelete = (e) => {
-    console.log(e.target)
-  }
-  const handleModify = (e) => {
-    console.log(e.target)
-  }
+    console.log(e.target);
+  };
 
   return (
     <>
@@ -44,7 +41,9 @@ const Products = () => {
               <Col className="col-3" key={i}>
                 <p>{prod.productname}</p>
                 <ProductImageExample text={prod.productname} index={i} />
-                <Button onClick={handleModify}>수정</Button>
+                <NavLink to={`modify/${prod.productid}`}>
+                  <Button>수정</Button>
+                </NavLink>
                 <Button onClick={handleDelete}>삭제</Button>
               </Col>
             ))}
