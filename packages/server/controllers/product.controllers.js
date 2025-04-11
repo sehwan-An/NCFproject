@@ -36,11 +36,16 @@ export const createProduct = async (req, res) => {
   }
 };
 
-export const addPosts = async (req, res) => {
+export const deleteProduct = async (req, res) => {
+  const { id } = req.params;
   try {
-    const Products = await Product.find();
-    res.status(201).json(Products);
-  } catch (err) {
-    console.error(err.message);
+    const deletedProduct = await Product.findByIdAndDelete(id);
+    if (!deletedProduct) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    res.status(200).json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
   }
-};
+}
