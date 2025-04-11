@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { vs as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 const productSchema = mongoose.Schema(
   {
