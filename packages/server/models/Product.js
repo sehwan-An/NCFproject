@@ -7,7 +7,8 @@ const productSchema = mongoose.Schema(
       type: String,
       require: true,
       default: uuidv4,
-      unique: true
+      unique: true,
+      trim: true
     },
     productname: {
         type: String,
@@ -24,11 +25,15 @@ const productSchema = mongoose.Schema(
     productsize: {
         type:String,
         require: true
-    },
+    }/* ,
     productcount: {
         type: Number,
         require: true
-    }
+    },
+    productimage: {
+        data:Buffer,
+        type:String
+    } */
   },
   { timestamps: true },
 );
