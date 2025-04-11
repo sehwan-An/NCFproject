@@ -1,5 +1,21 @@
 import Product from '../models/Product.js';
 import { v4 as uuidv4 } from 'uuid';
+
+export const getProducts = async (req, res) => {
+try{
+    const products = await Product.find()
+    if(products.length < 1){
+        res.status(500).json({
+            message:'데이터가 없습니다.'
+        })
+    }
+    res.status(201).json(products)
+}catch(e) {
+    console.log(e)
+}
+
+}
+
 export const createProduct = async (req, res) => {
   const { productname, productprice, productcolor, productsize } = req.body;
   console.log(req);
