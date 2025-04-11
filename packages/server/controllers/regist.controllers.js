@@ -53,9 +53,10 @@ const signin = async (req, res) => {
     const userInfo = {
       name: user.username,
       id: user.userid,
+      role: user.role
     };
-    jwt.sign(userInfo,process.env.JWT_SECRET );
-    res.cookie('NCF', userInfo, {
+    const token = jwt.sign(userInfo,process.env.JWT_SECRET );
+    res.cookie('NCF', token, {
       httpOnly: false,
       secure: false,
       maxAge: 24 * 60 * 60 * 1000,
