@@ -8,9 +8,7 @@ const Shop = () => {
   },[])
   return (
     <Container>
-      <Row>
-        <Col>
-            <img src="https://picsum.photos/200/300" alt="lorem picsum"/>
+            <img src={`product`} alt="lorem picsum"/>
             <p>이름</p>
             <p>가격</p>
             {/* <NavLink to={`shop/${}`}> */}
@@ -21,8 +19,6 @@ const Shop = () => {
                   구매하기
               </button>
             {/* </NavLink> */}
-        </Col>
-      </Row>
     </Container>
   );
 };
