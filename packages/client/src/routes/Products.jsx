@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { Link, useNavigate, NavLink } from 'react-router';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductImageExample from '../components/ProductImageExample';
@@ -9,6 +9,8 @@ import ProductImageExample from '../components/ProductImageExample';
 const Products = () => {
   const [products, setProducts] = useState(null);
   const [isToken, setIsToken] = useState(false);
+  
+  let navigate = useNavigate();
 
   useEffect(() => {
     const token = Cookies.get('NCF');
@@ -26,7 +28,9 @@ const Products = () => {
       })
       .catch((err) => console.log(err));
   }, []);
-
+  const handleModify = (id) => {
+    navigate(`/manage/products/${id}`)
+  }
   const handleDelete = (e) => {
     console.log(e.target);
   };
@@ -42,9 +46,7 @@ const Products = () => {
                 <p>{prod.productname}</p>
                 <ProductImageExample text={prod.productname} index={i} />
                 <div className="d-flex justify-content-center  gap-3 my-2">
-                  <NavLink to={`modify/${prod.productid}`}>
-                    <Button>수정</Button>
-                  </NavLink>
+                    <Button onClick={() => handleModify(prod.productid)}>수정</Button>
                   <Button onClick={handleDelete}>삭제</Button>
                 </div>
               </Col>
