@@ -13,7 +13,7 @@ const Home = () => {
       if(token) {
         const decodedToken = jwtDecode(token);
         setUserInfo(decodedToken)
-        console.log(decodedToken)
+        // console.log(decodedToken)
       }
     } catch(e) {
       console.log(e)

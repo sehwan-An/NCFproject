@@ -1,38 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button } from 'react-bootstrap';
+import { Button, Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router';
+import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ProductImageExample from '../components/ProductImageExample';
 
 const Products = () => {
-  const [products, setProducts] = useState({});
+  const [products, setProducts] = useState(null);
+  const [isToken, setIsToken] = useState(false);
+
   useEffect(() => {
-    axios.get('http://localhost:3000/api/products').then((res) => {
-      console.log(res);
-      setProducts(res);
-    });
-    console.log(products);
-  }, [products]);
-  const isProduct = products.length > 0;
+    const token = Cookies.get('NCF');
+
+    token ? setIsToken(true) : setIsToken(false);
+
+    axios
+      .get('http://localhost:3000/api/products', {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+        // console.log(res.data);
+        setProducts(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const handleDelete = (e) => {
+    console.log(e.target)
+  }
+  const handleModify = (e) => {
+    console.log(e.target)
+  }
+
   return (
     <>
       <h2 className="text-center">상품관리</h2>
-      <ul className="text-center my-2">
-        {isProduct
-          ? products.map((product, i) => {
-              <li key={product.id}>
-                <p>제품명 : {product.name}</p>
-                <p>
-                  가격 : <del>{product.price}</del>
-                </p>
-                <p>할인가 : {product.price * (1 - 0.1)}</p>
-                <p>할인율 : 10%</p>
-                <p>색상 : {product.color}</p>
-                <p>사이즈 : {product.size}</p>
-              </li>;
-            })
-          : '상품 재고 없음'}
-      </ul>
+      <Container className="text-center my-2 gap-3">
+        <Row className="row-cols-12">
+          {products &&
+            products.map((prod, i) => (
+              <Col className="col-3" key={i}>
+                <p>{prod.productname}</p>
+                <ProductImageExample text={prod.productname} index={i} />
+                <Button onClick={handleModify}>수정</Button>
+                <Button onClick={handleDelete}>삭제</Button>
+              </Col>
+            ))}
+        </Row>
+      </Container>
       <div className="text-center">
         <Link to="/addproduct">
           <Button>상품등록</Button>
