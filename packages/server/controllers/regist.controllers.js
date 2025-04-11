@@ -1,4 +1,5 @@
 import User from '../models/User.js';
+import { v4 as uuidv4 } from 'uuid';
 
 const regist = async (req, res) => {
   const { username, userpwd, userid, userphone, email } = req.body;
