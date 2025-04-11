@@ -2,19 +2,33 @@ import Product from '../models/Product.js';
 import { v4 as uuidv4 } from 'uuid';
 
 export const getProducts = async (req, res) => {
-try{
-    const products = await Product.find()
-    if(products.length < 1){
-        res.status(500).json({
-            message:'데이터가 없습니다.'
-        })
+  try {
+    const products = await Product.find();
+    if (products.length < 1) {
+      res.status(500).json({
+        message: '데이터가 없습니다.',
+      });
     }
-    res.status(201).json(products)
-}catch(e) {
-    console.log(e)
-}
+    res.status(201).json(products);
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-}
+export const getProduct = async (req, res) => {
+  try {
+    console.log('product 불러오기 한가지');
+  } catch (e) {
+    console.log(e);
+  }
+};
+export const modifyProduct = async (req, res) => {
+  try {
+    console.log('product 수정 한가지');
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 export const createProduct = async (req, res) => {
   const { productname, productprice, productcolor, productsize } = req.body;
@@ -29,10 +43,10 @@ export const createProduct = async (req, res) => {
     await newProduct.save();
     res.status(201).json({
       status: 'succes',
-      message: '등록완료'
+      message: '등록완료',
     });
   } catch (err) {
-    console.log('에러 내역', err)
+    console.log('에러 내역', err);
   }
 };
 
