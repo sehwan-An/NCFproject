@@ -16,6 +16,8 @@
     "bootstrap": "^5.3.5",
     "cookieparser": "^0.1.0",
     "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "mongoose": "^8.13.2",
