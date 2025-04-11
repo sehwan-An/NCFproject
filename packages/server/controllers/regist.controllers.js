@@ -1,14 +1,14 @@
 import User from '../models/User.js';
+import jwt from 'jsonwebtoken';
+import 'dotenv/config'
 
 const regist = async (req, res) => {
-  const { username, userpwd, userid, userphone } = req.body;
+  const { username, userpwd, userid, userphone, email } = req.body;
   console.log(req.body);
-
-//   res.send('new user is created!!!!');
 
   try {
     const existUser = await User.findOne({
-      $or: [ { username }, { userphone }],
+      $or: [{ username }, { userphone }],
     });
     if (existUser) {
       return res.status(400).json({
@@ -16,14 +16,62 @@ const regist = async (req, res) => {
       });
     }
 
-    const user = new User(req.body);
+    const user = new User({
+      username,
+      userpwd,
+      userid,
+      userphone,
+      email,
+      role: 'customer',
+    });
     await user.save();
     res.status(201).json({
-        status: 'success',
-        data: user
-    })
+      status: 'success',
+      data: user,
+    });
   } catch (err) {
     console.log('regist is failed :', err);
   }
 };
-export default regist;
+
+const signin = async (req, res) => {
+  const { userid, userpwd } = req.body;
+  console.log(userid, userpwd)
+  try {
+    const user = await User.findOne({ userid });
+    console.log(user)
+    if (!user) {
+      return res.status(400).json({
+        message: '아이디를 다시 확인하세요',
+      });
+    }
+    const isMatch = userpwd == user.userpwd;
+    if (!isMatch) {
+      alert('잘못된 비밀번호 입니다.');
+    }
+
+    const userInfo = {
+      name: user.username,
+      id: user.userid,
+      role: user.role
+    };
+    const token = jwt.sign(userInfo,process.env.JWT_SECRET );
+    res.cookie('NCF', token, {
+      httpOnly: false,
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000,
+      path: '/',
+    });
+    console.log(res.getHeaders()['set-cookie']);
+    res.status(200).json({
+      message: '로그인 성공',
+      data: userInfo,
+    });
+  } catch (err) {
+    console.error(err)
+    return res.status(404).json({
+      message: '회원정보가 존재하지 않습니다.',
+    });
+  }
+};
+export default {regist, signin};
