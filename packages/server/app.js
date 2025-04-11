@@ -7,7 +7,7 @@ import cors from 'cors';
 import connect from './schemas/index.js'
 import indexRouter from './routes/index.js'
 import userRouter from'./routes/user.route.js'
-import postRouter from './routes/product.route.js'
+import productRouter from './routes/product.route.js'
 
 connect();
 // app.use(logger('dev'))
@@ -21,7 +21,7 @@ app.use(cors({
 }))
 app.use('/', indexRouter)
 app.use('/users', userRouter)
-app.use('/api', postRouter)
+app.use('/api', productRouter)
 
 export default app
 
