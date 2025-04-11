@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 import Logo from '../assets/ncf-logo.png';
 import '../App.css';
 import { NavLink } from 'react-router';
@@ -14,24 +14,23 @@ const SiteHeader = ({ userInfo, Logout }) => {
           <div className="d-flex align-items-center gap-3">
             {userInfo ? (
               <>
-                {userInfo.role ==
-                  'customer'(
-                    <>
-                      <p>{userInfo.username}님 환영합니다.</p>
-                      <NavLink to="#">
-                        <p>마이페이지</p>
-                      </NavLink>
-                    </>,
-                  )}
-                {userInfo.role ==
-                  'admin'(
-                    <>
-                      <p>{userInfo.username} 관리자님 환영합니다.</p>
-                      <NavLink to="manage">
-                        <p>관리페이지</p>
-                      </NavLink>
-                    </>,
-                  )}
+                {userInfo.role == 'customer' ? (
+                  <>
+                    <p>{userInfo.name}님 환영합니다.</p>
+                    <Button onClick={Logout}>로그아웃</Button>
+                    <NavLink to="#">
+                      <p>마이페이지</p>
+                    </NavLink>
+                  </>
+                ) : (
+                  <>
+                    <p>{userInfo.name}님 환영합니다.</p>
+                    <Button onClick={Logout}>로그아웃</Button>
+                    <NavLink to="manage">
+                      <p>관리페이지</p>
+                    </NavLink>
+                  </>
+                )}
               </>
             ) : (
               <>
