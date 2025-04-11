@@ -1,6 +1,7 @@
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config'
+// import bcrypt from 'bcrypt'
 
 const regist = async (req, res) => {
   const { username, userpwd, userid, userphone, email } = req.body;
