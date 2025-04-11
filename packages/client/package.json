@@ -15,7 +15,10 @@
     "concurrently": "^9.1.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "mongoose": "^8.13.2"
+    "express": "^5.1.0",
+    "mongoose": "^8.13.2",
+    "react-bootstrap": "^2.10.9",
+    "react-router": "^7.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
