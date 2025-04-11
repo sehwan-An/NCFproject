@@ -11,7 +11,7 @@ const SiteFooter = () => {
         <div>
           <img src={footerLogo} alt="footer-logo" />
         </div>
-        <p className="fs-5">New Casual Fation&copy; has all rights deserved.</p>
+        <p className="fs-5">New Casual Fashion&copy; has all rights deserved.</p>
         <div className="d-flex gap-3">
           <Link>
             <i className="bi bi-twitter"></i>
