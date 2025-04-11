@@ -4,11 +4,9 @@ const regist = async (req, res) => {
   const { username, userpwd, userid, userphone, email } = req.body;
   console.log(req.body);
 
-//   res.send('new user is created!!!!');
-
   try {
     const existUser = await User.findOne({
-      $or: [ { username }, { userphone }],
+      $or: [{ username }, { userphone }],
     });
     if (existUser) {
       return res.status(400).json({
@@ -17,38 +15,37 @@ const regist = async (req, res) => {
     }
 
     const user = new User({
-        username,
-        userpwd,
-        userid,
-        userphone,
-        email,
-        role: 'customer'
+      username,
+      userpwd,
+      userid,
+      userphone,
+      email,
+      role: 'customer',
     });
     await user.save();
     res.status(201).json({
-        status: 'success',
-        data: user
-    })
+      status: 'success',
+      data: user,
+    });
   } catch (err) {
     console.log('regist is failed :', err);
   }
 };
 
-const signin = async (req,res) => {
-    const {userid, userpwd} = req.body;
-    try {
-        const user = await User.findOne({ userid })
-        if(!user){
-            return res.status(400).json({
-                message:'아이디를 다시 확인하세요'
-            })
-        }
-        const isMatch = password == user.userpwd
+const signin = async (req, res) => {
+  const { userid, userpwd } = req.body;
+  try {
+    const user = await User.findOne({ userid });
+    if (!user) {
+      return res.status(400).json({
+        message: '아이디를 다시 확인하세요',
+      });
     }
-
-    catch(err){
-    return res.status(404).json ({
-        message: '회원정보가 존재하지 않습니다.'
-    })}
-}
+    const isMatch = password == user.userpwd;
+  } catch (err) {
+    return res.status(404).json({
+      message: '회원정보가 존재하지 않습니다.',
+    });
+  }
+};
 export default [regist, signin];
