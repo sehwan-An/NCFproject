@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 import { Col, Container, Row } from 'react-bootstrap';
 import {NavLink} from 'react-router'
 const Shop = () => {
+  useEffect(() => {
+    
+  },[])
   return (
     <Container>
       <Row>
