@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Container, Row, Col } from 'react-bootstrap';
-import { Link, useNavigate, NavLink } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductImageExample from '../components/ProductImageExample';
@@ -9,11 +9,11 @@ import ProductImageExample from '../components/ProductImageExample';
 const Products = () => {
   const [products, setProducts] = useState(null);
   const [isToken, setIsToken] = useState(false);
-  
+  let params = useParams();
   let navigate = useNavigate();
-
+  const token = Cookies.get('NCF');
+  
   useEffect(() => {
-    const token = Cookies.get('NCF');
 
     token ? setIsToken(true) : setIsToken(false);
 
@@ -31,8 +31,25 @@ const Products = () => {
   const handleModify = (id) => {
     navigate(`/manage/products/${id}`)
   }
-  const handleDelete = (e) => {
-    console.log(e.target);
+  const handleDelete = (id) => {
+    try{
+      if(alert('등록된 제품을 삭제하시겠습니까?')){
+        axios.delete(`http://localhost:3000/api/product/${id}`, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }).then((res) => {
+          console.log(res)
+          alert('삭제 완료.')
+        }).catch((err) => {
+          console.error(err.message)
+        })
+      }
+    } catch(e) {
+      console.log(e)
+    }
+    
   };
 
   return (
@@ -47,7 +64,7 @@ const Products = () => {
                 <ProductImageExample text={prod.productname} index={i} />
                 <div className="d-flex justify-content-center  gap-3 my-2">
                     <Button onClick={() => handleModify(prod.productid)}>수정</Button>
-                  <Button onClick={handleDelete}>삭제</Button>
+                  <Button onClick={() => handleDelete(params.id)}>삭제</Button>
                 </div>
               </Col>
             ))}
