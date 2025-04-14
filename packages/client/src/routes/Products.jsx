@@ -12,43 +12,47 @@ const Products = () => {
   let params = useParams();
   let navigate = useNavigate();
   const token = Cookies.get('NCF');
-  
-  useEffect(() => {
 
+  useEffect(() => {
     token ? setIsToken(true) : setIsToken(false);
 
-    axios
-      .get('http://localhost:3000/api/products', {
-        withCredentials: true,
-      })
-      .then((res) => {
-        // console.log(res);
-        console.log(res.data);
-        setProducts(res.data);
-      })
-      .catch((err) => console.log(err));
+    try {
+      axios
+        .get('http://localhost:3000/api/products', {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setProducts(res.data);
+        })
+        .catch((err) => console.log(err));
+    } catch (e) {
+      console.log(e);
+    }
   }, []);
   const handleModify = (id) => {
-    navigate(`/manage/products/${id}`)
-  }
+    navigate(`/manage/products/${id}`);
+  };
   const handleDelete = (id) => {
-    try{
-      if(confirm('등록된 제품을 삭제하시겠습니까?')) {
-        axios.delete(`http://localhost:3000/api/product/${id}`, {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        }).then((res) => {
-          console.log(res)
-          alert('삭제 완료.')
-        }).catch((err) => {
-          console.error(err.message)
-        })
+    try {
+      if (confirm('등록된 제품을 삭제하시겠습니까?')) {
+        axios
+          .delete(`http://localhost:3000/api/product/${id}`, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            alert('삭제 완료.');
+          })
+          .catch((err) => {
+            console.error(err.message);
+          });
       }
-    } catch(e) {
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
   };
 

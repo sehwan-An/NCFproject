@@ -81,38 +81,38 @@ function HomeBody() {
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Facere, excepturi.</p>
           </Col>
         </Row>
-        <Row className="my-3 gap-5">
-          <Col xs={3} sm={3} md={3} className="posi-rel">
+        <Row className="my-3 gap-5 d-flex align-items-center justify-content-around">
+          <Col xs={3} sm={3} md={2} className="posi-rel">
             <img src={newImg1} alt="홈이미지" className="new-arr-imgs img-fluid" />
             <span className="new-items posi-ab">New!</span>
           </Col>
-          <Col xs={3} sm={3} md={3} className="posi-rel">
+          <Col xs={3} sm={3} md={2} className="posi-rel">
             <img src={newImg3} alt="홈이미지" className="new-arr-imgs img-fluid" />
             <span className="new-items posi-ab">New!</span>
           </Col>
-          <Col xs={3} sm={3} md={3} className="posi-rel">
+          <Col xs={3} sm={3} md={2} className="posi-rel">
             <img src={newImg3} alt="홈이미지" className="new-arr-imgs img-fluid" />
             <span className="new-items posi-ab">New!</span>
           </Col>
-          <Col xs={3} sm={3} md={3} className="posi-rel">
+          <Col xs={3} sm={3} md={2} className="posi-rel">
             <img src={newImg4} alt="홈이미지" className="new-arr-imgs img-fluid" />
             <span className="new-items posi-ab">New!</span>
           </Col>
         </Row>
-        <Row className="my-3 gap-5">
-          <Col xs={3} sm={3} md={3} className="posi-rel">
+        <Row className="my-3 gap-5 d-flex align-items-center justify-content-around">
+          <Col xs={3} sm={3} md={2} className="posi-rel">
             <img src={newImg6} alt="홈이미지" className="new-arr-imgs img-fluid" />
             <span className="new-items posi-ab">New!</span>
           </Col>
-          <Col xs={3} sm={3} md={3} className="posi-rel">
+          <Col xs={3} sm={3} md={2} className="posi-rel">
             <img src={newImg7} alt="홈이미지" className="new-arr-imgs img-fluid" />
             <span className="new-items posi-ab">New!</span>
           </Col>
-          <Col xs={3} sm={3} md={3} className="posi-rel">
+          <Col xs={3} sm={3} md={2} className="posi-rel">
             <img src={newImg8} alt="홈이미지" className="new-arr-imgs img-fluid" />
             <span className="new-items posi-ab">New!</span>
           </Col>
-          <Col xs={3} sm={3} md={3} className="posi-rel">
+          <Col xs={3} sm={3} md={2} className="posi-rel">
             <img src={newImg9} alt="홈이미지" className="new-arr-imgs img-fluid" />
             <span className="new-items posi-ab">New!</span>
           </Col>

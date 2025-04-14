@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Row, Col, Form, InputGroup, Button, Container } from 'react-bootstrap';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import axios from 'axios';
 
 function AddProduct() {
@@ -10,7 +10,10 @@ function AddProduct() {
     productprice: '',
     productcolor: '',
     productsize: '',
+    stock: '',
   });
+
+  let navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -30,7 +33,9 @@ function AddProduct() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
+        alert('등록완료!');
+        navigate('/manage/products');
       })
       .catch((err) => {
         console.log(err);
@@ -100,20 +105,25 @@ function AddProduct() {
               onChange={handleChange}
             >
               <option>--사이즈를 선택해 주세요--</option>
-              <option value='S'>S</option>
-              <option value='M'>M</option>
-              <option value='L'>L</option>
-              <option value='XL'>XL</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
             </Form.Select>
             <Form.Control.Feedback type="invalid">사이즈를 입력해주세요</Form.Control.Feedback>
           </Form.Group>
-          {/* <Form.Group as={Col} md="12" controlId="validationCustom04">
-              <Form.Label>수량</Form.Label>
-              <Form.Control type="text" placeholder="수량" required />
-              <Form.Control.Feedback type="invalid">
-                수량을 입력해주세요
-              </Form.Control.Feedback>
-            </Form.Group> */}
+          <Form.Group as={Col} md="12" controlId="validationCustom04">
+            <Form.Label>수량</Form.Label>
+            <Form.Control
+              type="number"
+              name="stock"
+              value={formData.stock}
+              placeholder="수량"
+              onChange={handleChange}
+              required
+            />
+            <Form.Control.Feedback type="invalid">수량을 입력해주세요</Form.Control.Feedback>
+          </Form.Group>
           {/* <Form.Group as={Col} md="12" controlId="validationCustom05">
               <Form.Label>이미지</Form.Label>
               <Form.Control type="file" placeholder="이미지" />
