@@ -10,10 +10,13 @@ const Contact = () => {
       <Form>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>제목</Form.Label>
-          <Form.Control type="email" placeholder="name@example.com" />
+          <Form.Control type="text" />
         </Form.Group>
+        <label className="mb-3">문의 유형</label>
+        
+        
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Example textarea</Form.Label>
+          <Form.Label>내용</Form.Label>
           <Form.Control as="textarea" rows={5} />
         </Form.Group>
       </Form>
