@@ -11,7 +11,7 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    destination: {
+    orderaddress: {
       type: String,
       required: true,
     },
@@ -20,7 +20,7 @@ const orderSchema = mongoose.Schema(
       ref: 'Product',
       required: true,
     },
-    orderquantity: {
+    ordercount: {
       type: String,
       required: true,
     },
@@ -30,7 +30,12 @@ const orderSchema = mongoose.Schema(
     },
     ordercolor: {
       type: String,
+      required: true,
     },
+    ordersize: {
+        type: String,
+        required: true,
+    }
   },
   { timestamps: true },
 );
