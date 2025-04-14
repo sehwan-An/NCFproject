@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, NavLink } from 'react-router';
+import Cookies from 'js-cookie';
+import { useParams, NavLink, useNavigate } from 'react-router';
 import { Container, Form, Row, Col, InputGroup, Button } from 'react-bootstrap';
 
 const ProductModify = () => {
@@ -12,9 +13,10 @@ const ProductModify = () => {
     productcolor: '',
     productsize: '',
   });
-
+  let token = Cookies.get('NCF');
   let params = useParams();
-  console.log(params)
+  let navigate = useNavigate();
+  console.log(params);
 
   const handleChange = (e) => {
     setFormData({
@@ -58,7 +60,7 @@ const ProductModify = () => {
       if (alert('수정하시겠습니까?')) {
         axios
           .put(
-            `http://localhost:3000/api/products/${id}`,
+            `http://localhost:3000/api/product/${id}`,
             {
               productname: formData.productname,
               productprice: formData.productprice,
@@ -69,13 +71,18 @@ const ProductModify = () => {
               withCredentials: true,
               headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
               },
             },
           )
           .then((res) => {
             console.log(res);
+            alert('수정이 완료되었습니다.');
+            navigate('/manage/products');
           })
-          .catch((err) => console.error(err.message));
+          .catch((err) => {
+            console.error(err.message);
+          });
       }
     } catch (e) {
       console.log(e);

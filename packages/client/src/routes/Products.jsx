@@ -35,10 +35,7 @@ const Products = () => {
     try{
       if(alert('등록된 제품을 삭제하시겠습니까?')){
         axios.delete(`http://localhost:3000/api/product/${id}`, {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          withCredentials: true
         }).then((res) => {
           console.log(res)
           alert('삭제 완료.')
