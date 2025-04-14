@@ -12,6 +12,7 @@ import Management from './routes/Management.jsx';
 import AddProduct from './routes/AddProduct.jsx';
 import Products from './routes/Products.jsx';
 import ProductModify from './routes/ProductModify.jsx';
+import UserCare from './routes/UserCare.jsx';
 
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="aboutus" element={<AboutUs />} />
           <Route path="signin" element={<SignIn />} />
           <Route path="manage" element={<Management />}>
+            <Route path="usercare" element={<UserCare />} />
             <Route path="products" element={<Products />} />
             <Route path='products/:id' element={<ProductModify />} />
           </Route>
