@@ -6,10 +6,6 @@ import { jwtDecode } from 'jwt-decode';
 import '../App.css';
 import { NavLink } from 'react-router';
 const SiteHeader = ({ userInfo, Logout }) => {
-  const token = Cookies.get('NCF')
-  const user = jwtDecode(token)
-  // console.log(user.id)
-
   return (
     <div>
       <Container className="header-container">
@@ -24,7 +20,7 @@ const SiteHeader = ({ userInfo, Logout }) => {
                   <>
                     <p>{userInfo.name}님 환영합니다.</p>
                     <Button onClick={Logout}>로그아웃</Button>
-                    <NavLink to={`cart/${user.id}`}>
+                    <NavLink to={`cart/${userInfo._id}`}>
                       <p>마이페이지</p>
                     </NavLink>
                   </>
