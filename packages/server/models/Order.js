@@ -1,7 +1,13 @@
 import mongoose from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 const orderSchema = mongoose.Schema(
   {
+    ordernumber: {
+      type: String,
+      required: true,
+      default: uuidv4,
+    },
     orderuser: {
       type: String,
       ref: 'User',
@@ -15,9 +21,9 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    orderproduct: {
+    orderproducts: {
       type: String,
-      ref: 'Product',
+      ref: 'Cart',
       required: true,
     },
     ordercount: {
@@ -33,9 +39,9 @@ const orderSchema = mongoose.Schema(
       required: true,
     },
     ordersize: {
-        type: String,
-        required: true,
-    }
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true },
 );
