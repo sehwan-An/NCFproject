@@ -122,7 +122,7 @@ function AddProduct() {
         <div className="d-flex gap-3 justify-content-center">
           <Button type="submit">등록</Button>
           <NavLink to="/">
-            <Button>취소</Button>
+            <Button variant='danger'>취소</Button>
           </NavLink>
         </div>
       </Form>
