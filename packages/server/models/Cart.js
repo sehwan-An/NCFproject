@@ -7,23 +7,29 @@ const cartSchema = mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    orderproduct: {
-      type: String,
-      ref: 'Product',
-      required: true,
-    },
-    orderprice: {
-      type: String,
-      required: true,
-    },
-    ordercolor: {
-      type: String,
-      required: true,
-    },
-    ordersize: {
+    products: {
+      name: {
+        type: String,
+        ref: 'Product',
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        default: 1,
+      },
+      price: {
+        type: Number,
+        required: true,
+      },
+      color: {
         type: String,
         required: true,
-    }
+      },
+      size: {
+        type: String,
+        required: true,
+      },
+    },
   },
   { timestamps: true },
 );

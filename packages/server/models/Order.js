@@ -29,6 +29,7 @@ const orderSchema = mongoose.Schema(
     ordercount: {
       type: String,
       required: true,
+      default: 1,
     },
     orderprice: {
       type: String,

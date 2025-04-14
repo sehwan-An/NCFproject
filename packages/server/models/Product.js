@@ -25,11 +25,11 @@ const productSchema = mongoose.Schema(
     productsize: {
         type:String,
         require: true
-    }/* ,
-    productcount: {
+    },
+    stock: {
         type: Number,
         require: true
-    },
+    }/* ,
     productimage: {
         data:Buffer,
         type:String
