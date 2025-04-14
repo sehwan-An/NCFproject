@@ -10,6 +10,7 @@ function AddProduct() {
     productprice: '',
     productcolor: '',
     productsize: '',
+    stock: '',
   });
 
   let navigate = useNavigate();
@@ -104,20 +105,25 @@ function AddProduct() {
               onChange={handleChange}
             >
               <option>--사이즈를 선택해 주세요--</option>
-              <option value='S'>S</option>
-              <option value='M'>M</option>
-              <option value='L'>L</option>
-              <option value='XL'>XL</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
             </Form.Select>
             <Form.Control.Feedback type="invalid">사이즈를 입력해주세요</Form.Control.Feedback>
           </Form.Group>
-          {/* <Form.Group as={Col} md="12" controlId="validationCustom04">
-              <Form.Label>수량</Form.Label>
-              <Form.Control type="text" placeholder="수량" required />
-              <Form.Control.Feedback type="invalid">
-                수량을 입력해주세요
-              </Form.Control.Feedback>
-            </Form.Group> */}
+          <Form.Group as={Col} md="12" controlId="validationCustom04">
+            <Form.Label>수량</Form.Label>
+            <Form.Control
+              type="number"
+              name="stock"
+              value={formData.stock}
+              placeholder="수량"
+              onChange={handleChange}
+              required
+            />
+            <Form.Control.Feedback type="invalid">수량을 입력해주세요</Form.Control.Feedback>
+          </Form.Group>
           {/* <Form.Group as={Col} md="12" controlId="validationCustom05">
               <Form.Label>이미지</Form.Label>
               <Form.Control type="file" placeholder="이미지" />
@@ -126,7 +132,7 @@ function AddProduct() {
         <div className="d-flex gap-3 justify-content-center">
           <Button type="submit">등록</Button>
           <NavLink to="/">
-            <Button variant='danger'>취소</Button>
+            <Button variant="danger">취소</Button>
           </NavLink>
         </div>
       </Form>
