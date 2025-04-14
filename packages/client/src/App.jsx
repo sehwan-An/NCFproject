@@ -12,7 +12,8 @@ import Management from './routes/Management.jsx';
 import AddProduct from './routes/AddProduct.jsx';
 import Products from './routes/Products.jsx';
 import ProductModify from './routes/ProductModify.jsx';
-
+import OrderProduct from './routes/OrderProduct.jsx'
+import UserCart from './routes/UserCart.jsx'
 
 const App = () => {
   return (
@@ -32,6 +33,8 @@ const App = () => {
             <Route path='products/:id' element={<ProductModify />} />
           </Route>
           <Route path="addproduct" element={<AddProduct />} />
+          <Route path="order/:id" element={<OrderProduct />} />
+          <Route path="cart/:id" element={<UserCart />} />
         </Route>
       </Routes>
     </>
