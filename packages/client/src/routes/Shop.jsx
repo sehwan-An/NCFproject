@@ -17,8 +17,6 @@ const Shop = () => {
         withCredentials: true,
       })
       .then((res) => {
-        // console.log(res);
-        // console.log(res.data);
         setProducts(res.data);
       })
       .catch((err) => console.log(err));
