@@ -12,6 +12,7 @@ const ProductModify = () => {
     productprice: '',
     productcolor: '',
     productsize: '',
+    stock: '',
   });
   let token = Cookies.get('NCF');
   let params = useParams();
@@ -40,6 +41,7 @@ const ProductModify = () => {
           productprice: res.data.productprice,
           productcolor: res.data.productcolor,
           productsize: res.data.productsize,
+          stock: res.data.stock,
         });
       })
       .catch((res) => {
@@ -62,17 +64,13 @@ const ProductModify = () => {
     try {
       if (confirm('수정하시겠습니까?')) {
         axios
-          .put(
-            `http://localhost:3000/api/product/${formData.productid}`,
-            formData,
-            {
-              withCredentials: true,
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-              },
+          .put(`http://localhost:3000/api/product/${formData.productid}`, formData, {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
             },
-          )
+          })
           .then((res) => {
             console.log(res);
             alert('수정이 완료되었습니다.');
@@ -85,7 +83,7 @@ const ProductModify = () => {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
   return (
     <>
       <Container>
@@ -108,14 +106,14 @@ const ProductModify = () => {
               <Form.Control
                 required
                 type="text"
-                name='productname'
+                name="productname"
                 placeholder="제품명"
                 value={formData.productname}
                 onChange={handleChange}
               />
               <Form.Control.Feedback></Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md="12" controlId="validationCustomProdPrice">
+            <Form.Group as={Col} md="6" controlId="validationCustomProdPrice">
               <Form.Label>제품 가격</Form.Label>
               <InputGroup hasValidation>
                 <Form.Control
@@ -123,6 +121,21 @@ const ProductModify = () => {
                   name="productprice"
                   placeholder="제품가격"
                   value={formData.productprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  required
+                  min={1}
+                  onChange={handleChange}
+                />
+                <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
+            <Form.Group as={Col} md="6" controlId="validationCustomProdPrice">
+              <Form.Label>재고</Form.Label>
+              <InputGroup hasValidation>
+                <Form.Control
+                  type="number"
+                  name="stock"
+                  placeholder="제품가격"
+                  value={formData.stock}
                   required
                   min={1}
                   onChange={handleChange}
@@ -155,18 +168,18 @@ const ProductModify = () => {
             <Form.Group as={Col} md="6" controlId="validationCustomSize">
               <Form.Label>사이즈</Form.Label>
               <Form.Select
-              placeholder="크기"
-              required
-              value={formData.productsize}
-              name="productsize"
-              onChange={handleChange}
-            >
-              <option>--사이즈를 선택해 주세요--</option>
-              <option value='S'>S</option>
-              <option value='M'>M</option>
-              <option value='L'>L</option>
-              <option value='XL'>XL</option>
-            </Form.Select>
+                placeholder="크기"
+                required
+                value={formData.productsize}
+                name="productsize"
+                onChange={handleChange}
+              >
+                <option>--사이즈를 선택해 주세요--</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL">XL</option>
+              </Form.Select>
               <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
             </Form.Group>
           </Row>
