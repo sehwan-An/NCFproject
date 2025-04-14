@@ -7,6 +7,8 @@ router.get('/', (req, res) => {
 });
 router.post('/', controllers.regist);
 router.post('/signin', controllers.signin);
+// router.post('/contact', controllers.signin);
+router.post('/contact', controllers.contact);
 
 // router.put('/users/:id', (req, res) => {
 //   res.send('some user is updated!');
