@@ -35,7 +35,7 @@ function SignIn() {
         if (response.status === 200) {
           console.log(response)
           alert('로그인 성공');
-          navigate('/');
+          location.href = '/';
         } else if (response.status === 400) {
           alert('아이디 또는 비밀번호를 확인하세요.');
         }
