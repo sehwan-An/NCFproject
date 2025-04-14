@@ -33,7 +33,7 @@ const ProductModify = () => {
         },
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         setFormData({
           productid: res.data.productid,
           productname: res.data.productname,

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { Col, Container, Row } from 'react-bootstrap';
 import { NavLink } from 'react-router';
 import ProductImageExample from '../components/ProductImageExample';
@@ -12,7 +13,7 @@ const Shop = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         // console.log(res.data);
         setProducts(res.data);
       })
@@ -24,10 +25,10 @@ const Shop = () => {
       <Row>
         {products &&
           products.map((prod, i) => (
-            <Col>
+            <Col key={i} className='text-center'>
               <ProductImageExample index={i}/>
               <p>{prod.productname}</p>
-              <p>{prod.productprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
+              <p>{prod.productprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원</p>
         <NavLink to={`shop/${prod.productid}`}>
           <button type="submit" className="btn btn-primary">
             구매하기

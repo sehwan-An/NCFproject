@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Row, Col, Form, InputGroup, Button, Container } from 'react-bootstrap';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import axios from 'axios';
 
 function AddProduct() {
@@ -11,6 +11,8 @@ function AddProduct() {
     productcolor: '',
     productsize: '',
   });
+
+  let navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -30,7 +32,9 @@ function AddProduct() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
+        alert('등록완료!');
+        navigate('/manage/products');
       })
       .catch((err) => {
         console.log(err);
