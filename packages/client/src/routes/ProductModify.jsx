@@ -119,10 +119,10 @@ const ProductModify = () => {
               <Form.Label>제품 가격</Form.Label>
               <InputGroup hasValidation>
                 <Form.Control
-                  type="number"
+                  type="String"
                   name="productprice"
                   placeholder="제품가격"
-                  value={formData.productprice}
+                  value={formData.productprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   required
                   min={1}
                   onChange={handleChange}
@@ -134,32 +134,45 @@ const ProductModify = () => {
           <Row className="mb-3">
             <Form.Group as={Col} md="6" controlId="validationCustomProdColor">
               <Form.Label>색상</Form.Label>
-              <Form.Control
-                type="text"
-                name="productcolor"
-                value={formData.productcolor}
+              <Form.Select
+                aria-label="product-color"
                 placeholder="색상"
                 required
+                value={formData.productcolor}
+                name="productcolor"
                 onChange={handleChange}
-              />
+              >
+                <option>--색상을 선택해 주세요--</option>
+                <option value="화이트">화이트</option>
+                <option value="블랙">블랙</option>
+                <option value="베이지">베이지</option>
+                <option value="회색">회색</option>
+                <option value="코발트블루">코발트블루</option>
+                <option value="옐로그린">옐로그린</option>
+              </Form.Select>
               <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
             </Form.Group>
             <Form.Group as={Col} md="6" controlId="validationCustomSize">
               <Form.Label>사이즈</Form.Label>
-              <Form.Control
-                type="text"
-                name="productsize"
-                value={formData.productsize}
-                placeholder="사이즈"
-                required
-                onChange={handleChange}
-              />
+              <Form.Select
+              placeholder="크기"
+              required
+              value={formData.productsize}
+              name="productsize"
+              onChange={handleChange}
+            >
+              <option>--사이즈를 선택해 주세요--</option>
+              <option value='S'>S</option>
+              <option value='M'>M</option>
+              <option value='L'>L</option>
+              <option value='XL'>XL</option>
+            </Form.Select>
               <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
             </Form.Group>
           </Row>
           <div>
             <Button type="submit">완료</Button>
-            <NavLink to="/manage/modify">
+            <NavLink to="/manage/products">
               <Button variant="danger">취소</Button>
             </NavLink>
           </div>
