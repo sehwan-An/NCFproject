@@ -57,6 +57,8 @@ export const modifyProduct = async (req, res) => {
   }
 };
 
+
+
 export const createProduct = async (req, res) => {
   const { productname, productprice, productcolor, productsize } = req.body;
   console.log(req);

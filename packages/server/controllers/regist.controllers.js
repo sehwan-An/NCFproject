@@ -2,6 +2,8 @@ import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config'
 import bcrypt from 'bcrypt'
+import ContactModel from'../models/UserContact.js';
+import { jwtDecode } from 'jwt-decode';
 
 const regist = async (req, res) => {
   const { username, userpwd, userid, userphone, email } = req.body;
@@ -34,6 +36,28 @@ const regist = async (req, res) => {
     console.log('regist is failed :', err);
   }
 };
+
+export const contact = async (req,res) => {
+
+  const { contact_title, contact_type, contact_content } = req.body;
+  const authorization=req.headers.authorization.split(' ')[1]
+ const decode = jwtDecode(authorization)
+
+  try {
+await ContactModel.create({
+  contact_title,
+  contact_type,
+  contact_content,
+  user: decode.id })
+console.log(ContactModel)
+res.status().json()
+
+
+  }
+  catch(err){
+    console.log(err)
+  }
+}
 
 const signin = async (req, res) => {
   const { userid, userpwd } = req.body;
@@ -75,4 +99,5 @@ const signin = async (req, res) => {
     });
   }
 };
-export default {regist, signin};
+ 
+export default {regist, signin, contact};
