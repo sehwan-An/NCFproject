@@ -99,14 +99,19 @@ const OrderProduct = () => {
             <Form.Group as={Col} md="4" controlId="validationCustomproductsize">
               <Form.Label>제품사이즈</Form.Label>
               <InputGroup hasValidation>
-                <Form.Control
+                <Form.Select
                   type="text"
                   placeholder="productsize"
                   name="productsize"
+                  onChange={handleChange}
                   required
-                  disabled
                   defaultValue={formData.productsize}
-                />
+                >
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </Form.Select>
                 <Form.Control.Feedback type="invalid">사이즈를 선택해주세요.</Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
