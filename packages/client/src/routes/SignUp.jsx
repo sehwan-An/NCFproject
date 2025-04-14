@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { Row, Col, Button, Form, InputGroup, Container } from 'react-bootstrap';
 
 function SignUp() {
@@ -13,6 +13,8 @@ function SignUp() {
     userphone: '',
     email: '',
   });
+  let navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -33,7 +35,9 @@ function SignUp() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
+        alert('메인화면으로 돌아갑니다.');
+        navigate('/')
       })
       .catch((err) => console.log(err));
   };
