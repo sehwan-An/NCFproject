@@ -27,7 +27,7 @@ const Shop = () => {
             <Col>
               <ProductImageExample index={i}/>
               <p>{prod.productname}</p>
-              <p>{prod.productprice}</p>
+              <p>{prod.productprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
         <NavLink to={`shop/${prod.productid}`}>
           <button type="submit" className="btn btn-primary">
             구매하기
