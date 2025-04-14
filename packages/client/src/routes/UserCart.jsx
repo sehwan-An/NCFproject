@@ -4,11 +4,12 @@ import '../App.css';
 import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 
 const UserCart = () => {
   const [carts, setCarts] = useState([]);
 
+  let navigate = useNavigate();
   let params = useParams();
   let token = Cookies.get('NCF');
   useEffect(() => {
@@ -48,6 +49,8 @@ const UserCart = () => {
         })
         .then((res) => {
           console.log(res);
+          alert('장바구니에서 목록 제거 완료.')
+          location.reload();
         });
     } catch (e) {
       console.log(e);
@@ -71,7 +74,7 @@ const UserCart = () => {
                       제품가 : {cart.products.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                     </p>
                   </div>
-                  <Button variant="danger" onClick={() => handleDelete(cart._id, cart.orderuser)}>
+                  <Button variant="danger" onClick={() => handleDelete(cart._id)}>
                     제거
                   </Button>
                 </Col>
