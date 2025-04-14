@@ -39,7 +39,6 @@ const OrderProduct = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    console.log(formData);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,7 +49,8 @@ const OrderProduct = () => {
     setValidated(true);
 
     try {
-      axios
+      if(confirm('주문하시겠습니까?')){
+        axios
         .post(`http://localhost:3000/api/cart/${params.id}`, formData, {
           withCredentials: true,
           headers: {
@@ -62,6 +62,7 @@ const OrderProduct = () => {
           alert('주문이 완료되었습니다.');
           navigate('/shop')
         });
+      }
     } catch (e) {
       console.error(e.message);
     }
