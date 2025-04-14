@@ -34,7 +34,7 @@ export const getProduct = async (req, res) => {
   }
 };
 export const modifyProduct = async (req, res) => {
-  const { productid, productname, productprice, productcolor, productsize } = req.body;
+  const { productid, productname, productprice, productcolor, productsize, stock } = req.body;
   console.log(req.body);
   const uuid = req.params.id;
   const token = req.headers.authorization.split(' ')[1];
@@ -51,6 +51,7 @@ export const modifyProduct = async (req, res) => {
     modifyProduct.productprice = productprice;
     modifyProduct.productcolor = productcolor;
     modifyProduct.productsize = productsize;
+    modifyProduct.stock = stock
     await modifyProduct.save();
     res.status(201).json({
       message: '업데이트가 완료되었습니다.',
@@ -61,7 +62,7 @@ export const modifyProduct = async (req, res) => {
 };
 
 export const createProduct = async (req, res) => {
-  const { productname, productprice, productcolor, productsize } = req.body;
+  const { productname, productprice, productcolor, productsize, stock } = req.body;
   console.log(req);
   try {
     const newProduct = new Product({
@@ -69,6 +70,7 @@ export const createProduct = async (req, res) => {
       productprice,
       productcolor,
       productsize,
+      stock,
     });
     await newProduct.save();
     res.status(201).json({
@@ -103,14 +105,15 @@ export const cartProduct = async (req, res) => {
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
   try {
     const customer = await User.findOne({ userid: decoded.id });
-    // console.log(customer)
-    // console.log(product)
     const cart = new Cart({
       orderuser: customer.username,
-      orderproduct: product.productname,
-      orderprice: product.productprice,
-      ordercolor: product.productcolor,
-      ordersize: product.productsize,
+      products: {
+        name: product.productname,
+        quantity: 1,
+        price: product.productprice,
+        color: product.productcolor,
+        size: product.productsize,
+      },
     });
     await cart.save();
     res.status(201).json({
@@ -124,24 +127,33 @@ export const cartProduct = async (req, res) => {
 
 export const orderOneProduct = async (req, res) => {
   const product = req.body;
-  const token = req.headers.authorization.split(' ')[1];
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  console.log(product);
-  // console.log(decoded);
-  const user = await User.findOne({ username: decoded.name });
-  console.log(user);
   try {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // console.log(product);
+    const user = await User.findOne({ username: decoded.name });
+    const dbProduct = await Product.findOne({productid: product.productid});
+    if(!dbProduct) {
+      return res.status(404).json({
+        message: '상품을 찾을 수 없습니다!',
+      });
+    }
+    if(dbProduct.stock < 1) {
+      return res.status(404).json({
+        message: '재고가 부족합니다.',
+      });
+    }
     const newOrder = new Order({
       orderuser: user.username,
       orderphone: user.userphone,
       orderaddress: `${product.addressf} ${product.addressb}`,
       orderproducts: product.productname,
-      ordercount: 1,
       orderprice: product.productprice,
       ordercolor: product.productcolor,
       ordersize: product.productsize,
     });
-    // console.log(newOrder)
+    let leftStock = dbProduct.stock -= 1;
+    await dbProduct.save();
     await newOrder.save();
     res.status(201).json({
       status: 'success',
@@ -183,39 +195,40 @@ export const orderProducts = async (req, res) => {
 
 export const getUserCart = async (req, res) => {
   const requser = req.headers.userid;
-  if(!requser) {
+  if (!requser) {
     return res.status(401).json({
-      message: '잘못된 유저 정보입니다.'
-    })
+      message: '잘못된 유저 정보입니다.',
+    });
   }
   try {
-    const user = await User.findOne({ userid: requser });
-    const username = user.username;
+
+    const user = await User.findOne({_id: requser})
+    const username = user.username
     const usercart = await Cart.find({ orderuser: username });
     // console.log(usercart);
     res.status(201).json({
       message: '장바구니 조회성공',
       data: usercart,
-    })
+    });
   } catch (e) {
     console.log(e);
   }
 };
 export const deleteFromCart = async (req, res) => {
-  const id = req.params.id;
+  const itemid = req.params.id;
   // console.log(id)
   // console.log(req.headers.authorization)
   try {
     const token = req.headers.authorization.split(' ')[1];
-    const user = jwt.verify(token, process.env.JWT_SECRET)
-    const order = await Cart.findOne({_id: id})
+    const user = jwt.verify(token, process.env.JWT_SECRET);
+    const order = await Cart.findOne({ _id: itemid });
     // console.log(order)
-    console.log(user)
+    console.log(user);
     if (order.orderuser !== user.name) {
       return res.status(401).json({
         status: 'reject',
-        message: '잘못된 접근입니다.'
-      })
+        message: '잘못된 접근입니다.',
+      });
     }
     const cart = await Cart.deleteOne({ _id: id });
     if (!cart) {
