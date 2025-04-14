@@ -23,7 +23,12 @@ const Shop = () => {
   }, []);
 
   function orderProduct(p) {
-    navigate(`/order/${p.productid}`);
+    if(!token) {
+      alert('로그인이 필요합니다. 로그인창으로 이동합니다.')
+      navigate('/signin')
+    } else {
+      navigate(`/order/${p.productid}`);
+    }
   }
   function cartProduct(product) {
     try {
