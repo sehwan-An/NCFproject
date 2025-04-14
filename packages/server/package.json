@@ -25,5 +25,8 @@
     "react-bootstrap": "^2.10.9",
     "react-router": "^7.5.0",
     "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0"
   }
 }

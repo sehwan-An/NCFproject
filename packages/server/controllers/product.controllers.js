@@ -18,33 +18,36 @@ export const getProducts = async (req, res) => {
 
 export const getProduct = async (req, res) => {
   try {
-    console.log('product 불러오기 한가지');
+    const product = await Product.findOne({productid: req.params.id})
+    if(!product) {
+      res.status(401).json({
+        status: 'fail',
+        message: '잘못된 요청입니다.'
+      })
+    }
+    res.status(201).json(product)
   } catch (e) {
     console.log(e);
   }
 };
 export const modifyProduct = async (req, res) => {
-  const {name, price, color, size} = req.params.body
+  const {productid, productname, productprice, productcolor, productsize} = req.body
+  console.log(req.body)
   const uuid = req.params.id
-  const token = req.headers.authrization.spilt(' ')[1];
+  const token = req.headers.authorization.split(' ')[1];
   try {
     const modifyProduct = await Product.findOne({productid: uuid})
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    if(decoded.role !== modifyProduct.role) {
-      return res.status(401).json({
-        status: 'fail',
-        message: '관리자만 수정할 수 있습니다.'
-      })
-    }
+    console.log(modifyProduct)
     if(!modifyProduct) {
       return res.status(401).json({
         message: '올바른 요청이 아닙니다.'
       })
     }
-    modifyProduct.productname = name;
-    modifyProduct.productprice = price;
-    modifyProduct.productcolor = color;
-    modifyProduct.productsize = size;
+    modifyProduct.productname = productname;
+    modifyProduct.productprice = productprice;
+    modifyProduct.productcolor = productcolor;
+    modifyProduct.productsize = productsize;
     await modifyProduct.save();
     res.status(201).json({
       message: '업데이트가 완료되었습니다.'
@@ -75,9 +78,10 @@ export const createProduct = async (req, res) => {
 };
 
 export const deleteProduct = async (req, res) => {
-  const { id } = req.params;
+  console.log(req)
+  const id = req.params.id;
   try {
-    const product = await Product.deleteOne(id);
+    const product = await Product.deleteOne({productid: id});
     if (!product) {
       return res.status(404).json({
         message: '해당 제품이 존재하지 않습니다.',

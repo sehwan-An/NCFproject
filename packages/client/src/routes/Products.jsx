@@ -22,8 +22,8 @@ const Products = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
-        // console.log(res.data);
+        // console.log(res);
+        console.log(res.data);
         setProducts(res.data);
       })
       .catch((err) => console.log(err));
@@ -33,9 +33,13 @@ const Products = () => {
   }
   const handleDelete = (id) => {
     try{
-      if(alert('등록된 제품을 삭제하시겠습니까?')){
+      if(confirm('등록된 제품을 삭제하시겠습니까?')) {
         axios.delete(`http://localhost:3000/api/product/${id}`, {
-          withCredentials: true
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
         }).then((res) => {
           console.log(res)
           alert('삭제 완료.')
@@ -46,7 +50,6 @@ const Products = () => {
     } catch(e) {
       console.log(e)
     }
-    
   };
 
   return (
@@ -61,7 +64,7 @@ const Products = () => {
                 <ProductImageExample text={prod.productname} index={i} />
                 <div className="d-flex justify-content-center  gap-3 my-2">
                     <Button onClick={() => handleModify(prod.productid)}>수정</Button>
-                  <Button onClick={() => handleDelete(params.id)}>삭제</Button>
+                  <Button onClick={() => handleDelete(prod.productid)}>삭제</Button>
                 </div>
               </Col>
             ))}

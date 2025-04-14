@@ -16,7 +16,7 @@ const ProductModify = () => {
   let token = Cookies.get('NCF');
   let params = useParams();
   let navigate = useNavigate();
-  console.log(params);
+  // console.log(params);
 
   const handleChange = (e) => {
     setFormData({
@@ -47,7 +47,7 @@ const ProductModify = () => {
       });
   }, []);
 
-  const handleSubmit = (e, id) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
@@ -56,17 +56,15 @@ const ProductModify = () => {
 
     setValidated(true);
 
+    modifyProduct();
+  };
+  const modifyProduct = () => {
     try {
-      if (alert('수정하시겠습니까?')) {
+      if (confirm('수정하시겠습니까?')) {
         axios
           .put(
-            `http://localhost:3000/api/product/${id}`,
-            {
-              productname: formData.productname,
-              productprice: formData.productprice,
-              productcolor: formData.productcolor,
-              productsize: formData.productsize,
-            },
+            `http://localhost:3000/api/product/${formData.productid}`,
+            formData,
             {
               withCredentials: true,
               headers: {
@@ -87,12 +85,11 @@ const ProductModify = () => {
     } catch (e) {
       console.log(e);
     }
-  };
-
+  }
   return (
     <>
       <Container>
-        <Form noValidate validated={validated} onSubmit={() => handleSubmit(params.id)}>
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Row className="mb-3">
             <Form.Group as={Col} md="12" controlId="validationCustomProdId">
               <Form.Label>제품 코드</Form.Label>
@@ -111,6 +108,7 @@ const ProductModify = () => {
               <Form.Control
                 required
                 type="text"
+                name='productname'
                 placeholder="제품명"
                 value={formData.productname}
                 onChange={handleChange}
