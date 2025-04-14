@@ -225,14 +225,14 @@ export const deleteFromCart = async (req, res) => {
     const user = jwt.verify(token, process.env.JWT_SECRET);
     const order = await Cart.findOne({ _id: itemid });
     // console.log(order)
-    console.log(user);
+    // console.log(user);
     if (order.orderuser !== user.name) {
       return res.status(401).json({
         status: 'reject',
         message: '잘못된 접근입니다.',
       });
     }
-    const cart = await Cart.deleteOne({ _id: id });
+    const cart = await Cart.deleteOne({ _id: itemid });
     if (!cart) {
       return res.status(404).json({
         message: '해당 제품이 존재하지 않습니다.',

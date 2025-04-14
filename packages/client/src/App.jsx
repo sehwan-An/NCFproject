@@ -13,6 +13,8 @@ import AddProduct from './routes/AddProduct.jsx';
 import Products from './routes/Products.jsx';
 import ProductModify from './routes/ProductModify.jsx';
 import UserCare from './routes/UserCare.jsx';
+import UserCart from './routes/UserCart.jsx';
+import OrderProduct from './routes/OrderProduct.jsx';
 
 
 const App = () => {
