@@ -37,20 +37,27 @@ const regist = async (req, res) => {
   }
 };
 
-export const contact = async (req,res) => {
-
-  const { contact_title, contact_type, contact_content } = req.body;
+ const createContact = async (req,res) => {
+  const { contact_title, contact_type, contact_content, } = req.body;
+  console.log(contact_title, contact_type,contact_content);
   const authorization=req.headers.authorization.split(' ')[1]
+if(!authorization){
+  return res.status(401).json({message:'권한이없습니다.'})
+}
  const decode = jwtDecode(authorization)
 
   try {
+ const contact =   
 await ContactModel.create({
   contact_title,
   contact_type,
   contact_content,
   user: decode.id })
 console.log(ContactModel)
-res.status().json()
+res.status(201).json({
+  message:'문의가 등록되었습니다.',
+  data:contact,
+});
 
 
   }
@@ -58,6 +65,20 @@ res.status().json()
     console.log(err)
   }
 }
+
+ const readContact = async (req,res) => {
+  try {
+    const posts = await ContactModel.find().populate('contact_title','contact_type').sort({createdAt: -1})
+    console.log(posts)
+    res.status(201).json(posts);
+  }catch(err){
+    console.error(err.message);
+    res.status(500).json({
+      message:'저장실패'
+    })
+  }
+}
+
 
 const signin = async (req, res) => {
   const { userid, userpwd } = req.body;
@@ -101,4 +122,4 @@ const signin = async (req, res) => {
   }
 };
  
-export default {regist, signin, contact};
+export default {regist, signin, createContact, readContact};
