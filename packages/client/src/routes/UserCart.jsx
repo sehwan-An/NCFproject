@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router';
+import ProductImageExample from '../components/ProductImageExample';
 
 const UserCart = () => {
   const [carts, setCarts] = useState([]);
@@ -29,7 +30,6 @@ const UserCart = () => {
         console.log(res);
       });
   }, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
@@ -40,18 +40,20 @@ const UserCart = () => {
   };
   const handleDelete = (id) => {
     try {
-      axios
-        .delete(`http://localhost:3000/api/cart/${id}`, {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-          alert('장바구니에서 목록 제거 완료.')
-          location.reload();
-        });
+      if (confirm('제거하시겠습니까?')) {
+        axios
+          .delete(`http://localhost:3000/api/cart/${id}`, {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            console.log(res);
+            alert('장바구니에서 목록 제거 완료.');
+            location.reload();
+          });
+      }
     } catch (e) {
       console.log(e);
     }
@@ -60,39 +62,43 @@ const UserCart = () => {
     <>
       <Container>
         <Form onSubmit={handleSubmit}>
-            <Row className="row-cols-12">
-              <Col>
-                <h2 className="text-center">장바구니</h2>
-              </Col>
-            </Row>
-            <Row className="row-cols-4 my-4">
-              {carts.map((cart, i) => (
-                <Col key={i}>
-                  <div className="cart-box">
-                    <p>제품명 : {cart.products.name}</p>
-                    <p>
-                      제품가 : {cart.products.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    </p>
+          <Row className="row-cols-12">
+            <Col>
+              <h2 className="text-center">장바구니</h2>
+            </Col>
+          </Row>
+          <Row className="row-cols-4 my-4">
+            {!carts && <h2 className='text-center'>장바구니에 물품이 존재하지 않습니다.</h2>}
+            {carts && carts.map((cart, i) => (
+              <Col key={i}>
+                <div className="cart-box">
+                  <div className='cart-image'>
+                    <ProductImageExample photo={cart.photo} text='photo' />
                   </div>
-                  <Button variant="danger" onClick={() => handleDelete(cart._id)}>
-                    제거
-                  </Button>
-                </Col>
-              ))}
-            </Row>
-            <Row className="text-center">
-              <Col>
-                <h4>장바구니 수 : {carts.length}</h4>
+                  <p>제품명 : {cart.products.name}</p>
+                  <p>
+                    제품가 : {cart.products.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  </p>
+                </div>
+                <Button variant="danger" onClick={() => handleDelete(cart._id)}>
+                  제거
+                </Button>
               </Col>
-              <Col>
-                <h4>총 가격 : </h4>
-              </Col>
-            </Row>
-            <Row className="text-center">
-              <Col>
-                <Button type='submit'>주문하기</Button>
-              </Col>
-            </Row>
+            ))}
+          </Row>
+          <Row className="text-center">
+            <Col>
+              <h4>장바구니 수 : {carts.length}</h4>
+            </Col>
+            <Col>
+              <h4>총 가격 : </h4>
+            </Col>
+          </Row>
+          <Row className="text-center">
+            <Col>
+              <Button type="submit">주문하기</Button>
+            </Col>
+          </Row>
         </Form>
       </Container>
     </>

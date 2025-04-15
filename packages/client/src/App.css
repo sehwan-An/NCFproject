@@ -94,4 +94,6 @@ a {
   border-radius: 5px;
   padding: .3rem;
   margin: .3rem;
+  box-sizing: border-box;
+  overflow: hidden;
 }
