@@ -24,13 +24,16 @@ axios.get('http://localhost:3000/users/contact/',{
 .catch((err) => console.log(err.message))
 }, [])
 function convertDate(date){ 
-    return new Date(date).toLocaleDateString('ko-KR', {
-      year: '2-digit',
-      month: '2-digit',
-      day: '2-digit',
-  }).replaceAll(',','').replaceAll(' ','-')
-  }
-
+    if (!date) return '날짜 없음';
+    const d = new Date(date);
+    if (isNaN(d)) return '유효하지 않음';
+    
+    return d.toLocaleDateString('ko-KR', {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit',
+    }).replaceAll(',','').replaceAll(' ','-');
+}
 
 
   return (
@@ -51,10 +54,10 @@ function convertDate(date){
                 <tbody>
                    {posts && 
                    posts.map((post)=>(
-                    <tr>
+                    <tr key={post._id}>
                         <td>{post.contact_title}</td>
                         <td>{post.contact_type}</td>
-                        <td>{post._id}</td>
+                        <td>{post.author.username}</td>
                         <td>{convertDate(post.createdAt)}</td>
                     </tr>
                    ))}
