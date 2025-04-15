@@ -1,12 +1,14 @@
 import mongoose from "mongoose";
+import { v4 as uuidv4} from 'uuid'
 
 const usercontactSchema = mongoose.Schema(
     {
-// username:{
-//     type:mongoose.userSchema.username,
-//     ref:'User',
-//     required: true
-// },
+uuid:{
+    type:String,
+    default:uuidv4,
+    unique:true,
+    required:true
+},
 contact_type:{
     type:String,
     required:true,
@@ -21,6 +23,11 @@ contact_content:{
     type:String,
     required:true
 },
+guest:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref:'User',
+    required:true
+}
 
 
     }
