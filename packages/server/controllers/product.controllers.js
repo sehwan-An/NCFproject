@@ -8,6 +8,11 @@ import jwt from 'jsonwebtoken';
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
+    if(!products) {
+      return res.status(500).json({
+        message: '상품을 찾을 수 없음.'
+      })
+    }
     res.status(201).json(products);
   } catch (e) {
     console.log(e);
