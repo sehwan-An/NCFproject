@@ -53,7 +53,7 @@ function convertDate(date){
                     <tr>
                         <td>{post.contact_title}</td>
                         <td>{post.contact_type}</td>
-                        <td>{post.guest.}</td>
+                        <td></td>
                         <td>{convertDate(post.createdAt)}</td>
                     </tr>
                    ))}
