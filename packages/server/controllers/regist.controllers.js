@@ -38,21 +38,22 @@ const regist = async (req, res) => {
 };
 
  const createContact = async (req,res) => {
-  const { contact_title, contact_type, contact_content, } = req.body;
-  console.log(contact_title, contact_type,contact_content);
+  const { contact_title, contact_type, contact_content,  } = req.body;
+  console.log(req);
   const authorization=req.headers.authorization.split(' ')[1]
 if(!authorization){
   return res.status(401).json({message:'권한이없습니다.'})
 }
  const decode = jwtDecode(authorization)
-
+console.log(decode)
   try {
+
  const contact =   
 await ContactModel.create({
   contact_title,
   contact_type,
   contact_content,
-  user: decode.id })
+  author:decode._id})
 console.log(ContactModel)
 res.status(201).json({
   message:'문의가 등록되었습니다.',
@@ -66,11 +67,29 @@ res.status(201).json({
   }
 }
 
- const readContact = async (req,res) => {
+function convertDate(date){ 
+  if (!date) return '날짜 없음';
+  const d = new Date(date);
+  if (isNaN(d)) return '유효하지 않음';
+  
+  return d.toLocaleDateString('ko-KR', {
+      year: '2-digit',
+      month: '2-digit',
+      day: '2-digit',
+  }).replaceAll(',','').replaceAll(' ','-');
+}
+
+const readContact = async (req,res) => {
   try {
-    const posts = await ContactModel.find().populate('contact_title','contact_type').sort({createdAt: -1})
-    console.log(posts)
-    res.status(201).json(posts);
+    const contacts = await ContactModel.find().populate('author','username').sort({createdAt: -1})
+    if(!contacts){
+      return res.status(500).json({
+        message:'contacts가 없습니다.'
+      })
+    }
+    console.log(contacts)
+    
+    res.status(201).json(contacts);
   }catch(err){
     console.error(err.message);
     res.status(500).json({
@@ -93,7 +112,7 @@ const signin = async (req, res) => {
     }
     const isMatch = bcrypt.compareSync(userpwd, user.userpwd);
     if (!isMatch) {
-      alert('잘못된 비밀번호 입니다.');
+      return res.status(400).json({message:'잘못된 비밀번호 입니다.'});
     }
 
     const userInfo = {
@@ -122,4 +141,4 @@ const signin = async (req, res) => {
   }
 };
  
-export default {regist, signin, createContact, readContact};
+export default {regist, signin, createContact, readContact, convertDate};
