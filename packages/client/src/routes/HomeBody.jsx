@@ -7,16 +7,7 @@ import BodyCarousel from '../components/BodyCarousel.jsx'
 import BodyNewShow from '../components/BodyNewShow.jsx'
 
 function HomeBody() {
-  const [products, setProducts ] = useState({
-    _id: '',
-    productid: '',
-    productname: '',
-    productprice: '',
-    productcolor: '',
-    productsize: '',
-    stock: '',
-    photo: '',
-  });
+  const [products, setProducts ] = useState([]);
   useEffect(() => {
     try {
       axios
@@ -41,7 +32,7 @@ function HomeBody() {
         <BodyCarousel />
       </Container>
       <Container className="my-3">
-        <BodyNewShow prods={products} />
+        <BodyNewShow products={products} />
       </Container>
     </>
   );
