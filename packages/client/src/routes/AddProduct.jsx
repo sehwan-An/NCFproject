@@ -5,25 +5,29 @@ import axios from 'axios';
 
 function AddProduct() {
   const [validated, setValidated] = useState(false);
-  const [photo, setPhoto] = useState(null);
   const [formData, setFormData] = useState({
     productname: '',
     productprice: '',
     productcolor: '',
     productsize: '',
     stock: '',
+    photo: '',
   });
 
   let navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-    setPhoto({
-      [e.target.name]: e.target.files[0],
-    });
+    if(e.target.name === 'photo'){
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.files[0],
+      })
+    } else {
+      setFormData({
+          ...formData,
+          [e.target.name]: e.target.value,
+        });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -41,7 +45,7 @@ function AddProduct() {
     data.append('productcolor', formData.productcolor);
     data.append('productsize', formData.productsize);
     data.append('stock', formData.stock);
-    data.append('photo', photo.photo);
+    data.append('photo', formData.photo);
 
     await axios
       .post('http://localhost:3000/api/product', data, {
