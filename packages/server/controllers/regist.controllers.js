@@ -1,7 +1,9 @@
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
 import 'dotenv/config'
-// import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt'
+import ContactModel from'../models/UserContact.js';
+import { jwtDecode } from 'jwt-decode';
 
 const regist = async (req, res) => {
   const { username, userpwd, userid, userphone, email } = req.body;
@@ -19,7 +21,7 @@ const regist = async (req, res) => {
 
     const user = new User({
       username,
-      userpwd,
+      userpwd:bcrypt.hashSync(userpwd,10),
       userid,
       userphone,
       email,
@@ -35,6 +37,28 @@ const regist = async (req, res) => {
   }
 };
 
+export const contact = async (req,res) => {
+
+  const { contact_title, contact_type, contact_content } = req.body;
+  const authorization=req.headers.authorization.split(' ')[1]
+ const decode = jwtDecode(authorization)
+
+  try {
+await ContactModel.create({
+  contact_title,
+  contact_type,
+  contact_content,
+  user: decode.id })
+console.log(ContactModel)
+res.status().json()
+
+
+  }
+  catch(err){
+    console.log(err)
+  }
+}
+
 const signin = async (req, res) => {
   const { userid, userpwd } = req.body;
   console.log(userid, userpwd)
@@ -46,7 +70,7 @@ const signin = async (req, res) => {
         message: '아이디를 다시 확인하세요',
       });
     }
-    const isMatch = userpwd == user.userpwd;
+    const isMatch = bcrypt.compareSync(userpwd, user.userpwd);
     if (!isMatch) {
       alert('잘못된 비밀번호 입니다.');
     }
@@ -54,7 +78,8 @@ const signin = async (req, res) => {
     const userInfo = {
       name: user.username,
       id: user.userid,
-      role: user.role
+      role: user.role,
+      _id: user._id
     };
     const token = jwt.sign(userInfo,process.env.JWT_SECRET );
     res.cookie('NCF', token, {
@@ -75,4 +100,5 @@ const signin = async (req, res) => {
     });
   }
 };
-export default {regist, signin};
+ 
+export default {regist, signin, contact};

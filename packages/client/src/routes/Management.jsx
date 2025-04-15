@@ -10,7 +10,7 @@ const Management = () => {
             <NavLink to='#'>
                 <button>주문관리</button>
             </NavLink>
-            <NavLink to='#'>
+            <NavLink to='usercare'>
                 <button>고객관리</button>
             </NavLink>
             <NavLink to='products'>

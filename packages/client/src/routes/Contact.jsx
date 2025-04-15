@@ -1,21 +1,88 @@
 import React from 'react';
-import { Col, Container, Row, Form } from 'react-bootstrap';
+import {useState} from 'react'
+import axios from 'axios';
+import Cookies from 'js-cookie'
+import { Col, Container, Row, Form, InputGroup } from 'react-bootstrap';
 
 
 
-const Contact = () => {
+function Contact  ()  {
+  const [validated , setValidated] = useState(false);
+  const [formData, setFormData] = useState({
+    contact_title:'',
+    contact_content:'',
+    contact_type:''
+  })
+
+  const handleChange = (e) => {
+    setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+    })
+}
+  
+  const handleClick = (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if(form.checkValidity() === false) {
+      event.stopPropagation();
+    }
+    setValidated(true);
+    const token = Cookies.get('NCF')
+    if(!token) {
+      alert("로그인후 이용해주세요!")
+      location.href='/signin'
+    }
+    axios.post('http://localhost:3000/users/contact', formData, {
+      withCredentials: true,
+      headers: {
+        'Content-type':'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    }).then((res) => {
+      if(res.status === 201){
+        location.href = '/'
+      }
+    }).catch((err) => console.error(err.message))
+  }
+
   return (
     <Container>
       <h2>고객문의</h2>
       <Form>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>제목</Form.Label>
-          <Form.Control type="email" placeholder="name@example.com" />
+          <Form.Control type="text"
+          onChange={handleChange}
+          
+          name="contact_title" />
         </Form.Group>
+<Form.Group>
+  <Form.Label>
+    <InputGroup>
+    <Form.Select
+    placeholder="문의유형"
+    required
+    name='contact_type'
+    value={formData.contact_type}
+    onChange={handleChange}
+>
+  <option value="">문의유형</option>
+  <option value="제품 문의">제품 문의</option>
+  <option value="반품">반품</option>
+  <option value="교환">교환</option>
+  <option value="환불">환불</option>
+  <option value="기타">기타</option>
+    </Form.Select>
+    </InputGroup>
+  </Form.Label>
+</Form.Group>
         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Example textarea</Form.Label>
-          <Form.Control as="textarea" rows={5} />
+          <Form.Label>내용</Form.Label>
+          <Form.Control as="textarea"  onChange={handleChange} rows={5}
+          name="contact_content" />
         </Form.Group>
+        <button onClick={handleClick} type='submit'  className='flex-end'>문의하기</button>
       </Form>
     </Container>
   );

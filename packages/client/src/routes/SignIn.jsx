@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col, Button, Form, Container } from 'react-bootstrap';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 
 function SignIn() {
   const [validated, setValidated] = useState(false);
@@ -10,6 +10,9 @@ function SignIn() {
     userid: '',
     userpwd: '',
   });
+
+  let navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({
       ...formData,

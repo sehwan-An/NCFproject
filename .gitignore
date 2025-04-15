@@ -1,1 +1,12 @@
 node_modules/
+*.env
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.psd 
+*.ai
+*.eps
+*.svg
