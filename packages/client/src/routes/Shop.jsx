@@ -56,40 +56,42 @@ const Shop = () => {
   }
   return (
     <Container className="my-4">
-        {products == '' && <h2 className="text-center">상품을 준비중입니다.</h2>}
-        {products !== '' &&
-          products.map((prod, i) => (
-            <Col key={i} className="text-center">
-              <NavLink to="item">
-                <ProductImageExample photo={prod.photo} index={i} />
-              </NavLink>
-              <NavLink to="item">
-                <p>{prod.productname}</p>
-              </NavLink>
-              <NavLink to="item">
-                <p>{prod.productprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원</p>
-              </NavLink>
-              {user.role == 'customer' && (
-                <div className="d-flex gap-2 align-items-center justify-content-center">
-                  <button className="btn btn-primary" onClick={() => orderProduct(prod)}>
-                    구매하기
-                  </button>
-                  <NavLink>
-                    <button onClick={() => cartProduct(prod)} className="btn btn-secondary">
-                      장바구니
+        <Row className='row-cols-12'>
+          {products == '' && <h2 className="text-center">상품을 준비중입니다.</h2>}
+          {products !== '' &&
+            products.map((prod, i) => (
+              <Col key={i} className="text-center py-2">
+                <NavLink to="item">
+                  <ProductImageExample photo={prod.photo} index={i} />
+                </NavLink>
+                <NavLink to="item">
+                  <p>{prod.productname}</p>
+                </NavLink>
+                <NavLink to="item">
+                  <p>{prod.productprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원</p>
+                </NavLink>
+                {user.role == 'customer' && (
+                  <div className="d-flex gap-2 align-items-center justify-content-center">
+                    <button className="btn btn-primary" onClick={() => orderProduct(prod)}>
+                      구매하기
                     </button>
-                  </NavLink>
-                </div>
-              )}
-              {user.role == 'admin' && (
-                <div>
-                  <button onClick={() => handleModify(prod)} className="btn btn-primary">
-                    수정하기
-                  </button>
-                </div>
-              )}
-            </Col>
-          ))}
+                    <NavLink>
+                      <button onClick={() => cartProduct(prod)} className="btn btn-secondary">
+                        장바구니
+                      </button>
+                    </NavLink>
+                  </div>
+                )}
+                {user.role == 'admin' && (
+                  <div>
+                    <button onClick={() => handleModify(prod)} className="btn btn-primary">
+                      수정하기
+                    </button>
+                  </div>
+                )}
+              </Col>
+            ))}
+        </Row>
     </Container>
   );
 };
