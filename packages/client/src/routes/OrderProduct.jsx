@@ -79,7 +79,7 @@ const OrderProduct = () => {
           <Col>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationCustom01">
+                <Form.Group as={Col} md="4" controlId="validationCustomName">
                   <Form.Label>제품명</Form.Label>
                   <Form.Control
                     required
@@ -91,7 +91,19 @@ const OrderProduct = () => {
                   />
                   <Form.Control.Feedback></Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustom02">
+                <Form.Group as={Col} md="4" controlId="validationCustomStock">
+                  <Form.Label>재고</Form.Label>
+                  <Form.Control
+                    required
+                    type="number"
+                    disabled
+                    name="stock"
+                    placeholder="stock"
+                    defaultValue={formData.stock}
+                  />
+                  <Form.Control.Feedback></Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group as={Col} md="4" controlId="validationCustomColor">
                   <Form.Label>제품색상</Form.Label>
                   <Form.Control
                     required
@@ -103,7 +115,7 @@ const OrderProduct = () => {
                   />
                   <Form.Control.Feedback></Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustomproductsize">
+                <Form.Group as={Col} md="4" controlId="validationCustomSize">
                   <Form.Label>제품사이즈</Form.Label>
                   <InputGroup hasValidation>
                     <Form.Select
@@ -124,7 +136,7 @@ const OrderProduct = () => {
                 </Form.Group>
               </Row>
               <Row className="mb-3">
-                <Form.Group as={Col} md="6" controlId="validationCustom04">
+                <Form.Group as={Col} md="6" controlId="validationCustomAddressf">
                   <Form.Label>주소</Form.Label>
                   <Form.Control
                     type="text"
@@ -136,7 +148,7 @@ const OrderProduct = () => {
                   />
                   <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="6" controlId="validationCustom05">
+                <Form.Group as={Col} md="6" controlId="validationCustomAddressb">
                   <Form.Label>상세주소</Form.Label>
                   <Form.Control
                     type="text"
