@@ -8,6 +8,10 @@ const cartSchema = mongoose.Schema(
       required: true,
     },
     products: {
+      id: {
+        type: String,
+        required: true,
+      },
       name: {
         type: String,
         ref: 'Product',
@@ -30,6 +34,9 @@ const cartSchema = mongoose.Schema(
         required: true,
       },
     },
+    photo: {
+        type: String,
+    }
   },
   { timestamps: true },
 );

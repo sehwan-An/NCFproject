@@ -63,9 +63,9 @@ export const modifyProduct = async (req, res) => {
 
 
 
-export const createProduct = async (req, res) => {
+export const createProduct = async (req, res, next) => {
   const { productname, productprice, productcolor, productsize, stock } = req.body;
-  console.log(req);
+  const photo = req.file
   try {
     const newProduct = new Product({
       productname,
@@ -73,6 +73,7 @@ export const createProduct = async (req, res) => {
       productcolor,
       productsize,
       stock,
+      photo: photo.path
     });
     await newProduct.save();
     res.status(201).json({
@@ -110,12 +111,14 @@ export const cartProduct = async (req, res) => {
     const cart = new Cart({
       orderuser: customer.username,
       products: {
+        id: product.productid,
         name: product.productname,
         quantity: 1,
         price: product.productprice,
         color: product.productcolor,
         size: product.productsize,
       },
+      photo: product.photo
     });
     await cart.save();
     res.status(201).json({
@@ -132,7 +135,6 @@ export const orderOneProduct = async (req, res) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    // console.log(product);
     const user = await User.findOne({ username: decoded.name });
     const dbProduct = await Product.findOne({productid: product.productid});
     if(!dbProduct) {
@@ -153,6 +155,7 @@ export const orderOneProduct = async (req, res) => {
       orderprice: product.productprice,
       ordercolor: product.productcolor,
       ordersize: product.productsize,
+      photo: product.photo,
     });
     let leftStock = dbProduct.stock -= 1;
     await dbProduct.save();
@@ -169,10 +172,7 @@ export const orderProducts = async (req, res) => {
   const product = req.body;
   const token = req.headers.authorization.split(' ')[1];
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  console.log(product);
-  // console.log(decoded);
   const user = await User.findOne({ username: decoded.name });
-  console.log(user);
   try {
     const newOrder = new Order({
       orderuser: user.username,
@@ -184,7 +184,6 @@ export const orderProducts = async (req, res) => {
       ordercolor: product.productcolor,
       ordersize: product.productsize,
     });
-    // console.log(newOrder)
     await newOrder.save();
     res.status(201).json({
       status: 'success',
@@ -218,14 +217,10 @@ export const getUserCart = async (req, res) => {
 };
 export const deleteFromCart = async (req, res) => {
   const itemid = req.params.id;
-  // console.log(id)
-  // console.log(req.headers.authorization)
   try {
     const token = req.headers.authorization.split(' ')[1];
     const user = jwt.verify(token, process.env.JWT_SECRET);
     const order = await Cart.findOne({ _id: itemid });
-    // console.log(order)
-    // console.log(user);
     if (order.orderuser !== user.name) {
       return res.status(401).json({
         status: 'reject',

@@ -5,12 +5,15 @@ import Cookies from 'js-cookie'
 import { Col, Container, Row } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router';
 import ProductImageExample from '../components/ProductImageExample';
+import { jwtDecode } from 'jwt-decode';
 
 
 const Shop = () => {
   const [products, setProducts] = useState(null);
   let navigate = useNavigate();
   let token = Cookies.get('NCF')
+  let user = jwtDecode(token)
+
   useEffect(() => {
     axios
       .get('http://localhost:3000/api/products', {
@@ -40,11 +43,15 @@ const Shop = () => {
           }
         }).then((res) => {
           // console.log(res)
+          alert('저장 성공!')
         })
       }
     } catch (e) {
       console.error(e.message);
     }
+  }
+  function handleModify(prod) {
+    navigate(`/manage/products/${prod.productid}`)
   }
   return (
     <Container className="my-4">
@@ -53,7 +60,7 @@ const Shop = () => {
           products.map((prod, i) => (
             <Col key={i} className="text-center">
               <NavLink to="item">
-                <ProductImageExample index={i} />
+                <ProductImageExample photo={prod.photo} index={i} />
               </NavLink>
               <NavLink to="item">
                 <p>{prod.productname}</p>
@@ -61,6 +68,7 @@ const Shop = () => {
               <NavLink to="item">
                 <p>{prod.productprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 원</p>
               </NavLink>
+              {user.role == 'customer' && 
               <div className="d-flex gap-2 align-items-center justify-content-center">
                 <button className="btn btn-primary" onClick={() => orderProduct(prod)}>
                   구매하기
@@ -70,7 +78,13 @@ const Shop = () => {
                     장바구니
                   </button>
                 </NavLink>
+              </div>}
+              {user.role == 'admin' &&
+              <div>
+                <button onClick={() => handleModify(prod)}
+                className="btn btn-primary">수정하기</button>
               </div>
+              }
             </Col>
           ))}
       </Row>

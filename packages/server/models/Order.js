@@ -43,6 +43,9 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    photo: {
+      type: String
+    }
   },
   { timestamps: true },
 );

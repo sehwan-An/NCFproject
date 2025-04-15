@@ -1,8 +1,8 @@
 import React from 'react'
 
-const ProductImageExample = ({index, text}) => {
+const ProductImageExample = ({text, photo}) => {
   return (
-    <img src={`https://picsum.photos/id/${index}/200/250`} alt={`${text}`} />
+    <img src={`http://localhost:3000/${photo}`} alt={`${text}`} />
   )
 }
 

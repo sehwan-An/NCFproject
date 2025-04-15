@@ -5,6 +5,7 @@ import axios from 'axios';
 
 function AddProduct() {
   const [validated, setValidated] = useState(false);
+  const [photo, setPhoto] = useState(null);
   const [formData, setFormData] = useState({
     productname: '',
     productprice: '',
@@ -14,13 +15,18 @@ function AddProduct() {
   });
 
   let navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+    setPhoto({
+      [e.target.name]: e.target.files[0],
+    });
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
@@ -28,14 +34,23 @@ function AddProduct() {
     }
 
     setValidated(true);
-    axios
-      .post('http://localhost:3000/api/product', formData, {
+
+    const data = new FormData();
+    data.append('productname', formData.productname);
+    data.append('productprice', formData.productprice);
+    data.append('productcolor', formData.productcolor);
+    data.append('productsize', formData.productsize);
+    data.append('stock', formData.stock);
+    data.append('photo', photo.photo);
+
+    await axios
+      .post('http://localhost:3000/api/product', data, {
         withCredentials: true,
       })
       .then((res) => {
-        // console.log(res);
+        console.log(res);
         alert('등록완료!');
-        navigate('/manage/products');
+        // navigate('/manage/products');
       })
       .catch((err) => {
         console.log(err);
@@ -44,7 +59,13 @@ function AddProduct() {
 
   return (
     <Container className="w-50 my-4">
-      <Form noValidate validated={validated} onSubmit={handleSubmit} autoComplete="off">
+      <Form
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+        autoComplete="off"
+        encType="multipart/form-data"
+      >
         <Row className="mb-3">
           <Form.Group as={Col} md="12" controlId="validationCustomName">
             <Form.Label>제품명</Form.Label>
@@ -124,15 +145,15 @@ function AddProduct() {
             />
             <Form.Control.Feedback type="invalid">수량을 입력해주세요</Form.Control.Feedback>
           </Form.Group>
-          {/* <Form.Group as={Col} md="12" controlId="validationCustom05">
-              <Form.Label>이미지</Form.Label>
-              <Form.Control type="file" placeholder="이미지" />
-            </Form.Group> */}
+          <Form.Group as={Col} md="12" controlId="validationCustom05">
+            <Form.Label>이미지</Form.Label>
+            <Form.Control type="file" name="photo" onChange={handleChange} />
+          </Form.Group>
         </Row>
         <div className="d-flex gap-3 justify-content-center">
           <Button type="submit">등록</Button>
           <NavLink to="/">
-            <Button variant='danger'>취소</Button>
+            <Button variant="danger">취소</Button>
           </NavLink>
         </div>
       </Form>
