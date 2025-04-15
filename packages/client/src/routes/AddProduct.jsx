@@ -50,7 +50,7 @@ function AddProduct() {
       .then((res) => {
         console.log(res);
         alert('등록완료!');
-        // navigate('/manage/products');
+        navigate('/manage/products');
       })
       .catch((err) => {
         console.log(err);
