@@ -21,7 +21,7 @@ function Contact  ()  {
     })
 }
   
-  const handleClick = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     if(form.checkValidity() === false) {
@@ -49,7 +49,7 @@ function Contact  ()  {
   return (
     <Container>
       <h2>고객문의</h2>
-      <Form>
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>제목</Form.Label>
           <Form.Control type="text"
@@ -57,6 +57,7 @@ function Contact  ()  {
           
           name="contact_title" />
         </Form.Group>
+        
 <Form.Group>
   <Form.Label>
     <InputGroup>
@@ -82,7 +83,7 @@ function Contact  ()  {
           <Form.Control as="textarea"  onChange={handleChange} rows={5}
           name="contact_content" />
         </Form.Group>
-        <button onClick={handleClick} type='submit'  className='flex-end'>문의하기</button>
+        <button type='submit'  className='flex-end'>문의하기</button>
       </Form>
     </Container>
   );
