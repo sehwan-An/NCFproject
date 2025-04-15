@@ -11,6 +11,7 @@ function AddProduct() {
     productcolor: '',
     productsize: '',
     stock: '',
+    photo: '',
   });
 
   let navigate = useNavigate();
@@ -44,7 +45,13 @@ function AddProduct() {
 
   return (
     <Container className="w-50 my-4">
-      <Form noValidate validated={validated} onSubmit={handleSubmit} autoComplete="off">
+      <Form
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+        autoComplete="off"
+        encType="multipart/form-data"
+      >
         <Row className="mb-3">
           <Form.Group as={Col} md="12" controlId="validationCustomName">
             <Form.Label>제품명</Form.Label>
@@ -124,15 +131,15 @@ function AddProduct() {
             />
             <Form.Control.Feedback type="invalid">수량을 입력해주세요</Form.Control.Feedback>
           </Form.Group>
-          {/* <Form.Group as={Col} md="12" controlId="validationCustom05">
+          <Form.Group as={Col} md="12" controlId="validationCustom05">
               <Form.Label>이미지</Form.Label>
-              <Form.Control type="file" placeholder="이미지" />
-            </Form.Group> */}
+              <Form.Control type="file" name='photo' />
+            </Form.Group>
         </Row>
         <div className="d-flex gap-3 justify-content-center">
           <Button type="submit">등록</Button>
           <NavLink to="/">
-            <Button variant='danger'>취소</Button>
+            <Button variant="danger">취소</Button>
           </NavLink>
         </div>
       </Form>

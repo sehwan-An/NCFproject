@@ -63,8 +63,8 @@ export const modifyProduct = async (req, res) => {
 
 
 
-export const createProduct = async (req, res) => {
-  const { productname, productprice, productcolor, productsize, stock } = req.body;
+export const createProduct = async (req, res, next) => {
+  const { productname, productprice, productcolor, productsize, stock, photo } = req.body;
   console.log(req);
   try {
     const newProduct = new Product({
