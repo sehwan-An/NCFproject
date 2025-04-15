@@ -16,11 +16,11 @@ const BodyNewShow = ({ products }) => {
           </Col>
         </Row>
       )}
-      <Row className="my-3 gap-5 d-flex align-items-center justify-content-around">
+      <Row className="row-cols-12 my-3 align-items-center">
         {products &&
           products.map((prod, i) => {
             return (
-              <Col xs={3} sm={3} md={2} className="posi-rel" key={i}>
+              <Col md={3} className="posi-rel" key={i}>
                 <ProductImageExample photo={prod.photo} text='photo' />
                 <span className="new-items posi-ab">New!</span>
               </Col>
