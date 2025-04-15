@@ -64,8 +64,10 @@ export const modifyProduct = async (req, res) => {
 
 
 export const createProduct = async (req, res, next) => {
-  const { productname, productprice, productcolor, productsize, stock, photo } = req.body;
-  console.log(req);
+  const { productname, productprice, productcolor, productsize, stock } = req.body;
+  const photo = req.file
+  // console.log(req.body);
+  // console.log(photo)
   try {
     const newProduct = new Product({
       productname,
@@ -73,7 +75,9 @@ export const createProduct = async (req, res, next) => {
       productcolor,
       productsize,
       stock,
+      photo: photo.path
     });
+    // console.log(newProduct)
     await newProduct.save();
     res.status(201).json({
       status: 'succes',

@@ -1,8 +1,16 @@
 import express from 'express';
 import * as productController from '../controllers/product.controllers.js'
 const router = express.Router();
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
+import multer from 'multer'
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now()+file.fieldname+'-'+file.originalname)
+    }
+})
+const upload = multer({storage: storage})
 
 
 router.get('/products', productController.getProducts);

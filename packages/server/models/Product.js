@@ -29,11 +29,10 @@ const productSchema = mongoose.Schema(
     stock: {
         type: Number,
         require: true
-    }/* ,
-    productimage: {
-        data:Buffer,
-        type:String
-    } */
+    },
+    photo: {
+        type: String,
+    }
   },
   { timestamps: true },
 );

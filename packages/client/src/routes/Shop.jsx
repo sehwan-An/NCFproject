@@ -53,7 +53,7 @@ const Shop = () => {
           products.map((prod, i) => (
             <Col key={i} className="text-center">
               <NavLink to="item">
-                <ProductImageExample index={i} />
+                <ProductImageExample photo={prod.photo} index={i} />
               </NavLink>
               <NavLink to="item">
                 <p>{prod.productname}</p>

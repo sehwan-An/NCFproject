@@ -65,7 +65,7 @@ const Products = () => {
             products.map((prod, i) => (
               <Col className="col-3" key={i}>
                 <p>{prod.productname}</p>
-                <ProductImageExample text={prod.productname} index={i} />
+                <ProductImageExample text={prod.productname} photo={prod.photo} index={i} />
                 <div className="d-flex justify-content-center  gap-3 my-2">
                     <Button onClick={() => handleModify(prod.productid)}>수정</Button>
                   <Button variant='danger' onClick={() => handleDelete(prod.productid)}>삭제</Button>

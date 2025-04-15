@@ -17,7 +17,7 @@ app.use(cors({
 app.use('/', indexRouter)
 app.use('/users', userRouter)
 app.use('/api', productRouter)
-
+app.use('/uploads', express.static('uploads'));
 
 import connect from './schemas/index.js'
 import indexRouter from './routes/index.js'
