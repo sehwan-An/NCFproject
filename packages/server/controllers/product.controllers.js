@@ -232,3 +232,20 @@ export const deleteFromCart = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+export const orderHistory = async (req, res) => {
+  const requser = req.headers.userid;
+  if (!requser) {
+    return res.status(401).json({
+      message: '잘못된 유저 정보입니다.',
+    });
+  }
+  try {
+    const user = await User.findOne({ _id: requser });
+    const username = user.username;
+    const userorder = await Order.find({ orderuser: username });
+    res.status(201).json(userorder);
+  } catch (e) {
+    console.log(e);
+  }
+}

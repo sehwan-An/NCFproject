@@ -25,6 +25,8 @@ router.post('/cart', productController.cartProduct)
 router.post('/cart/:id', productController.orderOneProduct)
 router.post('/cart', productController.orderProducts)
 
+router.get('/order/:id', productController.orderHistory)
+
 
 
 
