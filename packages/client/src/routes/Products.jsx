@@ -58,7 +58,14 @@ const Products = () => {
 
   return (
     <>
-      <h2 className="text-center">상품관리</h2>
+      <Container>
+        <h2 className="text-center">상품관리</h2>
+        <div className="text-end">
+          <Link to="/addproduct">
+            <Button>상품등록</Button>
+          </Link>
+        </div>
+      </Container>
       <Container className="text-center my-2 gap-3">
         <Row className="row-cols-12">
           {products &&
@@ -78,11 +85,7 @@ const Products = () => {
             ))}
         </Row>
       </Container>
-      <div className="text-center">
-        <Link to="/addproduct">
-          <Button>상품등록</Button>
-        </Link>
-      </div>
+      
     </>
   );
 };
