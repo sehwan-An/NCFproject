@@ -8,11 +8,6 @@ import jwt from 'jsonwebtoken';
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
-    if (products.length < 1) {
-      res.status(500).json({
-        message: '데이터가 없습니다.',
-      });
-    }
     res.status(201).json(products);
   } catch (e) {
     console.log(e);
@@ -34,14 +29,11 @@ export const getProduct = async (req, res) => {
   }
 };
 export const modifyProduct = async (req, res) => {
-  const { productid, productname, productprice, productcolor, productsize, stock } = req.body;
+  const { productname, productprice, productcolor, productsize, stock } = req.body;
   console.log(req.body);
   const uuid = req.params.id;
-  const token = req.headers.authorization.split(' ')[1];
   try {
     const modifyProduct = await Product.findOne({ productid: uuid });
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(modifyProduct);
     if (!modifyProduct) {
       return res.status(401).json({
         message: '올바른 요청이 아닙니다.',
@@ -51,7 +43,7 @@ export const modifyProduct = async (req, res) => {
     modifyProduct.productprice = productprice;
     modifyProduct.productcolor = productcolor;
     modifyProduct.productsize = productsize;
-    modifyProduct.stock = stock
+    modifyProduct.stock = stock;
     await modifyProduct.save();
     res.status(201).json({
       message: '업데이트가 완료되었습니다.',
@@ -61,11 +53,9 @@ export const modifyProduct = async (req, res) => {
   }
 };
 
-
-
 export const createProduct = async (req, res, next) => {
   const { productname, productprice, productcolor, productsize, stock } = req.body;
-  const photo = req.file
+  const photo = req.file;
   try {
     const newProduct = new Product({
       productname,
@@ -73,7 +63,7 @@ export const createProduct = async (req, res, next) => {
       productcolor,
       productsize,
       stock,
-      photo: photo.path
+      photo: photo.path,
     });
     await newProduct.save();
     res.status(201).json({
@@ -118,7 +108,7 @@ export const cartProduct = async (req, res) => {
         color: product.productcolor,
         size: product.productsize,
       },
-      photo: product.photo
+      photo: product.photo,
     });
     await cart.save();
     res.status(201).json({
@@ -136,13 +126,13 @@ export const orderOneProduct = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findOne({ username: decoded.name });
-    const dbProduct = await Product.findOne({productid: product.productid});
-    if(!dbProduct) {
+    const dbProduct = await Product.findOne({ productid: product.productid });
+    if (!dbProduct) {
       return res.status(404).json({
         message: '상품을 찾을 수 없습니다!',
       });
     }
-    if(dbProduct.stock < 1) {
+    if (dbProduct.stock < 1) {
       return res.status(404).json({
         message: '재고가 부족합니다.',
       });
@@ -157,7 +147,7 @@ export const orderOneProduct = async (req, res) => {
       ordersize: product.productsize,
       photo: product.photo,
     });
-    let leftStock = dbProduct.stock -= 1;
+    let leftStock = (dbProduct.stock -= 1);
     await dbProduct.save();
     await newOrder.save();
     res.status(201).json({
@@ -202,11 +192,9 @@ export const getUserCart = async (req, res) => {
     });
   }
   try {
-
-    const user = await User.findOne({_id: requser})
-    const username = user.username
+    const user = await User.findOne({ _id: requser });
+    const username = user.username;
     const usercart = await Cart.find({ orderuser: username });
-    // console.log(usercart);
     res.status(201).json({
       message: '장바구니 조회성공',
       data: usercart,

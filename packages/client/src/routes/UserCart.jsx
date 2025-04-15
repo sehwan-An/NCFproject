@@ -24,6 +24,12 @@ const UserCart = () => {
       })
       .then((res) => {
         // console.log(res.data.data);
+        if (res.data.length < 1) {
+          return res.status(404).json({
+            status: 'fail',
+            message: '카트에 물건이 존재하지 않음',
+          });
+        }
         setCarts(res.data.data);
       })
       .catch((res) => {
@@ -67,38 +73,46 @@ const UserCart = () => {
               <h2 className="text-center">장바구니</h2>
             </Col>
           </Row>
+          {carts.length < 1 && (
+            <h2 className="text-center">장바구니에 물품이 존재하지 않습니다.</h2>
+          )}
           <Row className="row-cols-4 my-4">
-            {!carts && <h2 className='text-center'>장바구니에 물품이 존재하지 않습니다.</h2>}
-            {carts && carts.map((cart, i) => (
-              <Col key={i}>
-                <div className="cart-box">
-                  <div className='cart-image'>
-                    <ProductImageExample photo={cart.photo} text='photo' />
+            {carts.length > 0 &&
+              carts.map((cart, i) => (
+                <Col key={i}>
+                  <div className="cart-box">
+                    <div className="cart-image">
+                      <ProductImageExample photo={cart.photo} text="photo" />
+                    </div>
+                    <p>제품명 : {cart.products.name}</p>
+                    <p>
+                      제품가 :{' '}
+                      {cart.products.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    </p>
                   </div>
-                  <p>제품명 : {cart.products.name}</p>
-                  <p>
-                    제품가 : {cart.products.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  </p>
-                </div>
-                <Button variant="danger" onClick={() => handleDelete(cart._id)}>
-                  제거
-                </Button>
-              </Col>
-            ))}
+                  <Button variant="danger" onClick={() => handleDelete(cart._id)}>
+                    제거
+                  </Button>
+                </Col>
+              ))}
           </Row>
-          <Row className="text-center">
-            <Col>
-              <h4>장바구니 수 : {carts.length}</h4>
-            </Col>
-            <Col>
-              <h4>총 가격 : </h4>
-            </Col>
-          </Row>
-          <Row className="text-center">
-            <Col>
-              <Button type="submit">주문하기</Button>
-            </Col>
-          </Row>
+          {carts.length > 0 && (
+            <>
+              <Row className="text-center">
+                <Col>
+                  <h4>장바구니 수 : {carts.length}</h4>
+                </Col>
+                <Col>
+                  <h4>총 가격 : </h4>
+                </Col>
+              </Row>
+              <Row className="text-center">
+                <Col>
+                  <Button type="submit">주문하기</Button>
+                </Col>
+              </Row>
+            </>
+          )}
         </Form>
       </Container>
     </>
