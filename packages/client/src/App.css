@@ -97,3 +97,7 @@ a {
   box-sizing: border-box;
   overflow: hidden;
 }
+.order-box p {
+  padding: 0;
+  margin: 0;
+}
