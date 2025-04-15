@@ -14,6 +14,7 @@ import Products from './routes/Products.jsx';
 import ProductModify from './routes/ProductModify.jsx';
 import UserCare from './routes/UserCare.jsx';
 import UserCart from './routes/UserCart.jsx';
+import UserOrder from './routes/UserOrder.jsx';
 import OrderProduct from './routes/OrderProduct.jsx';
 import UserPage from './routes/UserPage.jsx';
 
@@ -38,7 +39,8 @@ const App = () => {
           <Route path="addproduct" element={<AddProduct />} />
           <Route path="order/:id" element={<OrderProduct />} />
           <Route path="user" element={<UserPage />} />
-          <Route path="cart/:id" element={<UserCart />} />
+          <Route path="usercart/:id" element={<UserCart />} />
+          <Route path="userorder/:id" element={<UserOrder />} />
         </Route>
       </Routes>
     </>
