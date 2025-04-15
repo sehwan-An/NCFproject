@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import '../App.css';
 import ProductImageExample from './ProductImageExample';
-const BodyNewShow = ({ prods }) => {
-    const [products, setProducts] = useState({
-        path: '',
-    });
-    setProducts(prods)
+const BodyNewShow = ({ products }) => {
   return (
     <>
       {!products && <h2>이미지 공사중...</h2>}
@@ -21,15 +17,15 @@ const BodyNewShow = ({ prods }) => {
         </Row>
       )}
       <Row className="my-3 gap-5 d-flex align-items-center justify-content-around">
-        {/* {products &&
+        {products &&
           products.map((prod, i) => {
             return (
               <Col xs={3} sm={3} md={2} className="posi-rel" key={i}>
-                <ProductImageExample path={prod.path} />
+                <ProductImageExample photo={prod.photo} text='photo' />
                 <span className="new-items posi-ab">New!</span>
               </Col>
             );
-          })} */}
+          })}
       </Row>
     </>
   );

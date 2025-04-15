@@ -17,14 +17,12 @@ function HomeBody() {
         .then((res) => {
           // console.log(res)
           setProducts(res.data);
-          // console.log(products)
         })
         .catch((err) => console.log(err));
     } catch (e) {
       console.log(e);
     }
   }, [])
-  // console.log(products)
   return (
     <>
       <Container className="my-3">
