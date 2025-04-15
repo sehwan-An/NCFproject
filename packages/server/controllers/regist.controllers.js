@@ -72,7 +72,10 @@ const signin = async (req, res) => {
     }
     const isMatch = bcrypt.compareSync(userpwd, user.userpwd);
     if (!isMatch) {
-      alert('잘못된 비밀번호 입니다.');
+      return res.status(401).json({
+        status: 'fail',
+        message: '잘못된 비밀번호 입니다.'
+      })
     }
 
     const userInfo = {
