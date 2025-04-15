@@ -12,7 +12,7 @@ uuid:{
 contact_type:{
     type:String,
     required:true,
-    enum:['제품문의','반품','교환','환불','기타']
+    enum:['제품 문의','반품','교환','환불','기타']
 },
 contact_title:{
     type:String,
@@ -23,14 +23,15 @@ contact_content:{
     type:String,
     required:true
 },
-guest:{
+author:{
     type: mongoose.Schema.Types.ObjectId,
     ref:'User',
     required:true
 }
 
 
-    }
+    },
+    {tiemstamps:true}
 )
 usercontactSchema.pre('save', async function(next){
     next();
