@@ -45,6 +45,7 @@ function convertDate(date){
                         <th>문의내역</th>
                         <th>작성자</th>
                         <th>작성일</th>
+                        <th>처리상태</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,7 +54,7 @@ function convertDate(date){
                     <tr>
                         <td>{post.contact_title}</td>
                         <td>{post.contact_type}</td>
-                        <td></td>
+                        <td>{post._id}</td>
                         <td>{convertDate(post.createdAt)}</td>
                     </tr>
                    ))}
