@@ -8,7 +8,7 @@ import ProductImageExample from '../components/ProductImageExample';
 import { jwtDecode } from 'jwt-decode';
 
 const Shop = () => {
-  const [products, setProducts] = useState(null);
+  const [products, setProducts] = useState([]);
   let navigate = useNavigate();
   let token = Cookies.get('NCF');
   let user = jwtDecode(token);
@@ -56,7 +56,6 @@ const Shop = () => {
   }
   return (
     <Container className="my-4">
-      <Row>
         {products == '' && <h2 className="text-center">상품을 준비중입니다.</h2>}
         {products !== '' &&
           products.map((prod, i) => (
@@ -91,7 +90,6 @@ const Shop = () => {
               )}
             </Col>
           ))}
-      </Row>
     </Container>
   );
 };
