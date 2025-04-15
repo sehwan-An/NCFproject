@@ -66,9 +66,13 @@ const Products = () => {
               <Col className="col-3" key={i}>
                 <p>{prod.productname}</p>
                 <ProductImageExample text={prod.productname} photo={prod.photo} index={i} />
+                <p>가격 : {prod.productprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
+                <p>재고 : {prod.stock}</p>
                 <div className="d-flex justify-content-center  gap-3 my-2">
-                    <Button onClick={() => handleModify(prod.productid)}>수정</Button>
-                  <Button variant='danger' onClick={() => handleDelete(prod.productid)}>삭제</Button>
+                  <Button onClick={() => handleModify(prod.productid)}>수정</Button>
+                  <Button variant="danger" onClick={() => handleDelete(prod.productid)}>
+                    삭제
+                  </Button>
                 </div>
               </Col>
             ))}
