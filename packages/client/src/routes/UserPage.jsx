@@ -19,10 +19,10 @@ const UserPage = () => {
     }
   }, []);
   const NaviCart = () => {
-    navigate(`/cart/${userInfo._id}`);
+    navigate(`/usercart/${userInfo._id}`);
   };
   const NaviOrderHistory = () => {
-    navigate(`/order/${userInfo._id}`);
+    navigate(`/userorder/${userInfo._id}`);
   };
   return (
     <>
