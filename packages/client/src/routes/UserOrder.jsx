@@ -36,7 +36,7 @@ const UserOrder = () => {
           {orders.map((order, i) => {
             return (
               <>
-                <Col>
+                <Col key={i}>
                   <div>
                     <ProductImageExample photo={order.photo} text='photo' />
                   </div>
@@ -49,7 +49,7 @@ const UserOrder = () => {
                     <p>제품가 : {order.orderprice}</p>
                     <p>색상 : {order.ordercolor}</p>
                     <p>배송지 : {order.orderaddress}</p>
-                    <p>주문일시 : {order.createdAt.split('T')}</p>
+                    <p>주문일시 : {order.createdAt.split('T')[0]}</p>
                   </div>
                 </Col>
               </>
