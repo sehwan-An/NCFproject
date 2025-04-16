@@ -52,14 +52,14 @@ const OrderProduct = () => {
     try {
       if(confirm('주문하시겠습니까?')){
         axios
-        .post(`http://localhost:3000/api/cart/${params.id}`, formData, {
+        .post(`http://localhost:3000/api/order/${params.id}`, formData, {
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           alert('주문이 완료되었습니다.');
           navigate('/shop')
         });
