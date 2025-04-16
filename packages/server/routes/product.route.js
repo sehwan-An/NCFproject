@@ -22,10 +22,10 @@ router.delete('/product/:id', productController.deleteProduct)
 router.delete('/cart/:id', productController.deleteFromCart)
 router.get('/carts/:id', productController.getUserCart)
 router.post('/cart', productController.cartProduct)
-router.post('/cart/:id', productController.orderOneProduct)
-router.post('/cart', productController.orderProducts)
 
 router.get('/order/:id', productController.orderHistory)
+router.post('/cartorder', productController.cartOrder)
+router.post('/order/:id', productController.orderOneProduct)
 
 
 
