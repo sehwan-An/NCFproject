@@ -24,22 +24,7 @@ const orderSchema = mongoose.Schema(
       type: String,
       required: true,
       default: 1,
-    },
-    orderprice: {
-      type: String,
-      required: true,
-    },
-    ordercolor: {
-      type: String,
-      required: true,
-    },
-    ordersize: {
-      type: String,
-      required: true,
-    },
-    photo: {
-      type: String,
-    },
+    }
   },
   { timestamps: true },
 );
