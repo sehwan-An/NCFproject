@@ -38,7 +38,7 @@ const regist = async (req, res) => {
 };
 
  const createContact = async (req,res) => {
-  const { contact_title, contact_type, contact_content,  } = req.body;
+  const { contact_title, contact_type, contact_content, contact_status } = req.body;
   console.log(req);
   const authorization=req.headers.authorization.split(' ')[1]
 if(!authorization){
@@ -53,6 +53,8 @@ await ContactModel.create({
   contact_title,
   contact_type,
   contact_content,
+  contact_status,
+  userid: decode.id,
   author:decode._id})
 console.log(ContactModel)
 res.status(201).json({
@@ -65,18 +67,6 @@ res.status(201).json({
   catch(err){
     console.log(err)
   }
-}
-
-function convertDate(date){ 
-  if (!date) return '날짜 없음';
-  const d = new Date(date);
-  if (isNaN(d)) return '유효하지 않음';
-  
-  return d.toLocaleDateString('ko-KR', {
-      year: '2-digit',
-      month: '2-digit',
-      day: '2-digit',
-  }).replaceAll(',','').replaceAll(' ','-');
 }
 
 const readContact = async (req,res) => {
@@ -98,6 +88,17 @@ const readContact = async (req,res) => {
   }
 }
 
+// function convertDate(date){ 
+//   if (!date) return '날짜 없음';
+//   const d = new Date(date);
+//   if (isNaN(d)) return '유효하지 않음';
+  
+//   return d.toLocaleDateString('ko-KR', {
+//       year: '2-digit',
+//       month: '2-digit',
+//       day: '2-digit',
+//   }).replaceAll(',','').replaceAll(' ','-');
+// }
 
 const signin = async (req, res) => {
   const { userid, userpwd } = req.body;
@@ -141,4 +142,4 @@ const signin = async (req, res) => {
   }
 };
  
-export default {regist, signin, createContact, readContact, convertDate};
+export default {regist, signin, createContact, readContact};
