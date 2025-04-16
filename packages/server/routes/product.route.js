@@ -26,6 +26,7 @@ router.post('/cart', productController.cartProduct)
 router.get('/order/:id', productController.orderHistory)
 router.post('/cartorder', productController.cartOrder)
 router.post('/order/:id', productController.orderOneProduct)
+router.delete('/order/:id', productController.deleteOrder)
 
 
 
