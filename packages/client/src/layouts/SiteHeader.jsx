@@ -18,7 +18,7 @@ const SiteHeader = ({ userInfo, Logout }) => {
                   <>
                     <p>{userInfo.name}님 환영합니다.</p>
                     <Button onClick={Logout}>로그아웃</Button>
-                    <NavLink to="user">
+                    <NavLink to={`user/${userInfo._id}`}>
                       <p>마이페이지</p>
                     </NavLink>
                   </>
