@@ -4,16 +4,16 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Container, Row, Col, Button, Modal, Form } from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { useParams, useNavigate } from 'react-router'
+import { useParams, useNavigate } from 'react-router';
 const UserCare = () => {
   const [posts, setPosts] = useState(null);
-  let params = useParams()
-console.log(params)
-  let navigate= useNavigate()
+  let params = useParams();
+  console.log(params);
+  let navigate = useNavigate();
 
   useEffect(() => {
     const token = Cookies.get('NCF');
-    
+
     if (!token) {
       alert('환영합니다.');
     }
@@ -41,8 +41,8 @@ console.log(params)
       .replaceAll(',', '')
       .replaceAll(' ', '-');
   }
-  function goAnswer(id){
-    navigate(`/AdminAnswer/${id}`)
+  function goAnswer(id) {
+    navigate(`/AdminAnswer/${id}`);
   }
 
   return (
@@ -70,8 +70,8 @@ console.log(params)
                     <td>{convertDate(post.createdAt)}</td>
                     <td>
                       {post.contact_status}
-                      <span onClick={()=> goAnswer(post._id)}>
-                       <i class="bi bi-pen"></i>
+                      <span onClick={() => goAnswer(post._id)}>
+                        <i class="bi bi-pen"></i>
                       </span>
                     </td>
                   </tr>
