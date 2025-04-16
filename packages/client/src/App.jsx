@@ -15,7 +15,7 @@ import ProductModify from './routes/ProductModify.jsx';
 import UserCare from './routes/UserCare.jsx';
 import UserCart from './routes/UserCart.jsx';
 import OrderProduct from './routes/OrderProduct.jsx';
-
+import AdminAnswer from './routes/AdminAnswer.jsx';
 
 const App = () => {
   return (
@@ -35,6 +35,7 @@ const App = () => {
             <Route path="products" element={<Products />} />
             <Route path='products/:id' element={<ProductModify />} />
           </Route>
+            <Route path='adminanswer/:id' element={<AdminAnswer />}/>
           <Route path="addproduct" element={<AddProduct />} />
           <Route path="order/:id" element={<OrderProduct />} />
           <Route path="cart/:id" element={<UserCart />} />
