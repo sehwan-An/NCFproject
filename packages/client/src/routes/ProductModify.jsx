@@ -72,7 +72,7 @@ const ProductModify = () => {
             },
           })
           .then((res) => {
-            console.log(res);
+            // console.log(res);
             alert('수정이 완료되었습니다.');
             navigate('/manage/products');
           })
