@@ -65,15 +65,15 @@ const UserOrder = () => {
             return (
               <Col key={i} className="border border-success rounded-1 border-opacity-50 p-2 m-2">
                 <div className="text-center">
-                  <ProductImageExample photo={order.photo} text="photo" />
+                  <ProductImageExample photo={order.orderproducts.photo} text="photo" />
                 </div>
                 <div className="order-box">
                   <p>주문번호 : {order.ordernumber}</p>
-                  <p>주문제품 : {order.orderproducts.name}</p>
+                  <p>주문제품 : {order.orderproducts.productname}</p>
                   <p>주문 수량 : {order.ordercount}</p>
-                  <p>제품 사이즈 : {order.ordersize}</p>
-                  <p>제품가 : {order.orderprice}</p>
-                  <p>색상 : {order.ordercolor}</p>
+                  <p>제품 사이즈 : {order.orderproducts.productsize}</p>
+                  <p>제품가 : {order.orderproducts.productprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
+                  <p>색상 : {order.orderproducts.productcolor}</p>
                   <p>배송지 : {order.orderaddress}</p>
                   <p>주문일시 : {order.createdAt.split('T')[0]}</p>
                 </div>
