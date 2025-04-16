@@ -8,10 +8,10 @@ import jwt from 'jsonwebtoken';
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
-    if(!products) {
+    if (!products) {
       return res.status(500).json({
-        message: '상품을 찾을 수 없음.'
-      })
+        message: '상품을 찾을 수 없음.',
+      });
     }
     res.status(201).json(products);
   } catch (e) {
@@ -143,7 +143,7 @@ export const orderOneProduct = async (req, res) => {
       });
     }
     const newOrder = new Order({
-      orderuser: user.username,
+      orderuser: user._id,
       orderphone: user.userphone,
       orderaddress: `${product.addressf} ${product.addressb}`,
       orderproducts: product.productname,
@@ -163,27 +163,28 @@ export const orderOneProduct = async (req, res) => {
     console.log(e);
   }
 };
-export const orderProducts = async (req, res) => {
-  const product = req.body;
-  const token = req.headers.authorization.split(' ')[1];
-  const decoded = jwt.verify(token, process.env.JWT_SECRET);
-  const user = await User.findOne({ username: decoded.name });
+export const cartOrder = async (req, res) => {
+  const products = req.body;
+  console.log(products);
+  // const token = req.headers.authorization.split(' ')[1];
+  // const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  // const user = await User.findOne({ username: decoded.name });
   try {
-    const newOrder = new Order({
-      orderuser: user.username,
-      orderphone: user.userphone,
-      orderaddress: `${product.addressf} ${product.addressb}`,
-      orderproducts: product.productname,
-      ordercount: 1,
-      orderprice: product.productprice,
-      ordercolor: product.productcolor,
-      ordersize: product.productsize,
-    });
-    await newOrder.save();
-    res.status(201).json({
-      status: 'success',
-      message: '주문이 완료되었습니다.',
-    });
+    // const newOrder = new Order({
+    //   orderuser: user._id
+    //   orderphone: user.userphone,
+    //   orderaddress: `${product.addressf} ${product.addressb}`,
+    //   orderproducts: product.productname,
+    //   ordercount: 1,
+    //   orderprice: product.productprice,
+    //   ordercolor: product.productcolor,
+    //   ordersize: product.productsize,
+    // });
+    // await newOrder.save();
+    // res.status(201).json({
+    //   status: 'success',
+    //   message: '주문이 완료되었습니다.',
+    // });
   } catch (e) {
     console.log(e);
   }
@@ -237,15 +238,28 @@ export const orderHistory = async (req, res) => {
   const requser = req.headers.userid;
   if (!requser) {
     return res.status(401).json({
-      message: '잘못된 유저 정보입니다.',
+      message: '잘못된 요청입니다.',
     });
   }
   try {
     const user = await User.findOne({ _id: requser });
+    if (!user) {
+      return res.status(404).json({
+        message: '사용자를 찾을 수 없습니다.',
+      });
+    }
+    const userid = user._id;
     const username = user.username;
-    const userorder = await Order.find({ orderuser: username });
-    res.status(201).json(userorder);
+    // console.log('사용자 ID : ',userid)
+    // console.log('타입 ', typeof userid)
+
+    const userorder = await Order.find().populate('orderuser', 'username');
+    const filteredOrders = userorder.filter((order) =>  order.orderuser._id.toString() === userid.toString())
+
+    // console.log('주문내역', userorder);
+    // console.log('필터', filteredOrders);
+    res.status(201).json(filteredOrders);
   } catch (e) {
     console.log(e);
   }
-}
+};

@@ -9,13 +9,8 @@ const orderSchema = mongoose.Schema(
       default: uuidv4,
     },
     orderuser: {
-      type: String,
-      ref: 'User',
-      required: true,
-    },
-    orderphone: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
     },
     orderaddress: {
       type: String,
@@ -44,8 +39,8 @@ const orderSchema = mongoose.Schema(
       required: true,
     },
     photo: {
-      type: String
-    }
+      type: String,
+    },
   },
   { timestamps: true },
 );
