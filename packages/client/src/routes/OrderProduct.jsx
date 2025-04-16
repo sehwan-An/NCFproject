@@ -20,7 +20,7 @@ const OrderProduct = () => {
   let params = useParams();
   let token = Cookies.get('NCF');
   let navigate = useNavigate();
-  
+
   useEffect(() => {
     try {
       axios
@@ -48,21 +48,21 @@ const OrderProduct = () => {
       e.stopPropagation();
     }
     setValidated(true);
-    if(formData.stock > 0){
+    if (formData.stock > 0) {
       try {
-        if(confirm('주문하시겠습니까?')){
+        if (confirm('주문하시겠습니까?')) {
           axios
-          .post(`http://localhost:3000/api/order/${params.id}`, formData, {
-            withCredentials: true,
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((res) => {
-            // console.log(res);
-            alert('주문이 완료되었습니다.');
-            navigate('/shop')
-          });
+            .post(`http://localhost:3000/api/order/${params.id}`, formData, {
+              withCredentials: true,
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
+            .then((res) => {
+              // console.log(res);
+              alert('주문이 완료되었습니다.');
+              navigate('/shop');
+            });
         }
       } catch (e) {
         console.error(e.message);
@@ -73,9 +73,9 @@ const OrderProduct = () => {
   return (
     <>
       <Container className="w-100 my-3">
-        <Row className='align-items-center'>
-          <Col className='text-center'>
-            <ProductImageExample photo={formData.photo} text='photo' />
+        <Row className="align-items-center">
+          <Col className="text-center">
+            <ProductImageExample photo={formData.photo} text="photo" />
           </Col>
           <Col>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -99,8 +99,7 @@ const OrderProduct = () => {
                     type="number"
                     disabled
                     name="stock"
-                    placeholder="stock"
-                    defaultValue={formData.stock > 0 ? formData.stock : '품절'}
+                    value={formData.stock > 0 ? formData.stock : 0}
                   />
                   <Form.Control.Feedback></Form.Control.Feedback>
                 </Form.Group>
@@ -127,12 +126,14 @@ const OrderProduct = () => {
                       required
                       defaultValue={formData.productsize}
                     >
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">XL</option>
+                      <option value="S">S</option>
+                      <option value="M">M</option>
+                      <option value="L">L</option>
+                      <option value="XL">XL</option>
                     </Form.Select>
-                    <Form.Control.Feedback type="invalid">사이즈를 선택해주세요.</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">
+                      사이즈를 선택해주세요.
+                    </Form.Control.Feedback>
                   </InputGroup>
                 </Form.Group>
               </Row>
@@ -144,7 +145,7 @@ const OrderProduct = () => {
                     onChange={handleChange}
                     value={formData.addressf}
                     placeholder="주소"
-                    name='addressf'
+                    name="addressf"
                     required
                   />
                   <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
