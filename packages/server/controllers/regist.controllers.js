@@ -1,8 +1,8 @@
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
-import 'dotenv/config'
-import bcrypt from 'bcrypt'
-import ContactModel from'../models/UserContact.js';
+import 'dotenv/config';
+import bcrypt from 'bcrypt';
+import ContactModel from '../models/UserContact.js';
 import { jwtDecode } from 'jwt-decode';
 
 const regist = async (req, res) => {
@@ -21,7 +21,7 @@ const regist = async (req, res) => {
 
     const user = new User({
       username,
-      userpwd:bcrypt.hashSync(userpwd,10),
+      userpwd: bcrypt.hashSync(userpwd, 10),
       userid,
       userphone,
       email,
@@ -37,62 +37,89 @@ const regist = async (req, res) => {
   }
 };
 
- const createContact = async (req,res) => {
+const createContact = async (req, res) => {
   const { contact_title, contact_type, contact_content, contact_status } = req.body;
   console.log(req);
-  const authorization=req.headers.authorization.split(' ')[1]
-if(!authorization){
-  return res.status(401).json({message:'권한이없습니다.'})
-}
- const decode = jwtDecode(authorization)
-console.log(decode)
-  try {
-
- const contact =   
-await ContactModel.create({
-  contact_title,
-  contact_type,
-  contact_content,
-  contact_status,
-  userid: decode.id,
-  author:decode._id})
-console.log(ContactModel)
-res.status(201).json({
-  message:'문의가 등록되었습니다.',
-  data:contact,
-});
-
-
+  const authorization = req.headers.authorization.split(' ')[1];
+  if (!authorization) {
+    return res.status(401).json({ message: '권한이없습니다.' });
   }
-  catch(err){
-    console.log(err)
-  }
-}
-
-const readContact = async (req,res) => {
+  const decode = jwtDecode(authorization);
+  console.log(decode);
   try {
-    const contacts = await ContactModel.find().populate('author','username').sort({createdAt: -1})
-    if(!contacts){
+    const contact = await ContactModel.create({
+      contact_title,
+      contact_type,
+      contact_content,
+      contact_status,
+      userid: decode.id,
+      author: decode._id,
+    });
+    console.log(ContactModel);
+    res.status(201).json({
+      message: '문의가 등록되었습니다.',
+      data: contact,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const readContactAll = async (req, res) => {
+  try {
+    const contacts = await ContactModel.find()
+      .populate('author', 'username')
+      .sort({ createdAt: -1 });
+    if (!contacts) {
       return res.status(500).json({
-        message:'contacts가 없습니다.'
-      })
+        message: 'contacts가 없습니다.',
+      });
     }
-    console.log(contacts)
-    
+    console.log(contacts);
+
     res.status(201).json(contacts);
-  }catch(err){
+  } catch (err) {
     console.error(err.message);
     res.status(500).json({
-      message:'저장실패'
+      message: '저장실패',
+    });
+  }
+};
+const readContact = async (req, res) => {
+  const contactid = req.params.id;
+  const token = req.headers.authorization.split(' ')[1];
+
+  console.log(token)
+  if(!contactid) {
+    return res.status(404).json({
+      message: '값을 읽을 수 없음.'
     })
   }
-}
+  try {
+    const contacts = await ContactModel.find({_id:contactid})
+      .populate('author', 'username')
+      .sort({ createdAt: -1 });
+    if (!contacts) {
+      return res.status(500).json({
+        message: 'contacts가 없습니다.',
+      });
+    }
+    console.log(contacts);
 
-// function convertDate(date){ 
+    res.status(201).json(contacts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({
+      message: '저장실패',
+    });
+  }
+};
+
+// function convertDate(date){
 //   if (!date) return '날짜 없음';
 //   const d = new Date(date);
 //   if (isNaN(d)) return '유효하지 않음';
-  
+
 //   return d.toLocaleDateString('ko-KR', {
 //       year: '2-digit',
 //       month: '2-digit',
@@ -102,10 +129,10 @@ const readContact = async (req,res) => {
 
 const signin = async (req, res) => {
   const { userid, userpwd } = req.body;
-  console.log(userid, userpwd)
+  console.log(userid, userpwd);
   try {
     const user = await User.findOne({ userid });
-    console.log(user)
+    console.log(user);
     if (!user) {
       return res.status(400).json({
         message: '아이디를 다시 확인하세요',
@@ -113,16 +140,16 @@ const signin = async (req, res) => {
     }
     const isMatch = bcrypt.compareSync(userpwd, user.userpwd);
     if (!isMatch) {
-      return res.status(400).json({message:'잘못된 비밀번호 입니다.'});
+      return res.status(400).json({ message: '잘못된 비밀번호 입니다.' });
     }
 
     const userInfo = {
       name: user.username,
       id: user.userid,
       role: user.role,
-      _id: user._id
+      _id: user._id,
     };
-    const token = jwt.sign(userInfo,process.env.JWT_SECRET );
+    const token = jwt.sign(userInfo, process.env.JWT_SECRET);
     res.cookie('NCF', token, {
       httpOnly: false,
       secure: false,
@@ -135,11 +162,11 @@ const signin = async (req, res) => {
       data: userInfo,
     });
   } catch (err) {
-    console.error(err)
+    console.error(err);
     return res.status(404).json({
       message: '회원정보가 존재하지 않습니다.',
     });
   }
 };
- 
-export default {regist, signin, createContact, readContact};
+
+export default { regist, signin, createContact, readContact, readContactAll };
