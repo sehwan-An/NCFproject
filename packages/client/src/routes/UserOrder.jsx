@@ -32,8 +32,26 @@ const UserOrder = () => {
   const handleNavigate = (e) => {
     navigate(`/user/${params.id}`);
   };
-  const handleCancel = (e) => {
-    console.log('주문취소 : ', e.target)
+  const handleCancel = (id) => {
+    try {
+      if(confirm('선택한 상품의 주문을 취소하시겠습니까?')) {
+        axios
+        .delete(`http://localhost:3000/api/order/${id}`, {
+          withCredentials: true,
+          headers: {
+            userid: `${params.id}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          alert('주문 내역이 변경되었습니다.');
+          location.reload();
+        })
+        .catch((e) => console.log(e));
+      }
+    } catch (e) {
+      console.log(e);
+    }
   }
   return (
     <>
@@ -52,7 +70,7 @@ const UserOrder = () => {
                 <div className="order-box">
                   <p>주문 고객 : {order.orderuser.username}</p>
                   <p>주문번호 : {order.ordernumber}</p>
-                  <p>주문제품 : {order.orderproducts}</p>
+                  <p>주문제품 : {order.orderproducts.name}</p>
                   <p>주문 수량 : {order.ordercount}</p>
                   <p>제품 사이즈 : {order.ordersize}</p>
                   <p>제품가 : {order.orderprice}</p>
@@ -61,7 +79,7 @@ const UserOrder = () => {
                   <p>주문일시 : {order.createdAt.split('T')[0]}</p>
                 </div>
                 <div>
-                  <Button onClick={handleCancel}>주문취소</Button>
+                  <Button onClick={() => handleCancel(order._id)}>주문취소</Button>
                 </div>
               </Col>
             );

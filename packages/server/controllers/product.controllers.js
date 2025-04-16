@@ -146,7 +146,10 @@ export const orderOneProduct = async (req, res) => {
       orderuser: user._id,
       orderphone: user.userphone,
       orderaddress: `${product.addressf} ${product.addressb}`,
-      orderproducts: product.productname,
+      orderproducts: {
+        name: product.productname,
+        _id: product._id
+      },
       orderprice: product.productprice,
       ordercolor: product.productcolor,
       ordersize: product.productsize,
@@ -214,13 +217,6 @@ export const deleteFromCart = async (req, res) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
     const user = jwt.verify(token, process.env.JWT_SECRET);
-    const order = await Cart.findOne({ _id: itemid });
-    if (order.orderuser !== user.name) {
-      return res.status(401).json({
-        status: 'reject',
-        message: '잘못된 접근입니다.',
-      });
-    }
     const cart = await Cart.deleteOne({ _id: itemid });
     if (!cart) {
       return res.status(404).json({
@@ -249,17 +245,50 @@ export const orderHistory = async (req, res) => {
       });
     }
     const userid = user._id;
-    const username = user.username;
-    // console.log('사용자 ID : ',userid)
-    // console.log('타입 ', typeof userid)
 
     const userorder = await Order.find().populate('orderuser', 'username');
-    const filteredOrders = userorder.filter((order) =>  order.orderuser._id.toString() === userid.toString())
-
-    // console.log('주문내역', userorder);
-    // console.log('필터', filteredOrders);
+    const filteredOrders = userorder.filter(
+      (order) => order.orderuser._id.toString() === userid.toString(),
+    );
     res.status(201).json(filteredOrders);
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const deleteOrder = async (req, res) => {
+  const userid = req.headers.userid;
+  const orderid = req.params.id;
+  // console.log(orderid)
+  try {
+    const order = await Order.findOne({_id: orderid});
+    const productId = order.orderproducts._id
+    if(!productId) {
+      return res.status(401).json({
+        message: '주문한 상품정보를 찾을 수 없습니다.'
+      })
+    }
+    // console.log("제품 아이디", productId, typeof productId)
+
+    const product = await Product.findOne({_id: productId});
+    // console.log(product)
+
+    const deleteOrder = await Order.deleteOne({_id:orderid});
+    if(!deleteOrder) {
+      return res.status(401).json({
+        status: 'fail',
+        message: '요청 처리 실패'
+      })
+    }
+
+    let leftStock = (product.stock += 1);
+    await product.save();
+
+    res.status(201).json({
+      status: 'success',
+      message: '삭제 요청 처리 성공'
+    })
+  } catch (e) {
+    console.log(e)
   }
 };
