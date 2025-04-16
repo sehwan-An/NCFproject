@@ -26,7 +26,7 @@ const AboutMap = () =>{
 
 
       />
-      <img src={Map.png} alt="MensShopimg.png" className='about-img-size'/> // 마커 이미지 URL, 기본적으로 카카오에서 제공하는 마커 이미지
+      <img src={Map} alt="MensShopimg.png" className='about-img-size'/> // 마커 이미지 URL, 기본적으로 카카오에서 제공하는 마커 이미지
     </Map>
     
   )
