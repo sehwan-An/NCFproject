@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router';
 import Home from './routes/Home.jsx';
 import SignUp from './routes/SignUp.jsx';
 import Shop from './routes/Shop.jsx';
-import Contact from './routes/contact.jsx';
+import Contact from './routes/Contact.jsx';
 import HomeBody from './routes/HomeBody.jsx';
 import SignIn from './routes/SignIn.jsx';
 import AboutUs from './routes/AboutUs.jsx';
