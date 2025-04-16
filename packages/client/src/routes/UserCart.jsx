@@ -39,11 +39,19 @@ const UserCart = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      console.log('장바구니 주문하기');
+      axios.post('http://localhost:3000/api/cartorder', carts ,{
+        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
     } catch (e) {
       console.log(e);
     }
   };
+  const handleNavigate = (e) => {
+    navigate(`/user/${params.id}`)
+  }
   const handleDelete = (id) => {
     try {
       if (confirm('제거하시겠습니까?')) {
@@ -68,10 +76,11 @@ const UserCart = () => {
     <>
       <Container>
         <Form onSubmit={handleSubmit}>
-          <Row className="row-cols-12">
+          <Row className="row-cols-12 my-3">
             <Col>
               <h2 className="text-center">장바구니</h2>
             </Col>
+            <div className='text-end'><Button onClick={handleNavigate}>뒤로가기</Button></div>
           </Row>
           {carts.length < 1 && (
             <h2 className="text-center">장바구니에 물품이 존재하지 않습니다.</h2>
@@ -81,13 +90,12 @@ const UserCart = () => {
               carts.map((cart, i) => (
                 <Col key={i}>
                   <div className="cart-box">
-                    <div className="cart-image">
+                    <div className="cart-image text-center">
                       <ProductImageExample photo={cart.photo} text="photo" />
                     </div>
                     <p>제품명 : {cart.products.name}</p>
                     <p>
-                      제품가 :{' '}
-                      {cart.products.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      제품가 : {cart.products.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                     </p>
                   </div>
                   <Button variant="danger" onClick={() => handleDelete(cart._id)}>
@@ -102,9 +110,9 @@ const UserCart = () => {
                 <Col>
                   <h4>장바구니 수 : {carts.length}</h4>
                 </Col>
-                <Col>
+                {/* <Col>
                   <h4>총 가격 : </h4>
-                </Col>
+                </Col> */}
               </Row>
               <Row className="text-center">
                 <Col>
