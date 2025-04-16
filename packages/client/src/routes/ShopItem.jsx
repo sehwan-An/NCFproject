@@ -1,154 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from 'axios';
 import { Col, Container, Row } from 'react-bootstrap';
+import ProductImageExample from '../components/ProductImageExample';
+import { useParams } from 'react-router';
+
 const ShopItem = () => {
-  // 이름, 가격, 수량, 이미지, 제품아이디...
+  let params = useParams();
+
   return (
     <div>
-    <container>
-      <img src={`product`} alt="lorem picsum"/>
-      <p>이름</p>
-      <p>가격</p>
-      <p>수량</p>
-      <button
-          type="submit"
-          className="btn btn-primary"
-      >
-          구매하기
-      </button>
-    </container>
-    ShopItem</div>
-  )
-}
-
-export default ShopItem
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      <Container>
+        <Row>
+          <Col>
+            <div>
+              <ProductImageExample />
+            </div>
+            <div>
+              <p>이름</p>
+              <p>가격</p>
+              <p>수량</p>
+            </div>
+            <button type="submit" className="btn btn-primary">
+              구매하기
+            </button>
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
+};
+
+export default ShopItem;

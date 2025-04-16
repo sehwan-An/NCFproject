@@ -27,9 +27,8 @@ const App = () => {
         <Route path="/" element={<Home />}>
           <Route index element={<HomeBody />} />
           <Route path="signup" element={<SignUp />} />
-          <Route path="shop" element={<Shop />}>
-            <Route path="item" element={<ShopItem />} />
-          </Route>
+          <Route path="shop" element={<Shop />} />
+          <Route path="shop/item/:id" element={<ShopItem />} />
           <Route path="contact" element={<Contact />} />
           <Route path="aboutus" element={<AboutUs />} />
           <Route path="signin" element={<SignIn />} />
@@ -39,7 +38,7 @@ const App = () => {
             <Route path="ordercare" element={<OrderCare />} />
             <Route path="products/:id" element={<ProductModify />} />
           </Route>
-            <Route path='adminanswer/:id' element={<AdminAnswer />}/>
+          <Route path="adminanswer/:id" element={<AdminAnswer />} />
           <Route path="addproduct" element={<AddProduct />} />
           <Route path="order/:id" element={<OrderProduct />} />
           <Route path="user/:id" element={<UserPage />} />
