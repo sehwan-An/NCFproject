@@ -146,10 +146,7 @@ export const orderOneProduct = async (req, res) => {
       orderuser: user._id,
       orderphone: user.userphone,
       orderaddress: `${product.addressf} ${product.addressb}`,
-      orderproducts: {
-        name: product.productname,
-        _id: product._id
-      },
+      orderproducts: product._id,
       orderprice: product.productprice,
       ordercolor: product.productcolor,
       ordersize: product.productsize,
@@ -261,24 +258,24 @@ export const deleteOrder = async (req, res) => {
   const orderid = req.params.id;
   // console.log(orderid)
   try {
-    const order = await Order.findOne({_id: orderid});
-    const productId = order.orderproducts._id
-    if(!productId) {
+    const order = await Order.findOne({ _id: orderid });
+    const productId = order.orderproducts._id;
+    if (!productId) {
       return res.status(401).json({
-        message: '주문한 상품정보를 찾을 수 없습니다.'
-      })
+        message: '주문한 상품정보를 찾을 수 없습니다.',
+      });
     }
     // console.log("제품 아이디", productId, typeof productId)
 
-    const product = await Product.findOne({_id: productId});
+    const product = await Product.findOne({ _id: productId });
     // console.log(product)
 
-    const deleteOrder = await Order.deleteOne({_id:orderid});
-    if(!deleteOrder) {
+    const deleteOrder = await Order.deleteOne({ _id: orderid });
+    if (!deleteOrder) {
       return res.status(401).json({
         status: 'fail',
-        message: '요청 처리 실패'
-      })
+        message: '요청 처리 실패',
+      });
     }
 
     let leftStock = (product.stock += 1);
@@ -286,9 +283,24 @@ export const deleteOrder = async (req, res) => {
 
     res.status(201).json({
       status: 'success',
-      message: '삭제 요청 처리 성공'
-    })
+      message: '삭제 요청 처리 성공',
+    });
   } catch (e) {
-    console.log(e)
+    console.log(e);
+  }
+};
+
+export const manageOrders = async (req, res) => {
+  try {
+    const orders = await Order.find().populate('orderuser', 'username userphone').populate('orderproducts');
+
+    if (!orders) {
+      return res.status(401).json({
+        message: '잘못된 접근입니다.',
+      });
+    }
+    res.status(201).json(orders);
+  } catch (e) {
+    console.log('에러 내역', e);
   }
 };
