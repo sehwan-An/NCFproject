@@ -68,7 +68,6 @@ const UserOrder = () => {
                   <ProductImageExample photo={order.photo} text="photo" />
                 </div>
                 <div className="order-box">
-                  <p>주문 고객 : {order.orderuser.username}</p>
                   <p>주문번호 : {order.ordernumber}</p>
                   <p>주문제품 : {order.orderproducts.name}</p>
                   <p>주문 수량 : {order.ordercount}</p>
