@@ -32,6 +32,8 @@ router.get('/order/:id', productController.orderHistory)
 router.post('/order/:id', productController.orderOneProduct)
 router.delete('/order/:id', productController.deleteOrder)
 
+router.delete('/manage/order/:id', productController.manageDeleteOrder)
+
 
 
 

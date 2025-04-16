@@ -256,7 +256,6 @@ export const orderHistory = async (req, res) => {
 export const deleteOrder = async (req, res) => {
   const userid = req.headers.userid;
   const orderid = req.params.id;
-  // console.log(orderid)
   try {
     const order = await Order.findOne({ _id: orderid });
     const productId = order.orderproducts._id;
@@ -265,10 +264,8 @@ export const deleteOrder = async (req, res) => {
         message: '주문한 상품정보를 찾을 수 없습니다.',
       });
     }
-    // console.log("제품 아이디", productId, typeof productId)
 
     const product = await Product.findOne({ _id: productId });
-    // console.log(product)
 
     const deleteOrder = await Order.deleteOne({ _id: orderid });
     if (!deleteOrder) {
@@ -302,5 +299,45 @@ export const manageOrders = async (req, res) => {
     res.status(201).json(orders);
   } catch (e) {
     console.log('에러 내역', e);
+  }
+};
+
+export const manageDeleteOrder = async (req, res) => {
+  const orderid = req.params.id;
+  try {
+    const order = await Order.findOne({ ordernumber: orderid }).populate('orderproducts', '_id');
+    if(!order) {
+      return res.status(404).json({
+        message: '주문 정보를 찾을 수 없습니다.',
+      });
+    }
+
+    const productId = order.orderproducts._id;
+    
+    if (!productId) {
+      return res.status(404).json({
+        message: '주문한 상품정보를 찾을 수 없습니다.',
+      });
+    }
+
+    const product = await Product.findOne({ _id: productId });
+    
+    const deleteOrder = await Order.deleteOne({ ordernumber: orderid });
+    if (!deleteOrder) {
+      return res.status(401).json({
+        status: 'fail',
+        message: '요청 처리 실패',
+      });
+    }
+
+    let leftStock = (product.stock += 1);
+    await product.save();
+
+    res.status(201).json({
+      status: 'success',
+      message: '삭제 요청 처리 성공',
+    });
+  } catch (e) {
+    console.log(e);
   }
 };
