@@ -13,18 +13,22 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage})
 
 
-router.get('/products', productController.getProducts);
-router.get('/products/:id', productController.getProduct)
 router.post('/product', upload.single('photo'), productController.createProduct)
 router.put('/product/:id', productController.modifyProduct)
 router.delete('/product/:id', productController.deleteProduct)
 
-router.delete('/cart/:id', productController.deleteFromCart)
-router.get('/carts/:id', productController.getUserCart)
-router.post('/cart', productController.cartProduct)
+router.get('/products', productController.getProducts);
+router.get('/products/:id', productController.getProduct)
 
-router.get('/order/:id', productController.orderHistory)
+router.post('/cart', productController.cartProduct)
+router.delete('/cart/:id', productController.deleteFromCart)
+
+router.get('/carts/:id', productController.getUserCart)
+
 router.post('/cartorder', productController.cartOrder)
+
+router.get('/order', productController.manageOrders)
+router.get('/order/:id', productController.orderHistory)
 router.post('/order/:id', productController.orderOneProduct)
 router.delete('/order/:id', productController.deleteOrder)
 
