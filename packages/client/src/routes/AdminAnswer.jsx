@@ -18,6 +18,9 @@ const AdminAnswer = () => {
     axios
       .get(`http://localhost:3000/users/contact/${id}`, {
         withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
       .then((res) => {
         console.log(res);
@@ -45,34 +48,30 @@ const AdminAnswer = () => {
       <Container>
         <Row>
           <h2 className="text-center mb-5">고객문의 상세보기</h2>
-          {post ? (
             <Table>
               <tbody>
                 <tr>
                   <th>제목</th>
-                  <td>{post.contact_title}</td>
+                  <td></td>
                 </tr>
                 <tr>
                   <th>내용</th>
-                  <td>{post.contact_content}</td>
+                  <td></td>
                 </tr>
                 <tr>
                   <th>작성자</th>
-                  <td>{post.author?.username}</td>
+                  <td></td>
                 </tr>
                 <tr>
                   <th>작성일</th>
-                  <td>{convertDate(post.createdAt)}</td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <th>처리상태</th>
-                  <td>{post.contact_status}</td>
+                  <th>첨부파일</th>
+                  <td></td>
                 </tr>
               </tbody>
             </Table>
-          ) : (
-            <p>문의 정보를 불러오는 중입니다...</p>
-          )}
         </Row>
       </Container>
     </>
