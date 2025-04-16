@@ -106,3 +106,7 @@ a {
   width: 250px;
   height: 350px;
 }
+.about-img-size {
+  width: 250px;
+  height: auto;
+}

@@ -24,6 +24,7 @@
     "jwt-decode": "^4.0.0",
     "mongoose": "^8.13.2",
     "react-bootstrap": "^2.10.9",
+    "react-kakao-maps-sdk": "^1.1.27",
     "react-router": "^7.5.0",
     "react-router-dom": "^7.5.0",
     "uuid": "^11.1.0"
