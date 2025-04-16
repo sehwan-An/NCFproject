@@ -72,7 +72,7 @@ const ProductModify = () => {
             },
           })
           .then((res) => {
-            console.log(res);
+            // console.log(res);
             alert('수정이 완료되었습니다.');
             navigate('/manage/products');
           })
@@ -120,7 +120,7 @@ const ProductModify = () => {
                   type="String"
                   name="productprice"
                   placeholder="제품가격"
-                  value={formData.productprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  value={formData.productprice}
                   required
                   min={1}
                   onChange={handleChange}

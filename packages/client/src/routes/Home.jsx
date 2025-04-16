@@ -10,21 +10,22 @@ const Home = () => {
   useEffect(() => {
     const token = Cookies.get('NCF');
     try {
-      if(token) {
+      if (token) {
         const decodedToken = jwtDecode(token);
-        setUserInfo(decodedToken)
+        setUserInfo(decodedToken);
         // console.log(decodedToken)
       }
-    } catch(e) {
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
-  }, [])
+  }, []);
   const Logout = () => {
-    if(confirm('로그아웃 하시겠습니까?')) {
+    if (confirm('로그아웃 하시겠습니까?')) {
       Cookies.remove('NCF');
-      location.href = '/'
+      alert('로그아웃 되셨습니다. 안녕히 가십시오.')
+      location.href = '/';
     }
-  }
+  };
   return (
     <div>
       <SiteHeader userInfo={userInfo} Logout={Logout} />

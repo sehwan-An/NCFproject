@@ -37,7 +37,17 @@ const regist = async (req, res) => {
   }
 };
 
-export const contact = async (req, res) => {
+const createContact = async (req, res) => {
+  const { contact_title, contact_type, contact_content, contact_status } = req.body;
+  console.log(req);
+  const authorization = req.headers.authorization.split(' ')[1];
+  if (!authorization) {
+    return res.status(401).json({ message: '권한이없습니다.' });
+  }
+  const decode = jwtDecode(authorization);
+  console.log(decode);
+};
+const contact = async (req, res) => {
   const { contact_title, contact_type, contact_content } = req.body;
   const authorization = req.headers.authorization.split(' ')[1];
   const decode = jwtDecode(authorization);
@@ -69,7 +79,7 @@ const signin = async (req, res) => {
     }
     const isMatch = bcrypt.compareSync(userpwd, user.userpwd);
     if (!isMatch) {
-      alert('잘못된 비밀번호 입니다.');
+      return res.status(400).json({ message: '잘못된 비밀번호 입니다.' });
     }
 
     const userInfo = {
@@ -98,4 +108,4 @@ const signin = async (req, res) => {
   }
 };
 
-export default { regist, signin, contact };
+export default { regist, signin, contact, createContact };

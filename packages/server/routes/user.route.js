@@ -9,6 +9,10 @@ router.post('/', controllers.regist);
 router.post('/signin', controllers.signin);
 router.post('/contact', controllers.signin);
 router.post('/contact', controllers.contact);
+// router.post('/contact', controllers.signin);
+router.post('/contact', controllers.createContact);
+router.get('/contact', controllers.readContact);
+router.get('/contact/:id', controllers.readContact);
 
 router.put('/users/:id', (req, res) => {
   res.send('some user is updated!');

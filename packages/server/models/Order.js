@@ -9,42 +9,21 @@ const orderSchema = mongoose.Schema(
       default: uuidv4,
     },
     orderuser: {
-      type: String,
-      ref: 'User',
-      required: true,
-    },
-    orderphone: {
-      type: String,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
     },
     orderaddress: {
       type: String,
       required: true,
     },
     orderproducts: {
-      type: String,
-      ref: 'Cart',
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product'
     },
     ordercount: {
       type: String,
       required: true,
       default: 1,
-    },
-    orderprice: {
-      type: String,
-      required: true,
-    },
-    ordercolor: {
-      type: String,
-      required: true,
-    },
-    ordersize: {
-      type: String,
-      required: true,
-    },
-    photo: {
-      type: String
     }
   },
   { timestamps: true },

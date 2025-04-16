@@ -7,7 +7,7 @@ const Management = () => {
   return (
     <>  
         <nav className='d-flex gap-5 justify-content-center align-items-center my-3'>
-            <NavLink to='#'>
+            <NavLink to='ordercare'>
                 <button>주문관리</button>
             </NavLink>
             <NavLink to='usercare'>

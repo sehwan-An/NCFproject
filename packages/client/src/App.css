@@ -97,6 +97,15 @@ a {
   box-sizing: border-box;
   overflow: hidden;
 }
+.order-box p {
+  padding-top: .2rem;
+  padding-bottom: .2rem;
+  margin: 0;
+}
+.img-size {
+  width: 250px;
+  height: 350px;
+}
 .about-img-size {
   width: 250px;
   height: auto;

@@ -1,34 +1,49 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 const usercontactSchema = mongoose.Schema(
-    {
-// username:{
-//     type:mongoose.userSchema.username,
-//     ref:'User',
-//     required: true
-// },
-contact_type:{
-    type:String,
-    required:true,
-    enum:['제품문의','반품','교환','환불','기타']
-},
-contact_title:{
-    type:String,
-    required:true
-},
+  {
+    uuid: {
+      type: String,
+      default: uuidv4,
+      unique: true,
+      required: true,
+    },
+    userid: {
+      type: String,
+      required: true,
+    },
+    contact_type: {
+      type: String,
+      required: true,
+      enum: ['제품 문의', '반품', '교환', '환불', '기타'],
+    },
+    contact_title: {
+      type: String,
+      required: true,
+    },
 
-contact_content:{
-    type:String,
-    required:true
-},
+    contact_content: {
+      type: String,
+      required: true,
+    },
+    contact_status: {
+      type: String,
+      required: true,
+      default: '미해결',
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+  },
+  { timestamps: true },
+);
+usercontactSchema.pre('save', async function (next) {
+  next();
+});
 
-
-    }
-)
-usercontactSchema.pre('save', async function(next){
-    next();
-})
-
-const Contact = mongoose.model('UserContact', usercontactSchema)
+const Contact = mongoose.model('UserContact', usercontactSchema);
 
 export default Contact;
