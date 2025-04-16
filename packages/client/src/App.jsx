@@ -13,9 +13,12 @@ import AddProduct from './routes/AddProduct.jsx';
 import Products from './routes/Products.jsx';
 import ProductModify from './routes/ProductModify.jsx';
 import UserCare from './routes/UserCare.jsx';
+import OrderCare from './routes/OrderCare.jsx';
 import UserCart from './routes/UserCart.jsx';
+import UserOrder from './routes/UserOrder.jsx';
 import OrderProduct from './routes/OrderProduct.jsx';
 import AdminAnswer from './routes/AdminAnswer.jsx';
+import UserPage from './routes/UserPage.jsx';
 
 const App = () => {
   return (
@@ -33,12 +36,15 @@ const App = () => {
           <Route path="manage" element={<Management />}>
             <Route path="usercare" element={<UserCare />} />
             <Route path="products" element={<Products />} />
-            <Route path='products/:id' element={<ProductModify />} />
+            <Route path="ordercare" element={<OrderCare />} />
+            <Route path="products/:id" element={<ProductModify />} />
           </Route>
             <Route path='adminanswer/:id' element={<AdminAnswer />}/>
           <Route path="addproduct" element={<AddProduct />} />
           <Route path="order/:id" element={<OrderProduct />} />
-          <Route path="cart/:id" element={<UserCart />} />
+          <Route path="user/:id" element={<UserPage />} />
+          <Route path="usercart/:id" element={<UserCart />} />
+          <Route path="userorder/:id" element={<UserOrder />} />
         </Route>
       </Routes>
     </>

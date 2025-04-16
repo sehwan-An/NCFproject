@@ -58,7 +58,14 @@ const Products = () => {
 
   return (
     <>
-      <h2 className="text-center">상품관리</h2>
+      <Container>
+        <h2 className="text-center">상품관리</h2>
+        <div className="text-end">
+          <Link to="/addproduct">
+            <Button>상품등록</Button>
+          </Link>
+        </div>
+      </Container>
       <Container className="text-center my-2 gap-3">
         <Row className="row-cols-12">
           {products &&
@@ -66,19 +73,19 @@ const Products = () => {
               <Col className="col-3" key={i}>
                 <p>{prod.productname}</p>
                 <ProductImageExample text={prod.productname} photo={prod.photo} index={i} />
+                <p>가격 : {prod.productprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
+                <p>재고 : {prod.stock}</p>
                 <div className="d-flex justify-content-center  gap-3 my-2">
-                    <Button onClick={() => handleModify(prod.productid)}>수정</Button>
-                  <Button variant='danger' onClick={() => handleDelete(prod.productid)}>삭제</Button>
+                  <Button onClick={() => handleModify(prod.productid)}>수정</Button>
+                  <Button variant="danger" onClick={() => handleDelete(prod.productid)}>
+                    삭제
+                  </Button>
                 </div>
               </Col>
             ))}
         </Row>
       </Container>
-      <div className="text-center">
-        <Link to="/addproduct">
-          <Button>상품등록</Button>
-        </Link>
-      </div>
+      
     </>
   );
 };
