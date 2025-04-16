@@ -17,9 +17,14 @@ const orderSchema = mongoose.Schema(
       required: true,
     },
     orderproducts: {
-      type: String,
-      ref: 'Cart',
-      required: true,
+      _id : {
+        type:String,
+        required: true
+      },
+      name: {
+        type:String,
+        required: true
+      }
     },
     ordercount: {
       type: String,
