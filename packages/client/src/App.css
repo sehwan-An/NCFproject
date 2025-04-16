@@ -97,3 +97,7 @@ a {
   box-sizing: border-box;
   overflow: hidden;
 }
+.about-img-size {
+  width: 250px;
+  height: auto;
+}

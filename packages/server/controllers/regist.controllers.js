@@ -1,8 +1,8 @@
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
-import 'dotenv/config'
-import bcrypt from 'bcrypt'
-import ContactModel from'../models/UserContact.js';
+import 'dotenv/config';
+import bcrypt from 'bcrypt';
+import ContactModel from '../models/UserContact.js';
 import { jwtDecode } from 'jwt-decode';
 
 const regist = async (req, res) => {
@@ -21,7 +21,7 @@ const regist = async (req, res) => {
 
     const user = new User({
       username,
-      userpwd:bcrypt.hashSync(userpwd,10),
+      userpwd: bcrypt.hashSync(userpwd, 10),
       userid,
       userphone,
       email,
@@ -37,34 +37,31 @@ const regist = async (req, res) => {
   }
 };
 
-export const contact = async (req,res) => {
-
+export const contact = async (req, res) => {
   const { contact_title, contact_type, contact_content } = req.body;
-  const authorization=req.headers.authorization.split(' ')[1]
- const decode = jwtDecode(authorization)
+  const authorization = req.headers.authorization.split(' ')[1];
+  const decode = jwtDecode(authorization);
 
   try {
-await ContactModel.create({
-  contact_title,
-  contact_type,
-  contact_content,
-  user: decode.id })
-console.log(ContactModel)
-res.status().json()
-
-
+    await ContactModel.create({
+      contact_title,
+      contact_type,
+      contact_content,
+      user: decode.id,
+    });
+    console.log(ContactModel);
+    res.status().json();
+  } catch (err) {
+    console.log(err);
   }
-  catch(err){
-    console.log(err)
-  }
-}
+};
 
 const signin = async (req, res) => {
   const { userid, userpwd } = req.body;
-  console.log(userid, userpwd)
+  console.log(userid, userpwd);
   try {
     const user = await User.findOne({ userid });
-    console.log(user)
+    console.log(user);
     if (!user) {
       return res.status(400).json({
         message: '아이디를 다시 확인하세요',
@@ -79,9 +76,9 @@ const signin = async (req, res) => {
       name: user.username,
       id: user.userid,
       role: user.role,
-      _id: user._id
+      _id: user._id,
     };
-    const token = jwt.sign(userInfo,process.env.JWT_SECRET );
+    const token = jwt.sign(userInfo, process.env.JWT_SECRET);
     res.cookie('NCF', token, {
       httpOnly: false,
       secure: false,
@@ -94,11 +91,11 @@ const signin = async (req, res) => {
       data: userInfo,
     });
   } catch (err) {
-    console.error(err)
+    console.error(err);
     return res.status(404).json({
       message: '회원정보가 존재하지 않습니다.',
     });
   }
 };
- 
-export default {regist, signin, contact};
+
+export default { regist, signin, contact };
