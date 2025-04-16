@@ -243,7 +243,7 @@ export const orderHistory = async (req, res) => {
     }
     const userid = user._id;
 
-    const userorder = await Order.find().populate('orderuser', 'username');
+    const userorder = await Order.find().populate('orderuser', 'username').populate('orderproducts');
     const filteredOrders = userorder.filter(
       (order) => order.orderuser._id.toString() === userid.toString(),
     );
