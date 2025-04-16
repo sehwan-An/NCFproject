@@ -22,6 +22,7 @@ const Home = () => {
   const Logout = () => {
     if (confirm('로그아웃 하시겠습니까?')) {
       Cookies.remove('NCF');
+      alert('로그아웃 되셨습니다. 안녕히 가십시오.')
       location.href = '/';
     }
   };
