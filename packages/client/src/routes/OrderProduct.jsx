@@ -48,24 +48,25 @@ const OrderProduct = () => {
       e.stopPropagation();
     }
     setValidated(true);
-
-    try {
-      if(confirm('주문하시겠습니까?')){
-        axios
-        .post(`http://localhost:3000/api/order/${params.id}`, formData, {
-          withCredentials: true,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((res) => {
-          // console.log(res);
-          alert('주문이 완료되었습니다.');
-          navigate('/shop')
-        });
+    if(formData.stock > 0){
+      try {
+        if(confirm('주문하시겠습니까?')){
+          axios
+          .post(`http://localhost:3000/api/order/${params.id}`, formData, {
+            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            // console.log(res);
+            alert('주문이 완료되었습니다.');
+            navigate('/shop')
+          });
+        }
+      } catch (e) {
+        console.error(e.message);
       }
-    } catch (e) {
-      console.error(e.message);
     }
   };
 
@@ -99,7 +100,7 @@ const OrderProduct = () => {
                     disabled
                     name="stock"
                     placeholder="stock"
-                    defaultValue={formData.stock}
+                    defaultValue={formData.stock > 0 ? formData.stock : '품절'}
                   />
                   <Form.Control.Feedback></Form.Control.Feedback>
                 </Form.Group>
