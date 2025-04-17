@@ -26,8 +26,11 @@ a {
   background-color: #13472E;
   color: white;
 }
-.header-container > a {
+.header-container a {
   color: white;
+}
+.header-container a:hover {
+  color: yellow;
 }
 
 .footer-container {
@@ -123,4 +126,10 @@ a {
 .user-navi-bar button {
   padding: .3rem;
   font-size: .8rem;
+}
+.about-us-text {
+  width: 50%;
+  margin: 1rem auto;
+  list-style: none;
+  text-align: center;
 }
