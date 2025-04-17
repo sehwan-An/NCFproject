@@ -6,6 +6,7 @@ import trioSmall2 from '../assets/trio-small2.png';
 import CarouselImage1 from '../assets/Carousel1.png';
 import CarouselImage2 from '../assets/Carousel2.png';
 import CarouselImage3 from '../assets/Carousel3.png';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const BodyCarousel = () => {
   return (
@@ -47,14 +48,14 @@ const BodyCarousel = () => {
         </Col>
         <Col md={6}>
           <div className="my-2 text-center">
-            <img src={trioBig} alt="triobig" />
+            <img src={trioBig} alt="triobig" className='img-fluid' />
           </div>
-          <div className="d-flex gap-2 justify-content-center">
+          <div className="d-flex justify-content-center">
             <div>
-              <img src={trioSmall1} alt="triosmall1" />
+              <img src={trioSmall1} alt="triosmall1" className='img-fluid' />
             </div>
             <div>
-              <img src={trioSmall2} alt="triosmall2" />
+              <img src={trioSmall2} alt="triosmall2" className='img-fluid' />
             </div>
           </div>
         </Col>
