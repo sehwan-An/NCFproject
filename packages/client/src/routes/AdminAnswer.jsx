@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { Container, Row, Table } from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
