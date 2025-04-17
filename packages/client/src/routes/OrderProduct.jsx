@@ -49,7 +49,11 @@ const OrderProduct = () => {
       e.stopPropagation();
     }
     setValidated(true);
-    if (formData.stock > 0) {
+    if(!token) {
+      alert('로그인 페이지로 이동합니다.')
+      navigate('/signin');
+    }
+    if (formData.stock > 0 && token) {
       try {
         if (confirm('주문하시겠습니까?')) {
           axios

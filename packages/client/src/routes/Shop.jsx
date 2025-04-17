@@ -94,6 +94,13 @@ const Shop = () => {
                     </NavLink>
                   </div>
                 )}
+                {!user.role && (
+                  <div className="d-flex gap-2 align-items-center justify-content-center">
+                    <button className="btn btn-primary" onClick={() => orderProduct(prod)}>
+                      구매하기
+                    </button>
+                  </div>
+                )}
                 {user && user.role == 'admin' && (
                   <div>
                     <button onClick={() => handleModify(prod)} className="btn btn-primary">

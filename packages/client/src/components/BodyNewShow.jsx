@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import '../App.css';
 import ProductImageExample from './ProductImageExample';
+import { NavLink } from 'react-router';
 const BodyNewShow = ({ products }) => {
   return (
     <>
@@ -21,7 +22,9 @@ const BodyNewShow = ({ products }) => {
           products.map((prod, i) => {
             return (
               <Col md={3} className="posi-rel" key={i}>
-                <ProductImageExample photo={prod.photo} text='photo' />
+                <NavLink to={`shop/item/${prod.productid}`}>
+                  <ProductImageExample photo={prod.photo} text='photo' />
+                </NavLink>
                 <span className="new-items posi-ab">New!</span>
               </Col>
             );
