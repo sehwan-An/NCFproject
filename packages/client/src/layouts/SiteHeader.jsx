@@ -1,52 +1,72 @@
 import React from 'react';
-import { Container, Button, Row, Col } from 'react-bootstrap';
+import { Container, Button, Row, Col, Form, InputGroup } from 'react-bootstrap';
 import Logo from '../assets/header-logo.png';
 import '../App.css';
 import { NavLink } from 'react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 const SiteHeader = ({ userInfo, Logout }) => {
+  function handleSubmit() {
+    console.log('검색어 입력, 검색 시도');
+  }
   return (
     <>
-      <Container className="d-flex justify-content-end py-2">
-        <div className="user-navi-bar">
-          {userInfo ? (
-            <div className="d-flex align-items-center gap-3">
-              {userInfo.role == 'customer' ? (
-                <>
-                  <p>{userInfo.name}님 환영합니다.</p>
-                  <Button variant="danger" onClick={Logout}>
-                    로그아웃
-                  </Button>
-                  <NavLink to={`user/${userInfo._id}`}>
-                    <p>마이페이지</p>
-                  </NavLink>
-                </>
+      <Container className="py-2">
+        <Row>
+          <Col></Col>
+          <Col>
+            <Form onSubmit={handleSubmit} className="d-flex gap-2 align-items-center">
+              <Form.Group controlId="validationCustomUsername" className='flex-5'>
+                <InputGroup hasValidation>
+                  <Form.Control
+                    type="search"
+                    placeholder="검색어 입력"
+                    aria-describedby="inputGroupPrepend"
+                    required
+                  />
+                </InputGroup>
+              </Form.Group>
+              <button type="submit" className="search-btn flex-1">
+                <i className="bi bi-search"></i>
+              </button>
+            </Form>
+          </Col>
+          <Col className="text-end">
+            <div className="user-navi-bar">
+              {userInfo ? (
+                <div className="d-flex align-items-center gap-3">
+                  {userInfo.role == 'customer' ? (
+                    <>
+                      <p>{userInfo.name}님 환영합니다.</p>
+                      <Button variant="danger" onClick={Logout}>
+                        로그아웃
+                      </Button>
+                      <NavLink to={`user/${userInfo._id}`}>
+                        <p>마이페이지</p>
+                      </NavLink>
+                    </>
+                  ) : (
+                    <>
+                      <p>{userInfo.name}님 환영합니다.</p>
+                      <Button variant="danger" onClick={Logout}>
+                        로그아웃
+                      </Button>
+                      <NavLink to="manage">
+                        <p>관리페이지</p>
+                      </NavLink>
+                    </>
+                  )}
+                </div>
               ) : (
                 <>
-                  <p>{userInfo.name}님 환영합니다.</p>
-                  <Button variant="danger" onClick={Logout}>
-                    로그아웃
-                  </Button>
-                  <NavLink to="manage">
-                    <p>관리페이지</p>
-                  </NavLink>
+                  <NavLink to="/signin">
+                    <Button className="login-btn">로그인</Button>
+                  </NavLink>{' '}
+                  <NavLink to="/signup">회원가입</NavLink>
                 </>
               )}
             </div>
-          ) : (
-            <>
-              <NavLink to="/signin">
-                <Button className='login-btn'>
-                  로그인
-                </Button>
-              </NavLink>
-              {" "}
-              <NavLink to="/signup">
-                회원가입
-              </NavLink>
-            </>
-          )}
-        </div>
+          </Col>
+        </Row>
       </Container>
       <div className="header-container">
         <Container>
