@@ -49,8 +49,8 @@ const OrderProduct = () => {
       e.stopPropagation();
     }
     setValidated(true);
-    if(!token) {
-      alert('로그인 페이지로 이동합니다.')
+    if (!token) {
+      alert('로그인 페이지로 이동합니다.');
       navigate('/signin');
     }
     if (formData.stock > 0 && token) {
@@ -130,7 +130,7 @@ const OrderProduct = () => {
                       name="productsize"
                       onChange={handleChange}
                       required
-                      value={formData.productsize || ""}
+                      value={formData.productsize || ''}
                     >
                       <option value="S">S</option>
                       <option value="M">M</option>
@@ -149,7 +149,7 @@ const OrderProduct = () => {
                   <Form.Control
                     type="text"
                     onChange={handleChange}
-                    value={formData.addressf || ""}
+                    value={formData.addressf || ''}
                     placeholder="주소"
                     name="addressf"
                     required
@@ -162,7 +162,7 @@ const OrderProduct = () => {
                     type="text"
                     onChange={handleChange}
                     name="addressb"
-                    value={formData.addressb || ""}
+                    value={formData.addressb || ''}
                     placeholder="상세주소"
                     required
                   />

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Col, Container, Row, Form, InputGroup, Button } from 'react-bootstrap';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 import axios from 'axios';
 import ProductImageExample from '../components/ProductImageExample';
-import { useParams, useNavigate } from 'react-router';
+import { useParams, useNavigate, NavLink } from 'react-router';
 
 const ShopItem = () => {
   const [validated, setValidated] = useState(false);
@@ -50,8 +50,8 @@ const ShopItem = () => {
       e.stopPropagation();
     }
     setValidated(true);
-    if(!token) {
-      alert('로그인 페이지로 이동합니다.')
+    if (!token) {
+      alert('로그인 페이지로 이동합니다.');
       navigate('/signin');
     }
     if (formData.stock > 0 && token) {
@@ -86,7 +86,7 @@ const ShopItem = () => {
           <Col>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationCustomName">
+                <Form.Group as={Col} md="6" controlId="validationCustomName">
                   <Form.Label>제품명</Form.Label>
                   <Form.Control
                     required
@@ -98,7 +98,9 @@ const ShopItem = () => {
                   />
                   <Form.Control.Feedback></Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustomStock">
+              </Row>
+              <Row className="mb-3">
+                <Form.Group as={Col} md="6" controlId="validationCustomStock">
                   <Form.Label>재고</Form.Label>
                   <Form.Control
                     required
@@ -110,7 +112,9 @@ const ShopItem = () => {
                   />
                   <Form.Control.Feedback></Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustomColor">
+              </Row>
+              <Row className="mb-3">
+                <Form.Group as={Col} md="6" controlId="validationCustomColor">
                   <Form.Label>제품색상</Form.Label>
                   <Form.Control
                     required
@@ -122,6 +126,8 @@ const ShopItem = () => {
                   />
                   <Form.Control.Feedback></Form.Control.Feedback>
                 </Form.Group>
+              </Row>
+              <Row className="mb-3">
                 <Form.Group as={Col} md="4" controlId="validationCustomSize">
                   <Form.Label>제품사이즈</Form.Label>
                   <InputGroup hasValidation>
@@ -131,7 +137,8 @@ const ShopItem = () => {
                       name="productsize"
                       onChange={handleChange}
                       required
-                      value={formData.productsize || ""}
+                      disabled
+                      value={formData.productsize || ''}
                     >
                       <option value="S">S</option>
                       <option value="M">M</option>
@@ -144,37 +151,24 @@ const ShopItem = () => {
                   </InputGroup>
                 </Form.Group>
               </Row>
-              <Row className="mb-3">
-                <Form.Group as={Col} md="6" controlId="validationCustomAddressf">
-                  <Form.Label>주소</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={handleChange}
-                    value={formData.addressf || ""}
-                    placeholder="주소"
-                    name="addressf"
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group as={Col} md="6" controlId="validationCustomAddressb">
-                  <Form.Label>상세주소</Form.Label>
-                  <Form.Control
-                    type="text"
-                    onChange={handleChange}
-                    name="addressb"
-                    value={formData.addressb || ""}
-                    placeholder="상세주소"
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    정확한 주소지를 입력해주세요.
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Row>
-              <Button type="submit">주문확인</Button>
+              <NavLink to={`/order/${params.id}`}>
+                <Button variant="success">구매하러 가기</Button>
+              </NavLink>
             </Form>
           </Col>
+        </Row>
+        <Row>
+          <h2>대충 상세 설명이라는 뜻</h2>
+          <p>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates mollitia quaerat
+            saepe, obcaecati in sequi numquam eum corrupti officia officiis aliquam unde totam atque
+            delectus amet adipisci. Consequatur, sunt cumque!
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores quisquam odio vero
+            reprehenderit enim optio sunt omnis, pariatur minima molestiae aut, tempore fuga rem
+            iusto! Nesciunt, sunt saepe. Impedit, rerum?
+          </p>
         </Row>
       </Container>
     </>
