@@ -19,6 +19,9 @@ const UserCare = () => {
     }
     axios
       .get('http://localhost:3000/users/contact/', {
+        headers:{
+Authorization:`Bearer ${token}`
+        },
         withCredentials: true,
       })
       .then((res) => {

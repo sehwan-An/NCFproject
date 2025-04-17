@@ -11,7 +11,7 @@ router.post('/signin', controllers.signin);
 router.post('/contact', controllers.createContact);
 router.get('/contact', controllers.readContactAll);
 router.get('/contact/:id', controllers.readContact);
-
+router.patch('/contact/:id/status', controllers.updateAnswer);
 // router.put('/users/:id', (req, res) => {
 //   res.send('some user is updated!');
 // });

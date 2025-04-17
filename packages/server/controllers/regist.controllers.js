@@ -89,7 +89,6 @@ const readContact = async (req, res) => {
   const contactid = req.params.id;
   const token = req.headers.authorization.split(' ')[1];
 
-  console.log(token)
   if(!contactid) {
     return res.status(404).json({
       message: '값을 읽을 수 없음.'
@@ -114,6 +113,22 @@ const readContact = async (req, res) => {
     });
   }
 };
+
+const updateAnswer = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const contact = await ContactModel.findByIdAndUpdate(
+      id,
+      {contact_status: '처리완료'},
+      {new:true} 
+    );
+    if (!contact) {
+      return res.status(404).json({ message: '해당 문의가 없습니다.' });
+    }
+  } catch(err) {
+    console.log(err)
+  }
+}
 
 // function convertDate(date){
 //   if (!date) return '날짜 없음';
@@ -169,4 +184,4 @@ const signin = async (req, res) => {
   }
 };
 
-export default { regist, signin, createContact, readContact, readContactAll };
+export default { regist, signin, createContact, readContact, readContactAll, updateAnswer };
