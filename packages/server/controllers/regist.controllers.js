@@ -46,57 +46,25 @@ const createContact = async (req, res) => {
   }
   const decode = jwtDecode(authorization);
   console.log(decode);
+};
+const contact = async (req, res) => {
+  const { contact_title, contact_type, contact_content } = req.body;
+  const authorization = req.headers.authorization.split(' ')[1];
+  const decode = jwtDecode(authorization);
+
   try {
-    const contact = await ContactModel.create({
+    await ContactModel.create({
       contact_title,
       contact_type,
       contact_content,
-      contact_status,
-      userid: decode.id,
-      author: decode._id,
+      user: decode.id,
     });
     console.log(ContactModel);
-    res.status(201).json({
-      message: '문의가 등록되었습니다.',
-      data: contact,
-    });
+    res.status().json();
   } catch (err) {
     console.log(err);
   }
 };
-
-const readContact = async (req, res) => {
-  try {
-    const contacts = await ContactModel.find()
-      .populate('author', 'username')
-      .sort({ createdAt: -1 });
-    if (!contacts) {
-      return res.status(500).json({
-        message: 'contacts가 없습니다.',
-      });
-    }
-    console.log(contacts);
-
-    res.status(201).json(contacts);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json({
-      message: '저장실패',
-    });
-  }
-};
-
-// function convertDate(date){
-//   if (!date) return '날짜 없음';
-//   const d = new Date(date);
-//   if (isNaN(d)) return '유효하지 않음';
-
-//   return d.toLocaleDateString('ko-KR', {
-//       year: '2-digit',
-//       month: '2-digit',
-//       day: '2-digit',
-//   }).replaceAll(',','').replaceAll(' ','-');
-// }
 
 const signin = async (req, res) => {
   const { userid, userpwd } = req.body;
@@ -140,4 +108,4 @@ const signin = async (req, res) => {
   }
 };
 
-export default { regist, signin, createContact, readContact };
+export default { regist, signin, contact, createContact };
