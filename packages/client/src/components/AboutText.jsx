@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
+import '../App.css'
 function AboutText() {
   return (
     
@@ -13,11 +13,11 @@ function AboutText() {
       <h1>Casual Fashion PLUS</h1>
       <h2>~~All about wardrobe~~</h2>
       <h3>일상에서 멋!!   멋스럽게~~</h3>
-      <h4>Men’s  & Woem’s  Shop  </h4>
+      <h4>Men’s  & Women’s  Shop  </h4>
       <p>케쥬얼 패션  평상복 & 편안한 복장 스타일 계절별 스타일링</p>
       <p>멋! 을 창조하는 코디로 연출 하여  다양한 스타일로 만나 보세요.</p>
     </Container>
-    <ul>
+    <ul className='about-us-text'>
       <li>Casual Fashion PLUS Shop 회사는 </li>
       <li>Men’s  & Woem’s  Shop  </li>
       <li>캐주얼 패션, 멋지게 스타일링 하는 법 &</li>

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
-// import Mansimge from '../assets/aboutus/MensShop.png'
-// import Wonesimg from '../assets/aboutus/WoensShop.png'
-// import Studiopng from '../assets/aboutus/Studio.png'
+// import Mensimge from '../assets/aboutus/MensShop.png'
+// import Womensimg from '../assets/aboutus/WomensShop.png'
+import Studiopng from '../assets/aboutus/Studio.png'
 
 
 
@@ -17,10 +17,10 @@ function AboutImage() {
   return (
     
     <>
-      <Container className='d-flex gap-3 justify-content-center align-items-center'>
-        {/* <img src={Mansimge} alt="MensShopimg.png" className='about-img-size' />
-        <img src={Wonesimg} alt="WoensShopimg.png" className='about-img-size' />
-        <img src={Studiopng} alt="Studioimg.png" className='about-img-size' /> */}
+      <Container className='d-flex gap-3 justify-content-center align-items-center my-3'>
+        {/* <img src={Mensimge} alt="MensShopimg.png" className='about-img-size' /> */}
+        {/* <img src={Womensimg} alt="WomensShopimg.png" className='about-img-size' /> */}
+        <img src={Studiopng} alt="Studioimg.png" className='about-img-size' />
         
       </Container>
     </>
