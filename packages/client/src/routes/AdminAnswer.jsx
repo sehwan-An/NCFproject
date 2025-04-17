@@ -3,7 +3,7 @@ import React from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useParams } from 'react-router';
-import { Container, Row, Table } from 'react-bootstrap';
+import { Container, Row, Table, Form } from 'react-bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const AdminAnswer = () => {
@@ -72,6 +72,14 @@ const AdminAnswer = () => {
                 </tr>
               </tbody>
             </Table>
+        </Row>
+        <hr />
+        <Row>
+          <h2 className="text-center mb-5">답변</h2>
+          <Table>
+          <Form.Control as="textarea" rows={5} name="contact_content" />
+          <button className="my-4">등록하기</button>
+          </Table>
         </Row>
       </Container>
     </>
