@@ -6,7 +6,7 @@ import { NavLink } from 'react-router';
 const SiteHeader = ({ userInfo, Logout }) => {
   return (
     <div>
-      <Container className="header-container">
+      <Container className="header-container" fluid>
         <div className="d-flex justify-content-between py-3">
           <div>
             <img src={Logo} alt="logo" />
