@@ -8,14 +8,16 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const AdminAnswer = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
+  const [token, setToken] = useState(null);
   const [post, setPost] = useState(null);
-
+  
+  let navigate = useNavigate();
   useEffect(() => {
     const token = Cookies.get('NCF');
     if (!token) {
       alert('환영합니다.');
     }
+    setToken(token)
 
     axios
       .get(`http://localhost:3000/users/contact/${id}`, {
@@ -46,19 +48,22 @@ const AdminAnswer = () => {
   }
 
   const updateAnswer = async () => {
-    const token = Cookies.get('NCF');
     try {
       await axios.patch(`http://localhost:3000/users/contact/${id}/status`, null, {
         withCredentials: true,
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      });
-      alert('처리완료로 변경되었습니다.');
-      navigate(-1); // 이전 페이지로 이동
-    } catch (err) {
-      console.error(err);
-      alert('업데이트 실패');
+      }).then((res) => {
+        console.log(res)
+        alert('처리완료로 변경되었습니다.');
+        navigate(-1); // 이전 페이지로 이동
+      }).catch ((err) => {
+        console.error(err);
+        alert('업데이트 실패'); 
+      })
+    } catch(e) {
+      console.log(e)
     }
   };
 
@@ -66,7 +71,7 @@ const AdminAnswer = () => {
     <Container>
       <Row>
         <h2 className="text-center mb-5">고객문의 상세보기</h2>
-      <hr />
+        <hr />
         <Table>
           <tbody>
             <tr className="d-flex gap-3">
@@ -77,7 +82,7 @@ const AdminAnswer = () => {
               <th>내용</th>
               <td>{post?.contact_content}</td>
             </tr>
-            <tr className="d-flex gap-3"> 
+            <tr className="d-flex gap-3">
               <th>작성자</th>
               <td>{post?.author?.username}</td>
             </tr>
@@ -97,8 +102,8 @@ const AdminAnswer = () => {
         <Form>
           <Form.Control as="textarea" rows={5} name="contact_content" />
           <button className="my-4" type="button" onClick={updateAnswer}>
-    등록하기
-  </button>
+            등록하기
+          </button>
         </Form>
       </Row>
     </Container>

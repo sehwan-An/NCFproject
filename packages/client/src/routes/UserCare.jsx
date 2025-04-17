@@ -67,13 +67,15 @@ Authorization:`Bearer ${token}`
               {posts &&
                 posts.map((post) => (
                   <tr key={post._id}>
+                    <span className='go-answer' onClick={() => goAnswer(post._id)}>
                     <td>{post.contact_title}</td>
+                    </span>
                     <td>{post.contact_type}</td>
                     <td>{post.author.username}</td>
                     <td>{convertDate(post.createdAt)}</td>
                     <td>
+                      <span className='go-answer' onClick={() => goAnswer(post._id)}>
                       {post.contact_status}
-                      <span onClick={() => goAnswer(post._id)}>
                         <i class="bi bi-pen"></i>
                       </span>
                     </td>
