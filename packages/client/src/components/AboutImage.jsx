@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 // import Mensimge from '../assets/aboutus/MensShop.png'
 // import Womensimg from '../assets/aboutus/WomensShop.png'
-import Studiopng from '../assets/aboutus/Studio.png'
+import Studiopng from '../assets/about-us-image.png'
 
 
 
