@@ -37,7 +37,7 @@ function SignUp() {
       .then((res) => {
         // console.log(res);
         alert('메인화면으로 돌아갑니다.');
-        navigate('/')
+        navigate('/');
       })
       .catch((err) => console.log(err));
   };
@@ -45,7 +45,13 @@ function SignUp() {
   return (
     <Container className="w-50 my-5 mx-auto">
       <h2 className="text-center">회원가입</h2>
-      <Form noValidate validated={validated} onSubmit={handleSubmit} autoComplete="off" className='border p-3 rounded-3'>
+      <Form
+        noValidate
+        validated={validated}
+        onSubmit={handleSubmit}
+        autoComplete="off"
+        className="border p-3 rounded-3"
+      >
         <Row className="mb-3">
           <Form.Group as={Col} md="12" controlId="validationCustomId">
             <Form.Label>아이디</Form.Label>
@@ -60,7 +66,7 @@ function SignUp() {
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
         </Row>
-        <Row>
+        <Row className="mb-3">
           <Form.Group as={Col} md="12" controlId="validationCustomPwd">
             <Form.Label>비밀번호</Form.Label>
             <Form.Control
@@ -74,7 +80,7 @@ function SignUp() {
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
         </Row>
-        <Row>
+        <Row className="mb-3">
           <Form.Group as={Col} md="12" controlId="validationCustomName">
             <Form.Label>이름</Form.Label>
             <InputGroup hasValidation>
