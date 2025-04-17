@@ -50,7 +50,7 @@ const BodyCarousel = () => {
           <div className="my-2 text-center">
             <img src={trioBig} alt="triobig" className='img-fluid' />
           </div>
-          <div className="d-flex gap-2 justify-content-around">
+          <div className="d-flex justify-content-center">
             <div>
               <img src={trioSmall1} alt="triosmall1" className='img-fluid' />
             </div>

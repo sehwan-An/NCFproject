@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const SiteFooter = () => {
   return (
     <>
-      <Container className="footer-container d-flex align-items-center justify-content-around" fluid>
+      <Container className="footer-container d-flex align-items-center justify-content-around py-2 m-0" fluid>
         <div className='footer-box1'>
           <img src={footerLogo} alt="footer-logo" />
         </div>
