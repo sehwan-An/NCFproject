@@ -36,12 +36,13 @@ const SiteHeader = ({ userInfo, Logout }) => {
           ) : (
             <>
               <NavLink to="/signin">
-                <Button variant="success">
-                  <p>로그인</p>
+                <Button className='login-btn'>
+                  로그인
                 </Button>
               </NavLink>
+              {" "}
               <NavLink to="/signup">
-                <p>회원가입</p>
+                회원가입
               </NavLink>
             </>
           )}

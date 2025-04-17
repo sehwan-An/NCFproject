@@ -83,11 +83,13 @@ a {
 }
 
 .carousel-control-next-icon {
-  background-color: black;
+  /* background-color: black; */
+  background: none !important;
 }
 
 .carousel-control-prev-icon {
-  background-color: black;
+  /* background-color: black; */
+  background: none !important;
 }
 
 .carousel-imgs {
@@ -145,4 +147,8 @@ a {
   margin: 1rem auto;
   list-style: none;
   text-align: center;
+}
+.login-btn {
+  background-color: #E359B0 !important;
+  border: 0 !important;
 }
