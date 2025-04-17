@@ -16,7 +16,9 @@ function HomeBody() {
         })
         .then((res) => {
           // console.log(res)
-          setProducts(res.data);
+          if(res) {
+            setProducts(res.data);
+          }
         })
         .catch((err) => console.log(err));
     } catch (e) {

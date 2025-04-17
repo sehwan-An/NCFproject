@@ -22,7 +22,9 @@ const Products = () => {
           withCredentials: true,
         })
         .then((res) => {
-          setProducts(res.data);
+          if(res) {
+            setProducts(res.data);
+          }
         })
         .catch((err) => console.log(err));
     } catch (e) {
