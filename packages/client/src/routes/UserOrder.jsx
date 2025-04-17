@@ -30,7 +30,7 @@ const UserOrder = () => {
     }
   }, []);
   const handleNavigate = (e) => {
-    navigate(`/user/${params.id}`);
+    navigate(-1);
   };
   const handleCancel = (id) => {
     try {

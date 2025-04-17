@@ -49,8 +49,8 @@ const UserCart = () => {
       console.log(e);
     }
   };
-  const handleNavigate = (e) => {
-    navigate(`/user/${params.id}`)
+  const handleNavigate = () => {
+    navigate(-1)
   }
   const handleDelete = (id) => {
     try {
