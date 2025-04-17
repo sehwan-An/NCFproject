@@ -15,6 +15,7 @@ const OrderProduct = () => {
     productprice: '',
     addressf: '',
     addressb: '',
+    stock: 0,
   });
 
   let params = useParams();
@@ -88,7 +89,7 @@ const OrderProduct = () => {
                     disabled
                     name="productname"
                     placeholder="제품명"
-                    defaultValue={formData.productname}
+                    value={formData.productname}
                   />
                   <Form.Control.Feedback></Form.Control.Feedback>
                 </Form.Group>
@@ -99,7 +100,8 @@ const OrderProduct = () => {
                     type="number"
                     disabled
                     name="stock"
-                    value={formData.stock > 0 ? formData.stock : 0}
+                    // value={formData.stock > 0 ? formData.stock : 0}
+                    value={typeof formData.stock === 'number' ? formData.stock : 0}
                   />
                   <Form.Control.Feedback></Form.Control.Feedback>
                 </Form.Group>
@@ -111,7 +113,7 @@ const OrderProduct = () => {
                     name="productcolor"
                     disabled
                     placeholder="Last name"
-                    defaultValue={formData.productcolor}
+                    value={formData.productcolor}
                   />
                   <Form.Control.Feedback></Form.Control.Feedback>
                 </Form.Group>
@@ -124,7 +126,7 @@ const OrderProduct = () => {
                       name="productsize"
                       onChange={handleChange}
                       required
-                      defaultValue={formData.productsize}
+                      value={formData.productsize || ""}
                     >
                       <option value="S">S</option>
                       <option value="M">M</option>
@@ -143,7 +145,7 @@ const OrderProduct = () => {
                   <Form.Control
                     type="text"
                     onChange={handleChange}
-                    value={formData.addressf}
+                    value={formData.addressf || ""}
                     placeholder="주소"
                     name="addressf"
                     required
@@ -156,7 +158,7 @@ const OrderProduct = () => {
                     type="text"
                     onChange={handleChange}
                     name="addressb"
-                    value={formData.addressb}
+                    value={formData.addressb || ""}
                     placeholder="상세주소"
                     required
                   />
