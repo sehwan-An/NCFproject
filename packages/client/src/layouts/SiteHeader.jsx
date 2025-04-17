@@ -9,15 +9,15 @@ const SiteHeader = ({ userInfo, Logout }) => {
       <Container className="header-container" fluid>
         <div className="d-flex justify-content-between py-3">
           <div>
-            <img src={Logo} alt="logo" />
+            <img src={Logo} alt="logo" className='logo-size' />
           </div>
-          <div className="d-flex align-items-center gap-3">
+          <div className="user-navi-bar d-flex align-items-center gap-3">
             {userInfo ? (
               <>
                 {userInfo.role == 'customer' ? (
                   <>
                     <p>{userInfo.name}님 환영합니다.</p>
-                    <Button onClick={Logout}>로그아웃</Button>
+                    <Button variant='danger' onClick={Logout}>로그아웃</Button>
                     <NavLink to={`user/${userInfo._id}`}>
                       <p>마이페이지</p>
                     </NavLink>
@@ -25,7 +25,7 @@ const SiteHeader = ({ userInfo, Logout }) => {
                 ) : (
                   <>
                     <p>{userInfo.name}님 환영합니다.</p>
-                    <Button onClick={Logout}>로그아웃</Button>
+                    <Button variant='danger' onClick={Logout}>로그아웃</Button>
                     <NavLink to="manage">
                       <p>관리페이지</p>
                     </NavLink>
@@ -35,7 +35,9 @@ const SiteHeader = ({ userInfo, Logout }) => {
             ) : (
               <>
                 <NavLink to="/signin">
-                  <p>로그인</p>
+                  <Button variant='success'>
+                    <p>로그인</p>
+                  </Button>
                 </NavLink>
                 <NavLink to="/signup">
                   <p>회원가입</p>

@@ -23,7 +23,11 @@ a {
 }
 
 .header-container {
-  background-color: lightgray;
+  background-color: #13472E;
+  color: white;
+}
+.header-container > a {
+  color: white;
 }
 
 .footer-container {
@@ -105,4 +109,18 @@ a {
 .about-img-size {
   width: 250px;
   height: auto;
+}
+.logo-size {
+  width: 100px;
+  height: auto;
+}
+.user-navi-bar {
+  font-size: .8rem;
+}
+.user-navi-bar p {
+  margin: 0;
+}
+.user-navi-bar button {
+  padding: .3rem;
+  font-size: .8rem;
 }
