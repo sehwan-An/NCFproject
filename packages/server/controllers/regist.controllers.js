@@ -65,9 +65,38 @@ const createContact = async (req, res) => {
   }
 };
 
-const readContact = async (req, res) => {
+const readContactAll = async (req, res) => {
   try {
     const contacts = await ContactModel.find()
+      .populate('author', 'username')
+      .sort({ createdAt: -1 });
+    if (!contacts) {
+      return res.status(500).json({
+        message: 'contacts가 없습니다.',
+      });
+    }
+    console.log(contacts);
+
+    res.status(201).json(contacts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({
+      message: '저장실패',
+    });
+  }
+};
+const readContact = async (req, res) => {
+  const contactid = req.params.id;
+  const token = req.headers.authorization.split(' ')[1];
+
+  console.log(token)
+  if(!contactid) {
+    return res.status(404).json({
+      message: '값을 읽을 수 없음.'
+    })
+  }
+  try {
+    const contacts = await ContactModel.find({_id:contactid})
       .populate('author', 'username')
       .sort({ createdAt: -1 });
     if (!contacts) {
@@ -140,4 +169,4 @@ const signin = async (req, res) => {
   }
 };
 
-export default { regist, signin, createContact, readContact };
+export default { regist, signin, createContact, readContact, readContactAll };
