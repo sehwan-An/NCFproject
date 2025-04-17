@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col, Button, Form, Container } from 'react-bootstrap';
-import { NavLink, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 function SignIn() {
   const [validated, setValidated] = useState(false);
@@ -42,6 +42,9 @@ function SignIn() {
       })
       .catch((err) => console.log(err));
   };
+  function handleNavigate() {
+    navigate(-1)
+  }
 
   return (
     <Container className="w-50 my-5 mx-auto">
@@ -80,9 +83,7 @@ function SignIn() {
             <Button variant="success" type="submit">
               로그인
             </Button>
-            <NavLink to="/">
-              <Button variant="danger">취소</Button>
-            </NavLink>
+            <Button variant="danger" onClick={handleNavigate}>취소</Button>
           </Col>
         </Row>
       </Form>

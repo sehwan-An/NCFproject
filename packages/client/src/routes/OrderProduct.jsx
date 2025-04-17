@@ -50,7 +50,7 @@ const OrderProduct = () => {
     }
     setValidated(true);
     if (!token) {
-      alert('로그인 페이지로 이동합니다.');
+      alert('로그인이 필요한 기능입니다. 로그인 페이지로 이동합니다.');
       navigate('/signin');
     }
     if (formData.stock > 0 && token) {
