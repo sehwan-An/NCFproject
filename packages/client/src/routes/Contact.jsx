@@ -3,6 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Col, Container, Row, Form, InputGroup } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
 function Contact() {
   const [validated, setValidated] = useState(false);
@@ -11,6 +12,8 @@ function Contact() {
     contact_content: '',
     contact_type: '',
   });
+
+  let navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -25,26 +28,33 @@ function Contact() {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     }
-    setValidated(true);
     const token = Cookies.get('NCF');
     if (!token) {
       alert('로그인후 이용해주세요!');
-      location.href = '/signin';
+      navigate('/signin');
     }
-    axios
-      .post('http://localhost:3000/users/contact', formData, {
-        withCredentials: true,
-        headers: {
-          'Content-type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        if (res.status === 201) {
-          location.href = '/';
-        }
-      })
-      .catch((err) => console.error(err.message));
+    setValidated(true);
+    
+    try {
+      if (token) {
+        axios
+          .post('http://localhost:3000/users/contact', formData, {
+            withCredentials: true,
+            headers: {
+              'Content-type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            if (res.status === 201) {
+              location.href = '/';
+            }
+          })
+          .catch((err) => console.error(err.message));
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
