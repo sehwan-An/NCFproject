@@ -2,12 +2,13 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import KakaoLoader from './KakaoLoader.jsx';
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const AboutMap = () => {
   KakaoLoader();
   return (
     <>
-      <Container>
+      <Container className='my-3'>
         <Map // 지도를 표시할 Container
           center={{
             // 지도의 중심좌표
