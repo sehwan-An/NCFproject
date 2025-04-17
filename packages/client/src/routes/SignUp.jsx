@@ -45,7 +45,7 @@ function SignUp() {
   return (
     <Container className="w-50 my-5 mx-auto">
       <h2 className="text-center">회원가입</h2>
-      <Form noValidate validated={validated} onSubmit={handleSubmit} autoComplete="off">
+      <Form noValidate validated={validated} onSubmit={handleSubmit} autoComplete="off" className='border p-3 rounded-3'>
         <Row className="mb-3">
           <Form.Group as={Col} md="12" controlId="validationCustomId">
             <Form.Label>아이디</Form.Label>
